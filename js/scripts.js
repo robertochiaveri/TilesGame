@@ -63,7 +63,7 @@ var game =	{										//		main object
 
 			// game constant strings
 
-			WRAPPER_ID:			"wrapper",			//		-	-	id of the main wrapper of the page
+			WRAPPER_ID:			"gameWrapper",			//		-	-	id of the main wrapper of the page
 			GAME_ID:			"game",				//		-	-	id of the game main div
 			BOARD_ID:			"board",			//		-	-	id of the board
 			TOOLBAR_ID:			"toolbar",			//		-	-	id of the toolbar
