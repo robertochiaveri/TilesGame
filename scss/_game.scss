@@ -1,0 +1,136 @@
+
+#gameWrapper {
+	height: 100%;
+}
+
+#game, #board {
+	width: 100%;
+	height: 100%;
+}
+
+#game { 
+	position: absolute; 
+	z-index: 10; 
+
+	background-color: $color-board-outer; 
+	border-radius: 1em;
+
+	&.noTransitions * {
+		-webkit-transition: none !important;
+		-moz-transition: 	none !important;
+		-ms-transition: 	none !important;
+		-o-transition: 		none !important;
+		transition: 		none !important;
+	}
+
+}
+
+
+#board {
+	position: relative;
+	
+	box-shadow: 0 0 0 2px $color-board-inner;
+	border-radius: .25em;
+
+	background: $color-board-inner;	
+
+	transition: 		opacity 200ms;	
+
+	.tile {
+		position: absolute;
+		cursor: pointer;
+		overflow: hidden;
+
+		transform: translateZ(0);
+		transform-style: preserve-3d;
+		backface-visibility: hidden;
+
+		&:focus {
+			outline: 0;
+		}
+
+		&.hole { 
+			display: none; 
+		}
+
+		.inner {
+
+			margin: 0;
+			width: 100%;
+			height: 100%;
+			box-sizing: border-box;
+			box-shadow: 0 0 0 2px $color-board-inner inset;
+			background-color: $color-tiles-default;
+			background-repeat: no-repeat;
+			border-radius: .4em;
+			transition-property: color, background, transform;
+			transition-duration: 300ms;
+			transition-timing-function: ease-out;
+
+		}
+
+		.number {
+			height: 100%;
+			line-height: 200%;
+			text-align: center;
+			color: $color-numbers-default;		
+		}
+
+		&.selected, {
+			transition: none;
+		}
+
+		.noTouch &:hover,
+		&.pressed {
+
+			.inner {
+				background-color: $color-tiles-default-pressed; 
+				transform: scale(0.95);
+				transition-duration: 100ms;
+				transition-timing-function: ease-in;
+			}
+
+			.number {
+				color: $color-numbers-default-pressed;
+			}
+
+		}	
+
+		&.even-row.odd-col,
+		&.odd-row.even-col {
+
+			.inner {
+				background-color: $color-tiles-alternate;
+			}
+
+			.number {
+				color: $color-numbers-alternate;
+			}
+
+			.noTouch &:hover,
+			&.pressed {
+
+				.inner {
+					background-color: $color-tiles-alternate-pressed;
+				}
+
+				.number {
+					color: $color-numbers-alternate-pressed;
+				}
+
+			}			
+
+		}
+		
+	}	
+
+}
+
+
+
+
+
+
+
+
+

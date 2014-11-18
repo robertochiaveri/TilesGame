@@ -656,90 +656,42 @@ table {
     transform: translateX(0%);
   }
 }
-/* line 7, ../scss/all.scss */
-html, body {
-  overflow: hidden;
+/* line 2, ../scss/_game.scss */
+#gameWrapper {
   height: 100%;
 }
 
-/* line 12, ../scss/all.scss */
-body {
-  font-size: 62.5%;
-  /* 1em = 10px */
-  background: #DDD;
-  color: #333;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* line 24, ../scss/all.scss */
-::-moz-selection {
-  background-color: transparent;
-}
-::selection {
-  background-color: transparent;
-}
-
-/* line 25, ../scss/all.scss */
-::-o-selection {
-  background-color: transparent;
-}
-
-/* line 26, ../scss/all.scss */
-::-ms-selection {
-  background-color: transparent;
-}
-
-/* line 27, ../scss/all.scss */
-::-moz-selection {
-  background-color: transparent;
-}
-
-/* line 28, ../scss/all.scss */
-::-webkit-selection {
-  background-color: transparent;
-}
-
-/* line 30, ../scss/all.scss */
-#wrapper {
-  height: 100%;
-}
-
-/* line 34, ../scss/all.scss */
+/* line 6, ../scss/_game.scss */
 #game, #board {
   width: 100%;
   height: 100%;
 }
 
-/* line 39, ../scss/all.scss */
+/* line 11, ../scss/_game.scss */
 #game {
   position: absolute;
   z-index: 10;
-  background-color: #EEE;
+  background-color: #eeeeee;
   border-radius: 1em;
 }
-/* line 46, ../scss/all.scss */
+/* line 18, ../scss/_game.scss */
 #game.noTransitions * {
   -webkit-transition: none !important;
   transition: none !important;
 }
 
-/* line 58, ../scss/all.scss */
+/* line 29, ../scss/_game.scss */
 #board {
   position: relative;
-  -webkit-box-shadow: 0 0 0 2px #CCC;
-  box-shadow: 0 0 0 2px #CCC;
+  -webkit-box-shadow: 0 0 0 2px #cccccc;
+  box-shadow: 0 0 0 2px #cccccc;
   border-radius: .25em;
-  background: #CCC;
+  background: #cccccc;
   -webkit-transition: opacity 200ms;
   transition: opacity 200ms;
 }
-
-/* line 69, ../scss/all.scss */
-.tile {
+/* line 39, ../scss/_game.scss */
+#board .tile {
   position: absolute;
   cursor: pointer;
   overflow: hidden;
@@ -750,57 +702,102 @@ body {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-/* line 78, ../scss/all.scss */
-.tile:focus {
+/* line 48, ../scss/_game.scss */
+#board .tile:focus {
   outline: 0;
 }
-/* line 82, ../scss/all.scss */
-.tile.hole {
+/* line 52, ../scss/_game.scss */
+#board .tile.hole {
   display: none;
 }
-/* line 86, ../scss/all.scss */
-.tile .inner {
+/* line 56, ../scss/_game.scss */
+#board .tile .inner {
   margin: 0;
   width: 100%;
   height: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-box-shadow: 0 0 0 2px #CCC inset;
-  box-shadow: 0 0 0 2px #CCC inset;
-  background-color: #F0F0F0;
+  -webkit-box-shadow: 0 0 0 2px #cccccc inset;
+  box-shadow: 0 0 0 2px #cccccc inset;
+  background-color: #f0f0f0;
   background-repeat: no-repeat;
   border-radius: .4em;
   -webkit-transition-property: color, background, -webkit-transform;
   transition-property: color, background, transform;
-  -webkit-transition-duration: 200ms;
-  transition-duration: 200ms;
-  -webkit-transition-timing-function: ease-in-out;
-  transition-timing-function: ease-in-out;
+  -webkit-transition-duration: 300ms;
+  transition-duration: 300ms;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
 }
-/* line 101, ../scss/all.scss */
-.tile .number {
+/* line 72, ../scss/_game.scss */
+#board .tile .number {
   height: 100%;
   line-height: 200%;
   text-align: center;
-  color: #A0A0A0;
+  color: #a0a0a0;
 }
-/* line 108, ../scss/all.scss */
-.tile.selected, .tile.selected .inner {
+/* line 79, ../scss/_game.scss */
+#board .tile.selected {
   -webkit-transition: none;
   transition: none;
 }
-/* line 115, ../scss/all.scss */
-.noTouch .tile:hover .inner, .tile.pressed .inner {
+/* line 86, ../scss/_game.scss */
+.noTouch #board .tile:hover .inner, #board .tile.pressed .inner {
+  background-color: #e8e8e8;
   -webkit-transform: scale(0.95);
   -ms-transform: scale(0.95);
   transform: scale(0.95);
-  -webkit-transition: none;
-  transition: none;
+  -webkit-transition-duration: 100ms;
+  transition-duration: 100ms;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
 }
-/* line 131, ../scss/all.scss */
-.tile.even-row.odd-col .inner, .tile.odd-row.even-col .inner {
-  background-color: #E8E8E8;
+/* line 93, ../scss/_game.scss */
+.noTouch #board .tile:hover .number, #board .tile.pressed .number {
+  color: #989898;
+}
+/* line 102, ../scss/_game.scss */
+#board .tile.even-row.odd-col .inner, #board .tile.odd-row.even-col .inner {
+  background-color: #e8e8e8;
+}
+/* line 106, ../scss/_game.scss */
+#board .tile.even-row.odd-col .number, #board .tile.odd-row.even-col .number {
+  color: #989898;
+}
+/* line 113, ../scss/_game.scss */
+.noTouch #board .tile.even-row.odd-col:hover .inner, #board .tile.even-row.odd-col.pressed .inner, .noTouch #board .tile.odd-row.even-col:hover .inner, #board .tile.odd-row.even-col.pressed .inner {
+  background-color: #e0e0e0;
+}
+/* line 117, ../scss/_game.scss */
+.noTouch #board .tile.even-row.odd-col:hover .number, #board .tile.even-row.odd-col.pressed .number, .noTouch #board .tile.odd-row.even-col:hover .number, #board .tile.odd-row.even-col.pressed .number {
+  color: #909090;
+}
+
+/* line 10, ../scss/all.scss */
+html, body {
+  overflow: hidden;
+  height: 100%;
+}
+
+/* line 15, ../scss/all.scss */
+body {
+  font-size: 62.5%;
+  background: #dddddd;
+  color: #666666;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* line 27, ../scss/all.scss */
+::-moz-selection {
+  background-color: transparent;
+}
+::selection {
+  background-color: transparent;
 }
 
 /*# sourceMappingURL=all.css.map */

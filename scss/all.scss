@@ -1,7 +1,10 @@
 @import "reset";
 @import "plugins";
 @import "vars";
+@import "colors";
 @import "animations";
+@import "game";
+
 
 
 html, body { 
@@ -11,10 +14,10 @@ html, body {
 
 body
 {
-	font-size: 62.5%; /* 1em = 10px */
+	font-size: 62.5%; // 1em = 10px 
 
-	background: #DDD;
-	color: #333;
+	background: $color-body-bg;
+	color: $color-body-text;
 
 	user-select: none;
 	-webkit-tap-highlight-color: transparent;
@@ -22,131 +25,4 @@ body
 }
 
 ::selection { background-color: transparent; }
-::-o-selection { background-color: transparent; }
-::-ms-selection { background-color: transparent; }
-::-moz-selection { background-color: transparent; }
-::-webkit-selection { background-color: transparent; }
-
-#wrapper {
-	height: 100%;
-}
-
-#game, #board {
-	width: 100%;
-	height: 100%;
-}
-
-#game { 
-	position: absolute; 
-	z-index: 10; 
-
-	background-color: #EEE; 
-	border-radius: 1em;
-
-	&.noTransitions * {
-		-webkit-transition: none !important;
-		-moz-transition: 	none !important;
-		-ms-transition: 	none !important;
-		-o-transition: 		none !important;
-		transition: 		none !important;
-	}
-
-}
-
-
-
-#board {
-	position: relative;
-	
-	box-shadow: 0 0 0 2px #CCC;
-	border-radius: .25em;
-
-	background: #CCC;	
-
-	transition: 		opacity 200ms;	
-}
-
-.tile {
-	position: absolute;
-	cursor: pointer;
-	overflow: hidden;
-
-	transform: translateZ(0);
-	transform-style: preserve-3d;
-	backface-visibility: hidden;
-
-	&:focus {
-		outline: 0;
-	}
-
-	&.hole { 
-		display: none; 
-	}
-
-	.inner {
-
-		margin: 0;
-		width: 100%;
-		height: 100%;
-		box-sizing: border-box;
-		box-shadow: 0 0 0 2px #CCC inset;
-		background-color: #F0F0F0;
-		background-repeat: no-repeat;
-		border-radius: .4em;
-		transition-property: color, background, transform;
-		transition-duration: 300ms;
-		transition-timing-function: ease-out;
-
-	}
-
-	.number {
-		height: 100%;
-		line-height: 200%;
-		text-align: center;
-		color: #A0A0A0;		
-	}
-
-	&.selected, {
-		transition: none;
-	}
-
-	.noTouch &:hover,
-	&.pressed {
-		.inner {
-			background-color: #E8E8E8; 
-			transform: scale(0.95);
-			transition-duration: 100ms;
-			transition-timing-function: ease-in;
-		}
-	}	
-
-	&.even-row.odd-col,
-	&.odd-row.even-col {
-
-		.noTouch &:hover,
-		&.pressed {
-			.inner {
-				background-color: #DDD;
-			}
-		}	
-
-		.inner {
-			background-color: #E8E8E8;
-		}
-
-		.number {
-		
-		}
-
-	}
-
-
-
-}
-
-
-
-
-
-
 
