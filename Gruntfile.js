@@ -63,13 +63,13 @@ module.exports = function(grunt) {
       */
       build: {
         src: [
-              /*'<%= globalConfig.dest_dir %>/subdir/*.ext'*/
-          ],
-          overwrite: true,
-          replacements: [{
-              from: '/* something */',
-              to: '/* something else*/'
-          }]
+          /*'<%= globalConfig.dest_dir %>/subdir/*.ext'*/
+        ],
+        overwrite: true,
+        replacements: [{
+          from: '/* something */',
+          to: '/* something else*/'
+        }]
       }
     },
 
@@ -341,40 +341,7 @@ module.exports = function(grunt) {
       ],
       options: {
 
-        html: {
-          braceStyle: "collapse",
-          indentChar: " ",
-          indentScripts: "keep",
-          indentSize: 2,
-          maxPreserveNewlines: 10,
-          preserveNewlines: true,
-          unformatted: ["a", "sub", "sup", "b", "i", "u"],
-          wrapLineLength: 0
-        },
-        css: {
-          indentChar: " ",
-          indentSize: 2
-        },
-        js: {
-          braceStyle: "collapse",
-          breakChainedMethods: false,
-          e4x: false,
-          evalCode: false,
-          indentChar: " ",
-          indentLevel: 0,
-          indentSize: 2,
-          indentWithTabs: false,
-          jslintHappy: false,
-          keepArrayIndentation: false,
-          keepFunctionIndentation: false,
-          maxPreserveNewlines: 10,
-          preserveNewlines: true,
-          spaceBeforeConditional: true,
-          spaceInParen: false,
-          unescapeStrings: false,
-          wrapLineLength: 0,
-          endWithNewline: true
-        }
+       config: ".jsbeautifyrc"
       }
     },
 
@@ -411,14 +378,14 @@ module.exports = function(grunt) {
           =====================================================
       */
       dest_dir: ["<%= globalConfig.dest_dir %>/**/*.*"],
-  
+
       css: [
         "<%= globalConfig.dest_dir %>/css/**/*.css", "!<%= globalConfig.dest_dir %>/css/**/*.min.css",
         "<%= globalConfig.dest_dir %>/css/**/*.map", "!<%= globalConfig.dest_dir %>/css/**/*.min.css.map",
       ],
 
       js: [
-        "<%= globalConfig.dest_dir %>/js/**/*.js",  "!<%= globalConfig.dest_dir %>/js/**/*.min.js",
+        "<%= globalConfig.dest_dir %>/js/**/*.js", "!<%= globalConfig.dest_dir %>/js/**/*.min.js",
         "<%= globalConfig.dest_dir %>/js/**/*.map", "!<%= globalConfig.dest_dir %>/js/**/*.min.js.map"
       ]
     },
@@ -488,7 +455,7 @@ module.exports = function(grunt) {
     'sass',
     'scsslint',
     'concat:css',
-    'replace',        
+    'replace',
     'postcss',
     'clean:css',
   ]);
@@ -505,7 +472,6 @@ module.exports = function(grunt) {
     "browserSync",
     "watch" /* must be after BrowserSync*/
   ]);
-
 
 
 };
