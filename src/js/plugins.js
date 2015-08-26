@@ -134,7 +134,8 @@ function use3D() {
 }
 
 function useLocalStorage() {
-  return (typeof(Storage) !== "undefined" && typeof localStorage !== "undefined");
+  return (typeof(Storage) !== "undefined" && typeof localStorage !==
+    "undefined");
 }
 
 function detectFullscreen() {
@@ -171,12 +172,14 @@ function useCSS3Animations() {
                   end: 'transitionend'
                 } :
                 false)))),
-      transform: divStyle.MozTransform === '' ? 'MozTransform' : (divStyle.MsTransform === '' ? 'MsTransform' :
+      transform: divStyle.MozTransform === '' ? 'MozTransform' : (divStyle.MsTransform ===
+        '' ? 'MsTransform' :
         (divStyle.WebkitTransform === '' ? 'WebkitTransform' :
           (divStyle.OTransform === '' ? 'OTransform' :
             (divStyle.transform === '' ? 'transform' :
               false)))),
-      animation: divStyle.MozAnimation === '' ? 'MozAnimation' : (divStyle.MsAnimation === '' ? 'MsAnimation' :
+      animation: divStyle.MozAnimation === '' ? 'MozAnimation' : (divStyle.MsAnimation ===
+          '' ? 'MsAnimation' :
           (divStyle.WebkitAnimation === '' ? 'WebkitAnimation' :
             (divStyle.OAnimation === '' ? 'OAnimation' :
               (divStyle.animation === '' ? 'animation' :
@@ -192,7 +195,8 @@ function useCSS3Animations() {
 function stopListeningTo(element, eventType) {
 
   if (typeof window.customEventListeners[eventType][element] != "undefined") {
-    element.removeEventListener(eventType, window.customEventListeners[eventType][element]);
+    element.removeEventListener(eventType, window.customEventListeners[
+      eventType][element]);
     return true;
   }
   return false;
@@ -202,7 +206,8 @@ function stopListeningTo(element, eventType) {
 function listenTo(element, eventType, fn) {
 
 
-  if ((typeof element.id == "undefined" || element.id == "") && element != document.body && element != document.documentElement && element != window) {
+  if ((typeof element.id == "undefined" || element.id == "") && element !=
+    document.body && element != document.documentElement && element != window) {
     console.log("better not add a listener to elements witout id: ", element);
     return false;
   }

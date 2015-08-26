@@ -174,7 +174,8 @@ var game = { //		main object
       } else {
         addClass(document.documentElement, game.config.labels.NO_TOUCH_LABEL);
       }
-      document.getElementById(game.config.labels.GAME_ID).appendChild(boardHTML); // the board is now in the DOM	
+      document.getElementById(game.config.labels.GAME_ID).appendChild(
+        boardHTML); // the board is now in the DOM	
 
 
       // populates the board with the tiles
@@ -195,14 +196,22 @@ var game = { //		main object
 
         tile.htmlElement = document.createElement("div");
 
-        tile.htmlElement.setAttribute("id", game.config.labels.TILE_PREFIX + i);
+        tile.htmlElement.setAttribute("id", game.config.labels.TILE_PREFIX +
+          i);
         tile.htmlElement.setAttribute("tabindex", i);
-        tile.htmlElement.setAttribute("class", " tile" + ((tile.evenRow) ? " even-row" : " odd-row") + ((tile.evenCol) ? " even-col" : " odd-col") + ((tile.even) ? " even" : " odd") + ((i == game.config.labels.HOLE_INDEX) ? " hole" : "") + " col-" + col + " row-" + row);
+        tile.htmlElement.setAttribute("class", " tile" + ((tile.evenRow) ?
+            " even-row" : " odd-row") + ((tile.evenCol) ? " even-col" :
+            " odd-col") + ((tile.even) ? " even" : " odd") + ((i == game.config
+            .labels.HOLE_INDEX) ? " hole" : "") + " col-" + col + " row-" +
+          row);
 
-        tile.htmlElement.innerHTML = '<div class="inner"><div class="number">' + (i + 1) + '</div></div>';
+        tile.htmlElement.innerHTML =
+          '<div class="inner"><div class="number">' + (i + 1) +
+          '</div></div>';
 
         game.runtime.tiles[game.config.labels.TILE_PREFIX + i] = tile;
-        document.getElementById(game.config.labels.BOARD_ID).appendChild(tile.htmlElement);
+        document.getElementById(game.config.labels.BOARD_ID).appendChild(
+          tile.htmlElement);
 
 
         col++;
@@ -227,10 +236,14 @@ var game = { //		main object
 
 
       // save values in metrics obj
-      game.metrics.transforms3Dsupport = (game.config.use3Dtransforms) ? ["3d", ",0"] : ["", ""]; // allows transformations 2d and 3d 
-      game.metrics.wrapperOrientation = (wrapperWidth >= wrapperHeight) ? game.config.labels.LANDSCAPE : game.config.labels.PORTRAIT;
+      game.metrics.transforms3Dsupport = (game.config.use3Dtransforms) ? [
+        "3d", ",0"
+      ] : ["", ""]; // allows transformations 2d and 3d 
+      game.metrics.wrapperOrientation = (wrapperWidth >= wrapperHeight) ?
+        game.config.labels.LANDSCAPE : game.config.labels.PORTRAIT;
       game.metrics.wrapperRatio = wrapperWidth / wrapperHeight;
-      game.metrics.pixelRatio = (window.devicePixelRatio > 1) ? window.devicePixelRatio : 1;
+      game.metrics.pixelRatio = (window.devicePixelRatio > 1) ? window.devicePixelRatio :
+        1;
 
 
       // if it doesn't exists yet, create wrapperSize obj
@@ -245,11 +258,14 @@ var game = { //		main object
       }
 
       // this is info about the board configuration
-      game.metrics.boardLayout = (game.config.size.h >= game.config.size.v) ? game.config.labels.LANDSCAPE : game.config.labels.PORTRAIT;
+      game.metrics.boardLayout = (game.config.size.h >= game.config.size.v) ?
+        game.config.labels.LANDSCAPE : game.config.labels.PORTRAIT;
       game.metrics.boardRatio = game.config.size.h / game.config.size.v;
 
       // this is a pregmatic way to calculate a good font size for tile numbers
-      game.metrics.fontSize = parseInt((document.body.currentStyle || (window.getComputedStyle && getComputedStyle(document.body, null)) || document.body.style).fontSize);
+      game.metrics.fontSize = parseInt((document.body.currentStyle || (
+        window.getComputedStyle && getComputedStyle(document.body,
+          null)) || document.body.style).fontSize);
 
       // initialize the margin around the game board
       game.metrics.marginH = {
@@ -273,33 +289,51 @@ var game = { //		main object
       // board will always be a square, so calculate width first
       if (game.metrics.wrapperOrientation == game.config.labels.LANDSCAPE) {
 
-        game.metrics.height = roundTo(wrapperHeight / 100 * (100 - game.config.borderSize * 2 - game.config.marginV * 2), game.config.size.h);
+        game.metrics.height = roundTo(wrapperHeight / 100 * (100 - game.config
+          .borderSize * 2 - game.config.marginV * 2), game.config.size.h);
         game.metrics.width = game.metrics.height;
 
-        game.metrics.borderSize.pixels = Math.round(wrapperHeight / 100 * game.config.borderSize);
-        game.metrics.marginH.pixels = Math.round(wrapperHeight / 100 * game.config.marginH);
-        game.metrics.marginV.pixels = Math.round(wrapperHeight / 100 * game.config.marginV);
+        game.metrics.borderSize.pixels = Math.round(wrapperHeight / 100 *
+          game.config.borderSize);
+        game.metrics.marginH.pixels = Math.round(wrapperHeight / 100 * game
+          .config.marginH);
+        game.metrics.marginV.pixels = Math.round(wrapperHeight / 100 * game
+          .config.marginV);
 
-        game.metrics.left = Math.round((wrapperWidth - game.metrics.width - game.metrics.borderSize.pixels - game.metrics.marginH.pixels) / 2);
-        game.metrics.top = Math.round((game.metrics.wrapperSize[game.metrics.wrapperOrientation].height - game.metrics.height - game.metrics.borderSize.pixels - game.metrics.marginV.pixels) / 2);
+        game.metrics.left = Math.round((wrapperWidth - game.metrics.width -
+            game.metrics.borderSize.pixels - game.metrics.marginH.pixels) /
+          2);
+        game.metrics.top = Math.round((game.metrics.wrapperSize[game.metrics
+            .wrapperOrientation].height - game.metrics.height - game.metrics
+          .borderSize.pixels - game.metrics.marginV.pixels) / 2);
 
       } else {
 
-        game.metrics.width = roundTo(wrapperWidth / 100 * (100 - game.config.borderSize * 2 - game.config.marginH * 2), game.config.size.v);
+        game.metrics.width = roundTo(wrapperWidth / 100 * (100 - game.config
+          .borderSize * 2 - game.config.marginH * 2), game.config.size.v);
         game.metrics.height = game.metrics.width;
 
-        game.metrics.borderSize.pixels = Math.round(wrapperWidth / 100 * game.config.borderSize);
-        game.metrics.marginH.pixels = Math.round(wrapperWidth / 100 * game.config.marginH);
-        game.metrics.marginV.pixels = Math.round(wrapperWidth / 100 * game.config.marginV);
+        game.metrics.borderSize.pixels = Math.round(wrapperWidth / 100 *
+          game.config.borderSize);
+        game.metrics.marginH.pixels = Math.round(wrapperWidth / 100 * game.config
+          .marginH);
+        game.metrics.marginV.pixels = Math.round(wrapperWidth / 100 * game.config
+          .marginV);
 
-        game.metrics.left = Math.round((wrapperWidth - game.metrics.width - game.metrics.borderSize.pixels - game.metrics.marginH.pixels) / 2);
-        game.metrics.top = Math.round((game.metrics.wrapperSize[game.metrics.wrapperOrientation].height - game.metrics.height - game.metrics.borderSize.pixels - game.metrics.marginV.pixels) / 2);
+        game.metrics.left = Math.round((wrapperWidth - game.metrics.width -
+            game.metrics.borderSize.pixels - game.metrics.marginH.pixels) /
+          2);
+        game.metrics.top = Math.round((game.metrics.wrapperSize[game.metrics
+            .wrapperOrientation].height - game.metrics.height - game.metrics
+          .borderSize.pixels - game.metrics.marginV.pixels) / 2);
 
       }
 
       // with the board size, get the tile size
-      game.metrics.tileWidth = Math.round(game.metrics.width / game.config.size.h);
-      game.metrics.tileHeight = Math.round(game.metrics.height / game.config.size.v);
+      game.metrics.tileWidth = Math.round(game.metrics.width / game.config.size
+        .h);
+      game.metrics.tileHeight = Math.round(game.metrics.height / game.config
+        .size.v);
 
 
       // WRITING PHASE
@@ -309,7 +343,10 @@ var game = { //		main object
 
       // write the css for game html element
       var prefix = "";
-      var CSSstyleDeclaration = "" + "padding:" + Math.round(game.metrics.borderSize.pixels) + "px;" + "width:" + game.metrics.width + "px; " + "height:" + game.metrics.height + "px; " + "left:" + game.metrics.left + "px; " + "top:" + game.metrics.top + "px; ";
+      var CSSstyleDeclaration = "" + "padding:" + Math.round(game.metrics.borderSize
+          .pixels) + "px;" + "width:" + game.metrics.width + "px; " +
+        "height:" + game.metrics.height + "px; " + "left:" + game.metrics.left +
+        "px; " + "top:" + game.metrics.top + "px; ";
 
       gameHTML.style.cssText = CSSstyleDeclaration;
 
@@ -326,7 +363,8 @@ var game = { //		main object
 
       // tile numbers
       createCSSClass(".tile > .inner > .number",
-        "font-size: " + document.getElementById(game.config.labels.BOARD_ID).offsetHeight / game.config.size.v / 2 / 10 + "em;"
+        "font-size: " + document.getElementById(game.config.labels.BOARD_ID)
+        .offsetHeight / game.config.size.v / 2 / 10 + "em;"
       );
 
       // scroll to top
@@ -368,12 +406,18 @@ var game = { //		main object
         var prefix = "";
         for (var p = 0; p < game.config.CSSprefixes.length; p++) {
           prefix = game.config.CSSprefixes[p];
-          CSSstyleDeclaration += prefix + "transform:translate" + game.metrics.transforms3Dsupport[0] + "(" + (tile.col * 100) + "%," + (tile.row * 100) + "%" + game.metrics.transforms3Dsupport[1] + "); ";
+          CSSstyleDeclaration += prefix + "transform:translate" + game.metrics
+            .transforms3Dsupport[0] + "(" + (tile.col * 100) + "%," + (tile
+              .row * 100) + "%" + game.metrics.transforms3Dsupport[1] +
+            "); ";
 
 
-          CSSstyleDeclaration += prefix + "transition-property:" + prefix + "transform;";
-          CSSstyleDeclaration += prefix + "transition-duration:" + parseInt(Math.abs(params.transitionDuration)) + "ms !important;";
-          CSSstyleDeclaration += prefix + "transition-timing-function:" + game.config.easings.EASING_TILES_MOVEMENT + ";";
+          CSSstyleDeclaration += prefix + "transition-property:" + prefix +
+            "transform;";
+          CSSstyleDeclaration += prefix + "transition-duration:" + parseInt(
+            Math.abs(params.transitionDuration)) + "ms !important;";
+          CSSstyleDeclaration += prefix + "transition-timing-function:" +
+            game.config.easings.EASING_TILES_MOVEMENT + ";";
 
 
         }
@@ -383,7 +427,9 @@ var game = { //		main object
           tile.htmlElement.style.cssText = CSSstyleDeclaration;
         }
 
-        tile.htmlElement.childNodes[0].style.backgroundPosition = "-" + (tile.correctCol * game.metrics.tileWidth) + "px -" + (tile.correctRow * game.metrics.tileHeight) + "px";
+        tile.htmlElement.childNodes[0].style.backgroundPosition = "-" + (
+          tile.correctCol * game.metrics.tileWidth) + "px -" + (tile.correctRow *
+          game.metrics.tileHeight) + "px";
 
         tile.canMove = game.fn.canMove(tileID);
         tile.canPush = game.fn.canPush(tileID);
@@ -420,7 +466,8 @@ var game = { //		main object
 
       // start/down
       // board
-      listenTo(document.getElementById(game.config.labels.BOARD_ID), (game.config.useTouch ? "touchstart" : "mousedown"), function(event) {
+      listenTo(document.getElementById(game.config.labels.BOARD_ID), (game.config
+        .useTouch ? "touchstart" : "mousedown"), function(event) {
 
         // ignore doubleclicks	
         if (event.timeStamp - game.runtime.latestSelection < 300) {
@@ -433,7 +480,8 @@ var game = { //		main object
       });
 
       // move
-      listenTo(document.getElementById(game.config.labels.BOARD_ID), (game.config.useTouch ? "touchmove" : "mousemove"), function(event) {
+      listenTo(document.getElementById(game.config.labels.BOARD_ID), (game.config
+        .useTouch ? "touchmove" : "mousemove"), function(event) {
 
         if (!!game.runtime.selectedTile) {
           game.fn.dragTile(event);
@@ -452,9 +500,11 @@ var game = { //		main object
       });
 
       //	end/up
-      listenTo(document.getElementById(game.config.labels.WRAPPER_ID), (game.config.useTouch ? "touchend" : "mouseup"), function(event) {
+      listenTo(document.getElementById(game.config.labels.WRAPPER_ID), (
+        game.config.useTouch ? "touchend" : "mouseup"), function(event) {
 
-        if (typeof game.runtime.selectedTile == "undefined" || game.runtime.selectedTile === null) {
+        if (typeof game.runtime.selectedTile == "undefined" || game.runtime
+          .selectedTile === null) {
           return false;
         }
 
@@ -481,13 +531,15 @@ var game = { //		main object
       });
 
       // mouseout
-      listenTo(document.getElementById(game.config.labels.GAME_ID), "mouseout", function(e) {
-        e = e ? e : window.event;
-        var from = e.relatedTarget || e.toElement;
-        if (!from || from.nodeName == "HTML") {
-          game.fn.deselectTile();
-        }
-      });
+      listenTo(document.getElementById(game.config.labels.GAME_ID),
+        "mouseout",
+        function(e) {
+          e = e ? e : window.event;
+          var from = e.relatedTarget || e.toElement;
+          if (!from || from.nodeName == "HTML") {
+            game.fn.deselectTile();
+          }
+        });
 
 
       // END TOUCH/MOUSE EVENTS
@@ -563,7 +615,8 @@ var game = { //		main object
           } else if (!isNaN(parseInt(param.col)) && !isNaN(parseInt(param.row))) {
 
             for (var i = 0; i < game.config.size.n; i++) {
-              if (tiles[prefix + i].col == col && tiles[prefix + i].row == row) {
+              if (tiles[prefix + i].col == col && tiles[prefix + i].row ==
+                row) {
                 return tiles[prefix + i];
               }
             }
@@ -622,12 +675,14 @@ var game = { //		main object
         return false;
       };
 
-      var direction = (game.config.pushMultiple && tile.canPush) ? tile.canPush.direction : tile.canMove;
+      var direction = (game.config.pushMultiple && tile.canPush) ? tile.canPush
+        .direction : tile.canMove;
 
       game.runtime.selectedTile = tile;
 
       if (game.fn.canMove(tile) || game.config.pushMultiple) {
-        game.runtime.selectedTile.timeStamp = (typeof event != "undefined") ? event.timeStamp : new Date();
+        game.runtime.selectedTile.timeStamp = (typeof event != "undefined") ?
+          event.timeStamp : new Date();
 
         game.runtime.selectedTile.oldPosition = {
 
@@ -642,8 +697,10 @@ var game = { //		main object
 
         };
         game.runtime.selectedTile.offset = (typeof event != "undefined") ? {
-          top: ((event.pageY - game.metrics.top - game.metrics.borderSize.pixels) % game.metrics.tileHeight),
-          left: ((event.pageX - game.metrics.left - game.metrics.borderSize.pixels) % game.metrics.tileWidth)
+          top: ((event.pageY - game.metrics.top - game.metrics.borderSize
+            .pixels) % game.metrics.tileHeight),
+          left: ((event.pageX - game.metrics.left - game.metrics.borderSize
+            .pixels) % game.metrics.tileWidth)
         } : {
           top: game.metrics.tileHeight / 2,
           left: game.metrics.tileWidth / 2
@@ -683,36 +740,57 @@ var game = { //		main object
         switch (direction) {
 
           case game.config.labels.UP:
-            game.runtime.selectedTile.newPosition.top.min.pixels = Math.round(game.runtime.selectedTile.oldPosition.top.pixels - game.metrics.tileHeight);
-            game.runtime.selectedTile.newPosition.top.max.pixels = Math.round(game.runtime.selectedTile.oldPosition.top.pixels);
-            game.runtime.selectedTile.newPosition.left.min.pixels = Math.round(game.runtime.selectedTile.oldPosition.left.pixels);
-            game.runtime.selectedTile.newPosition.left.max.pixels = Math.round(game.runtime.selectedTile.oldPosition.left.pixels);
+            game.runtime.selectedTile.newPosition.top.min.pixels = Math.round(
+              game.runtime.selectedTile.oldPosition.top.pixels - game.metrics
+              .tileHeight);
+            game.runtime.selectedTile.newPosition.top.max.pixels = Math.round(
+              game.runtime.selectedTile.oldPosition.top.pixels);
+            game.runtime.selectedTile.newPosition.left.min.pixels = Math.round(
+              game.runtime.selectedTile.oldPosition.left.pixels);
+            game.runtime.selectedTile.newPosition.left.max.pixels = Math.round(
+              game.runtime.selectedTile.oldPosition.left.pixels);
             break;
 
           case game.config.labels.DOWN:
-            game.runtime.selectedTile.newPosition.top.min.pixels = Math.round(game.runtime.selectedTile.oldPosition.top.pixels);
-            game.runtime.selectedTile.newPosition.top.max.pixels = Math.round(game.runtime.selectedTile.oldPosition.top.pixels + game.metrics.tileHeight);
-            game.runtime.selectedTile.newPosition.left.min.pixels = Math.round(game.runtime.selectedTile.oldPosition.left.pixels);
-            game.runtime.selectedTile.newPosition.left.max.pixels = Math.round(game.runtime.selectedTile.oldPosition.left.pixels);
+            game.runtime.selectedTile.newPosition.top.min.pixels = Math.round(
+              game.runtime.selectedTile.oldPosition.top.pixels);
+            game.runtime.selectedTile.newPosition.top.max.pixels = Math.round(
+              game.runtime.selectedTile.oldPosition.top.pixels + game.metrics
+              .tileHeight);
+            game.runtime.selectedTile.newPosition.left.min.pixels = Math.round(
+              game.runtime.selectedTile.oldPosition.left.pixels);
+            game.runtime.selectedTile.newPosition.left.max.pixels = Math.round(
+              game.runtime.selectedTile.oldPosition.left.pixels);
             break;
 
           case game.config.labels.LEFT:
-            game.runtime.selectedTile.newPosition.left.min.pixels = Math.round(game.runtime.selectedTile.oldPosition.left.pixels - game.metrics.tileWidth);
-            game.runtime.selectedTile.newPosition.left.max.pixels = Math.round(game.runtime.selectedTile.oldPosition.left.pixels);
-            game.runtime.selectedTile.newPosition.top.min.pixels = Math.round(game.runtime.selectedTile.oldPosition.top.pixels);
-            game.runtime.selectedTile.newPosition.top.max.pixels = Math.round(game.runtime.selectedTile.oldPosition.top.pixels);
+            game.runtime.selectedTile.newPosition.left.min.pixels = Math.round(
+              game.runtime.selectedTile.oldPosition.left.pixels - game.metrics
+              .tileWidth);
+            game.runtime.selectedTile.newPosition.left.max.pixels = Math.round(
+              game.runtime.selectedTile.oldPosition.left.pixels);
+            game.runtime.selectedTile.newPosition.top.min.pixels = Math.round(
+              game.runtime.selectedTile.oldPosition.top.pixels);
+            game.runtime.selectedTile.newPosition.top.max.pixels = Math.round(
+              game.runtime.selectedTile.oldPosition.top.pixels);
             break;
 
           case game.config.labels.RIGHT:
-            game.runtime.selectedTile.newPosition.left.min.pixels = Math.round(game.runtime.selectedTile.oldPosition.left.pixels);
-            game.runtime.selectedTile.newPosition.left.max.pixels = Math.round(game.runtime.selectedTile.oldPosition.left.pixels + game.metrics.tileWidth);
-            game.runtime.selectedTile.newPosition.top.min.pixels = Math.round(game.runtime.selectedTile.oldPosition.top.pixels);
-            game.runtime.selectedTile.newPosition.top.max.pixels = Math.round(game.runtime.selectedTile.oldPosition.top.pixels);
+            game.runtime.selectedTile.newPosition.left.min.pixels = Math.round(
+              game.runtime.selectedTile.oldPosition.left.pixels);
+            game.runtime.selectedTile.newPosition.left.max.pixels = Math.round(
+              game.runtime.selectedTile.oldPosition.left.pixels + game.metrics
+              .tileWidth);
+            game.runtime.selectedTile.newPosition.top.min.pixels = Math.round(
+              game.runtime.selectedTile.oldPosition.top.pixels);
+            game.runtime.selectedTile.newPosition.top.max.pixels = Math.round(
+              game.runtime.selectedTile.oldPosition.top.pixels);
             break;
         }
 
         if (!game.runtime.dragging) {
-          addClass(tile.htmlElement, game.config.labels.PRESSED_LABEL + " " + game.config.labels.SELECTED_LABEL);
+          addClass(tile.htmlElement, game.config.labels.PRESSED_LABEL + " " +
+            game.config.labels.SELECTED_LABEL);
         }
 
         if (game.config.pushMultiple) {
@@ -757,7 +835,8 @@ var game = { //		main object
 
             if (!game.runtime.dragging) {
 
-              addClass(tile.canPush.tiles[i - 1].htmlElement, game.config.labels.SELECTED_LABEL);
+              addClass(tile.canPush.tiles[i - 1].htmlElement, game.config.labels
+                .SELECTED_LABEL);
 
             }
 
@@ -788,7 +867,8 @@ var game = { //		main object
 
       if (typeof tile.newPosition.left.newValue.pixels != "undefined") {
 
-        if (game.config.pushMultiple && typeof tile.canPush.tiles != "undefined") {
+        if (game.config.pushMultiple && typeof tile.canPush.tiles !=
+          "undefined") {
 
           for (var i = tile.canPush.tiles.length; i > 0; i--) {
             if (tile.canPush.tiles[0].revert !== true) {
@@ -800,13 +880,16 @@ var game = { //		main object
                 }
               );
             }
-            removeClass(tile.canPush.tiles[i - 1].htmlElement, game.config.labels.SELECTED_LABEL);
+            removeClass(tile.canPush.tiles[i - 1].htmlElement, game.config.labels
+              .SELECTED_LABEL);
           }
 
 
           if (
-            (Math.abs(tile.newPosition.left.newValue.pixels - tile.oldPosition.left.pixels) >= game.metrics.tileWidth / 3) ||
-            (Math.abs(tile.newPosition.top.newValue.pixels - tile.oldPosition.top.pixels) >= game.metrics.tileHeight / 3)
+            (Math.abs(tile.newPosition.left.newValue.pixels - tile.oldPosition
+              .left.pixels) >= game.metrics.tileWidth / 3) ||
+            (Math.abs(tile.newPosition.top.newValue.pixels - tile.oldPosition
+              .top.pixels) >= game.metrics.tileHeight / 3)
           ) {
             game.fn.moveTile(
               tile, {
@@ -830,8 +913,10 @@ var game = { //		main object
           if (
             (tile.newPosition.left.newValue.pixels != null) &&
             (
-              (Math.abs(tile.newPosition.left.newValue.pixels - tile.oldPosition.left.pixels) >= game.metrics.tileWidth / 3) ||
-              (Math.abs(tile.newPosition.top.newValue.pixels - tile.oldPosition.top.pixels) >= game.metrics.tileHeight / 3)
+              (Math.abs(tile.newPosition.left.newValue.pixels - tile.oldPosition
+                .left.pixels) >= game.metrics.tileWidth / 3) ||
+              (Math.abs(tile.newPosition.top.newValue.pixels - tile.oldPosition
+                .top.pixels) >= game.metrics.tileHeight / 3)
             )
           ) {
             game.fn.moveTile(
@@ -855,7 +940,8 @@ var game = { //		main object
     canPush: function(tile) {
 
       var tile = game.fn.isTile(tile),
-        hole = game.runtime.tiles[game.config.labels.TILE_PREFIX + game.config.labels.HOLE_INDEX],
+        hole = game.runtime.tiles[game.config.labels.TILE_PREFIX + game.config
+          .labels.HOLE_INDEX],
         holePosition = hole.col + "-" + hole.row,
         tilesToPush = 0;
 
@@ -865,7 +951,8 @@ var game = { //		main object
 
       if (game.config.pushMultiple) {
         if (tile.col == hole.col || tile.row == hole.row) {
-          tilesToPush = (tile.col - hole.col == 0) ? hole.row - tile.row : hole.col - tile.col;
+          tilesToPush = (tile.col - hole.col == 0) ? hole.row - tile.row :
+            hole.col - tile.col;
           if (tilesToPush == 0) {
             return false;
           }
@@ -910,7 +997,8 @@ var game = { //		main object
     canMove: function(tile) {
 
       var tile = game.fn.isTile(tile),
-        hole = game.runtime.tiles[game.config.labels.TILE_PREFIX + game.config.labels.HOLE_INDEX],
+        hole = game.runtime.tiles[game.config.labels.TILE_PREFIX + game.config
+          .labels.HOLE_INDEX],
         holePosition = hole.col + "-" + hole.row,
         tilesToPush = 0;
 
@@ -958,10 +1046,13 @@ var game = { //		main object
         return false;
       };
 
-      newPosX = event.pageX - game.metrics.borderSize.pixels - game.metrics.left - tile.offset.left;
-      newPosY = event.pageY - game.metrics.borderSize.pixels - game.metrics.top - tile.offset.top;
+      newPosX = event.pageX - game.metrics.borderSize.pixels - game.metrics
+        .left - tile.offset.left;
+      newPosY = event.pageY - game.metrics.borderSize.pixels - game.metrics
+        .top - tile.offset.top;
 
-      direction = (game.config.pushMultiple && tile.canPush) ? tile.canPush.direction : tile.canMove;
+      direction = (game.config.pushMultiple && tile.canPush) ? tile.canPush
+        .direction : tile.canMove;
 
       if (newPosY < tile.newPosition.top.min.pixels) {
         newPosY = tile.newPosition.top.min.pixels;
@@ -978,10 +1069,15 @@ var game = { //		main object
 
 
 
-      if (event.pageX - game.metrics.left - game.metrics.borderSize.pixels + game.metrics.tileWidth * (game.config.touchTolerance) < newPosX ||
-        event.pageX - game.metrics.left - game.metrics.borderSize.pixels - game.metrics.tileWidth * (1 + game.config.touchTolerance) > newPosX ||
-        event.pageY - game.metrics.top - game.metrics.borderSize.pixels + game.metrics.tileHeight * (game.config.touchTolerance) < newPosY ||
-        event.pageY - game.metrics.top - game.metrics.borderSize.pixels - game.metrics.tileHeight * (1 + game.config.touchTolerance) > newPosY
+      if (event.pageX - game.metrics.left - game.metrics.borderSize.pixels +
+        game.metrics.tileWidth * (game.config.touchTolerance) < newPosX ||
+        event.pageX - game.metrics.left - game.metrics.borderSize.pixels -
+        game.metrics.tileWidth * (1 + game.config.touchTolerance) > newPosX ||
+        event.pageY - game.metrics.top - game.metrics.borderSize.pixels +
+        game.metrics.tileHeight * (game.config.touchTolerance) < newPosY ||
+        event.pageY - game.metrics.top - game.metrics.borderSize.pixels -
+        game.metrics.tileHeight * (1 + game.config.touchTolerance) >
+        newPosY
       ) {
 
         game.fn.deselectTile();
@@ -1003,13 +1099,18 @@ var game = { //		main object
           tile.newPosition.top.newValue.pixels = tile.oldPosition.top.pixels;
           tile.newPosition.left.newValue.pixels = newPosX;
 
-          tile.newPosition.left.newValue.percent = newPosX * 100 / game.metrics.tileWidth;
+          tile.newPosition.left.newValue.percent = newPosX * 100 / game.metrics
+            .tileWidth;
 
           // write the css for tile html element
 
           for (var p = 0; p < game.config.CSSprefixes.length; p++) {
             prefix = game.config.CSSprefixes[p];
-            CSSstyleDeclaration += prefix + "transform:translate" + game.metrics.transforms3Dsupport[0] + "(" + tile.newPosition.left.newValue.percent + "%," + tile.oldPosition.top.percent + "%" + game.metrics.transforms3Dsupport[1] + "); " + prefix + "transition:none; ";
+            CSSstyleDeclaration += prefix + "transform:translate" + game.metrics
+              .transforms3Dsupport[0] + "(" + tile.newPosition.left.newValue
+              .percent + "%," + tile.oldPosition.top.percent + "%" + game.metrics
+              .transforms3Dsupport[1] + "); " + prefix +
+              "transition:none; ";
           }
           tile.htmlElement.style.cssText = CSSstyleDeclaration;
           break;
@@ -1021,12 +1122,17 @@ var game = { //		main object
           tile.newPosition.top.newValue.pixels = newPosY;
           tile.newPosition.left.newValue.pixels = tile.oldPosition.left.pixels;
 
-          tile.newPosition.top.newValue.percent = newPosY * 100 / game.metrics.tileHeight;
+          tile.newPosition.top.newValue.percent = newPosY * 100 / game.metrics
+            .tileHeight;
 
           // write the css for tile html element
           for (var p = 0; p < game.config.CSSprefixes.length; p++) {
             prefix = game.config.CSSprefixes[p];
-            CSSstyleDeclaration += prefix + "transform:translate" + game.metrics.transforms3Dsupport[0] + "(" + tile.oldPosition.left.percent + "%," + tile.newPosition.top.newValue.percent + "%" + game.metrics.transforms3Dsupport[1] + "); " + prefix + "transition:none; ";
+            CSSstyleDeclaration += prefix + "transform:translate" + game.metrics
+              .transforms3Dsupport[0] + "(" + tile.oldPosition.left.percent +
+              "%," + tile.newPosition.top.newValue.percent + "%" + game.metrics
+              .transforms3Dsupport[1] + "); " + prefix +
+              "transition:none; ";
           }
           tile.htmlElement.style.cssText = CSSstyleDeclaration;
 
@@ -1034,7 +1140,8 @@ var game = { //		main object
 
       }
 
-      if (!game.config.pushMultiple || typeof tile.canPush.tiles == "undefined") {
+      if (!game.config.pushMultiple || typeof tile.canPush.tiles ==
+        "undefined") {
         return;
       }
 
@@ -1046,8 +1153,10 @@ var game = { //		main object
         switch (direction) {
           case game.config.labels.UP:
 
-            otherTileNewPos = (tile.newPosition.top.newValue.pixels - (game.metrics.tileHeight * (i + 1)));
-            if (otherTileNewPos < tile.canPush.tiles[i].max || tile.canPush.tiles[i].max == null) {
+            otherTileNewPos = (tile.newPosition.top.newValue.pixels - (game
+              .metrics.tileHeight * (i + 1)));
+            if (otherTileNewPos < tile.canPush.tiles[i].max || tile.canPush
+              .tiles[i].max == null) {
               tile.canPush.tiles[i].max = otherTileNewPos;
             } else {
               return false;
@@ -1057,15 +1166,20 @@ var game = { //		main object
 
             for (var p = 0; p < game.config.CSSprefixes.length; p++) {
               prefix = game.config.CSSprefixes[p];
-              CSSstyleDeclaration += prefix + "transform:translate" + game.metrics.transforms3Dsupport[0] + "(" + tile.oldPosition.left.percent + "%," + otherTileNewPos + "px" + game.metrics.transforms3Dsupport[1] + "); " + prefix + "transition:none; ";
+              CSSstyleDeclaration += prefix + "transform:translate" + game.metrics
+                .transforms3Dsupport[0] + "(" + tile.oldPosition.left.percent +
+                "%," + otherTileNewPos + "px" + game.metrics.transforms3Dsupport[
+                  1] + "); " + prefix + "transition:none; ";
             }
 
             break;
 
           case game.config.labels.RIGHT:
 
-            otherTileNewPos = (tile.newPosition.left.newValue.pixels + (game.metrics.tileWidth * (i + 1)));
-            if (otherTileNewPos > tile.canPush.tiles[i].max || tile.canPush.tiles[i].max == null) {
+            otherTileNewPos = (tile.newPosition.left.newValue.pixels + (
+              game.metrics.tileWidth * (i + 1)));
+            if (otherTileNewPos > tile.canPush.tiles[i].max || tile.canPush
+              .tiles[i].max == null) {
               tile.canPush.tiles[i].max = otherTileNewPos;
             } else {
               return false;
@@ -1074,14 +1188,19 @@ var game = { //		main object
             // write the css for tile html element
             for (var p = 0; p < game.config.CSSprefixes.length; p++) {
               prefix = game.config.CSSprefixes[p];
-              CSSstyleDeclaration += prefix + "transform:translate" + game.metrics.transforms3Dsupport[0] + "(" + otherTileNewPos + "px," + tile.oldPosition.top.percent + "%" + game.metrics.transforms3Dsupport[1] + "); " + prefix + "transition:none; ";
+              CSSstyleDeclaration += prefix + "transform:translate" + game.metrics
+                .transforms3Dsupport[0] + "(" + otherTileNewPos + "px," +
+                tile.oldPosition.top.percent + "%" + game.metrics.transforms3Dsupport[
+                  1] + "); " + prefix + "transition:none; ";
             }
             break;
 
           case game.config.labels.DOWN:
 
-            otherTileNewPos = (tile.newPosition.top.newValue.pixels + (game.metrics.tileHeight * (i + 1)));
-            if (otherTileNewPos > tile.canPush.tiles[i].max || tile.canPush.tiles[i].max == null) {
+            otherTileNewPos = (tile.newPosition.top.newValue.pixels + (game
+              .metrics.tileHeight * (i + 1)));
+            if (otherTileNewPos > tile.canPush.tiles[i].max || tile.canPush
+              .tiles[i].max == null) {
               tile.canPush.tiles[i].max = otherTileNewPos;
             } else {
               return false;
@@ -1090,7 +1209,10 @@ var game = { //		main object
             // write the css for tile html element
             for (var p = 0; p < game.config.CSSprefixes.length; p++) {
               prefix = game.config.CSSprefixes[p];
-              CSSstyleDeclaration += prefix + "transform:translate" + game.metrics.transforms3Dsupport[0] + "(" + tile.oldPosition.left.percent + "%," + otherTileNewPos + "px" + game.metrics.transforms3Dsupport[1] + "); " + prefix + "transition:none; ";
+              CSSstyleDeclaration += prefix + "transform:translate" + game.metrics
+                .transforms3Dsupport[0] + "(" + tile.oldPosition.left.percent +
+                "%," + otherTileNewPos + "px" + game.metrics.transforms3Dsupport[
+                  1] + "); " + prefix + "transition:none; ";
             }
 
 
@@ -1098,8 +1220,10 @@ var game = { //		main object
 
           case game.config.labels.LEFT:
 
-            otherTileNewPos = (tile.newPosition.left.newValue.pixels - (game.metrics.tileWidth * (i + 1)));
-            if (otherTileNewPos < tile.canPush.tiles[i].max || tile.canPush.tiles[i].max == null) {
+            otherTileNewPos = (tile.newPosition.left.newValue.pixels - (
+              game.metrics.tileWidth * (i + 1)));
+            if (otherTileNewPos < tile.canPush.tiles[i].max || tile.canPush
+              .tiles[i].max == null) {
               tile.canPush.tiles[i].max = otherTileNewPos;
             } else {
               return false;
@@ -1108,7 +1232,10 @@ var game = { //		main object
             // write the css for tile html element
             for (var p = 0; p < game.config.CSSprefixes.length; p++) {
               prefix = game.config.CSSprefixes[p];
-              CSSstyleDeclaration += prefix + "transform:translate" + game.metrics.transforms3Dsupport[0] + "(" + otherTileNewPos + "px," + tile.oldPosition.top.percent + "%" + game.metrics.transforms3Dsupport[1] + "); " + prefix + "transition:none; ";
+              CSSstyleDeclaration += prefix + "transform:translate" + game.metrics
+                .transforms3Dsupport[0] + "(" + otherTileNewPos + "px," +
+                tile.oldPosition.top.percent + "%" + game.metrics.transforms3Dsupport[
+                  1] + "); " + prefix + "transition:none; ";
             }
 
             break;
@@ -1117,8 +1244,10 @@ var game = { //		main object
         otherTile.htmlElement.style.cssText = CSSstyleDeclaration;
 
         if (
-          Math.abs(tile.oldPosition.left.pixels - tile.newPosition.left.newValue.pixels) > game.metrics.tileWidth / 4 ||
-          Math.abs(tile.oldPosition.top.pixels - tile.newPosition.top.newValue.pixels) > game.metrics.tileHeight / 4
+          Math.abs(tile.oldPosition.left.pixels - tile.newPosition.left.newValue
+            .pixels) > game.metrics.tileWidth / 4 ||
+          Math.abs(tile.oldPosition.top.pixels - tile.newPosition.top.newValue
+            .pixels) > game.metrics.tileHeight / 4
         ) {
           otherTile.revert = false;
         } else {
@@ -1162,7 +1291,8 @@ var game = { //		main object
         return false;
       };
 
-      var hole = game.runtime.tiles[game.config.labels.TILE_PREFIX + game.config.labels.HOLE_INDEX],
+      var hole = game.runtime.tiles[game.config.labels.TILE_PREFIX + game.config
+          .labels.HOLE_INDEX],
         temp = {};
 
       if (!game.fn.canMove(tile)) {
@@ -1245,7 +1375,8 @@ var game = { //		main object
       if (null == obj || "object" != typeof obj) return obj;
       var copy = obj.constructor();
       for (var attr in obj) {
-        if (obj.hasOwnProperty(attr) && attr != "htmlElement") copy[attr] = obj[attr];
+        if (obj.hasOwnProperty(attr) && attr != "htmlElement") copy[attr] =
+          obj[attr];
       }
       return copy;
     },
@@ -1270,7 +1401,8 @@ var game = { //		main object
           movesCount: game.runtime.movesCount
         };
 
-      if (JSON.parse(localStorage.getItem(game.config.labels.SAVEDGAMES_LABEL)) != null) {
+      if (JSON.parse(localStorage.getItem(game.config.labels.SAVEDGAMES_LABEL)) !=
+        null) {
         savedGames = JSON.parse(localStorage.getItem(game.config.labels.SAVEDGAMES_LABEL));
       }
 
@@ -1281,12 +1413,14 @@ var game = { //		main object
       for (var i = 0; i < game.config.size.n; i++) {
 
         tileID = game.config.labels.TILE_PREFIX + i;
-        savedGame.tiles[tileID] = game.fn.cloneTileObj(game.runtime.tiles[tileID]);
+        savedGame.tiles[tileID] = game.fn.cloneTileObj(game.runtime.tiles[
+          tileID]);
       }
 
       savedGames[type] = savedGame;
 
-      localStorage.setItem(game.config.labels.SAVEDGAMES_LABEL, JSON.stringify(savedGames));
+      localStorage.setItem(game.config.labels.SAVEDGAMES_LABEL, JSON.stringify(
+        savedGames));
 
       console.log("game saved (" + type + ")");
     },
@@ -1302,18 +1436,22 @@ var game = { //		main object
         loadedGame = null;
 
       if (loadedGames != null) {
-        if (typeof loadedGames[type] != "undefined" && loadedGames[type] != null) {
+        if (typeof loadedGames[type] != "undefined" && loadedGames[type] !=
+          null) {
           loadedGame = loadedGames[type];
 
-          loadedGame.saveDate = new Date(Date.UTC.apply(this, loadedGame.saveDate.match(/\d+\.{0,1}\d+/g)));
+          loadedGame.saveDate = new Date(Date.UTC.apply(this, loadedGame.saveDate
+            .match(/\d+\.{0,1}\d+/g)));
 
 
           if (loadedGame.startedDate) {
-            loadedGame.startedDate = new Date(Date.UTC.apply(this, loadedGame.startedDate.match(/\d+\.{0,1}\d+/g)));
+            loadedGame.startedDate = new Date(Date.UTC.apply(this,
+              loadedGame.startedDate.match(/\d+\.{0,1}\d+/g)));
           }
 
           if (loadedGame.size != game.config.size.n) {
-            console.log("cannot load game: different sizes:", loadedGame.tiles.length, game.config.size.n)
+            console.log("cannot load game: different sizes:", loadedGame.tiles
+              .length, game.config.size.n)
             return false;
           }
 
@@ -1323,7 +1461,8 @@ var game = { //		main object
           for (var i = 0; i < game.config.size.n; i++) {
 
             tileID = game.config.labels.TILE_PREFIX + i;
-            loadedGame.tiles[tileID].htmlElement = document.getElementById(tileID);
+            loadedGame.tiles[tileID].htmlElement = document.getElementById(
+              tileID);
           }
 
           game.runtime.started = loadedGame.startedDate;
@@ -1412,14 +1551,18 @@ var game = { //		main object
         for (var i = 0; i < game.config.size.n; i++) {
           t = game.runtime.tiles["tile-" + i];
 
-          if (!!t.canMove && moving && (typeof direction == "undefined" || direction == t.canMove)) {
-            game.runtime.movableTiles.push(game.fn.getTile(game.config.labels.TILE_PREFIX + t.i));
+          if (!!t.canMove && moving && (typeof direction == "undefined" ||
+              direction == t.canMove)) {
+            game.runtime.movableTiles.push(game.fn.getTile(game.config.labels
+              .TILE_PREFIX + t.i));
           };
 
           if (
-            game.config.pushMultiple && pushing && !!t.canPush && !t.canMove && (typeof direction == "undefined" || direction == t.canPush.direction)
+            game.config.pushMultiple && pushing && !!t.canPush && !t.canMove &&
+            (typeof direction == "undefined" || direction == t.canPush.direction)
           ) {
-            game.runtime.movableTiles.push(game.fn.getTile(game.config.labels.TILE_PREFIX + t.i));
+            game.runtime.movableTiles.push(game.fn.getTile(game.config.labels
+              .TILE_PREFIX + t.i));
           };
         }
 
@@ -1475,19 +1618,24 @@ var game = { //		main object
       for (var p = 0; p < game.config.CSSprefixes.length; p++) {
         prefix = game.config.CSSprefixes[p];
         CSSstyleDeclaration += prefix + "animation-fill-mode:both;";
-        CSSstyleDeclaration += prefix + "animation-duration:" + params.duration + "ms;";
-        CSSstyleDeclaration += prefix + "animation-name:" + params.animation + ";";
+        CSSstyleDeclaration += prefix + "animation-duration:" + params.duration +
+          "ms;";
+        CSSstyleDeclaration += prefix + "animation-name:" + params.animation +
+          ";";
 
         if (typeof params.iterations != "undefined") {
-          CSSstyleDeclaration += prefix + "animation-iteration-count:" + params.iteration + ";";
+          CSSstyleDeclaration += prefix + "animation-iteration-count:" +
+            params.iteration + ";";
         }
 
         if (typeof params.delay == "number") {
-          CSSstyleDeclaration += prefix + "animation-delay:" + params.delay + "ms;";
+          CSSstyleDeclaration += prefix + "animation-delay:" + params.delay +
+            "ms;";
         }
 
         if (typeof params.easing == "string") {
-          CSSstyleDeclaration += prefix + "animation-timing-function:" + params.easing + ";";
+          CSSstyleDeclaration += prefix + "animation-timing-function:" +
+            params.easing + ";";
         }
 
 
@@ -1497,9 +1645,11 @@ var game = { //		main object
             event.target.style["animation"] = "";
           });
         } else {
-          listenTo(params.element, game.config.CSSprefixes[p] + "AnimationEnd", function(event) {
-            event.target.style[event.type.replace("End", "")] = "";
-          });
+          listenTo(params.element, game.config.CSSprefixes[p] +
+            "AnimationEnd",
+            function(event) {
+              event.target.style[event.type.replace("End", "")] = "";
+            });
         }
       }
       params.element.style.cssText += CSSstyleDeclaration;
