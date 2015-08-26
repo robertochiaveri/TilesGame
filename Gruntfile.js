@@ -47,7 +47,7 @@ module.exports = function(grunt) {
       */
       fonts: { // copy font to build directory
         files: [{
-          src: '<%= globalConfig.src_dir %>/fonts/**/fonts/**/*',
+          src: '<%= globalConfig.src_dir %>/fonts/**/fonts/**/*.{eot,svg,ttf,woff}',
           dest: '<%= globalConfig.dest_dir %>/fonts/',
           expand: true,
           flatten: true
@@ -191,7 +191,7 @@ module.exports = function(grunt) {
         '<%= globalConfig.src_dir %>/scss/**/*.scss',
       ],
       options: {
-        config: 'scss-lint.yml',
+        config: '.scss-lint.yml',
         compact: true,
         colorizeOutput: true,
         force: true
