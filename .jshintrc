@@ -35,16 +35,16 @@
   "latedef": true,
 
   // Enforce line length to 80 characters
-  "maxlen": 80,
+  "maxlen": 160,
 
   // Require capitalized names for constructor functions.
   "newcap": true,
 
   // Enforce use of single quotation marks for strings.
-  "quotmark": "single",
+  // "quotmark": "single",
 
   // Enforce placing 'use strict' at the top function scope
-  "strict": true,
+  // "strict": true,
 
   // Prohibit use of explicitly undeclared variables.
   "undef": true,
