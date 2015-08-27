@@ -217,7 +217,9 @@ function listenTo(element, eventType, fn) {
   if (typeof window.customEventListeners[eventType] == "undefined") {
     window.customEventListeners[eventType] = {};
   }
-  if (typeof window.customEventListeners[eventType][element.id] != "undefined") { /* console.log("cannot add another listener for "+eventType+" to ",element); */
+  if (typeof window.customEventListeners[eventType][element.id] != "undefined") {
+    console.log("cannot add another listener for " + eventType + " to ",
+      element);
     return false;
   }
 
