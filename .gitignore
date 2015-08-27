@@ -9,7 +9,7 @@
 # SASS
 # ====
 
-.sass-cache/
+*.sass-cache*
 
 
 # ============
