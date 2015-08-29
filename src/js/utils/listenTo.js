@@ -1,4 +1,4 @@
-game.utils.listenTo = function(element, eventType, fn, listenersList) {
+game.utils.listenTo = function(element, eventType, fn, listenersList, context) {
   "use strict";
 
   listenersList = listenersList || {};
@@ -41,24 +41,27 @@ game.utils.listenTo = function(element, eventType, fn, listenersList) {
   if (!element.addEventListener) {
     element.attachEvent("on" + eventType, fn);
   } else if (element.addEventListener) {
+
     if (eventType.indexOf("touch") === 0) {
-      element.addEventListener(eventType, function(event) {
+      element.addEventListener(eventType, function(event, context) {
         event.preventDefault();
         if (event.touches.length === 0) //touchend
         {
-          fn(event);
+          fn(event, context);
         } else {
           for (var i = 0; i < event.touches.length; i++) {
             event.touches[i].timeStamp = event.timeStamp;
             event.touches[i].type = event.type;
             event.touches[i].multiTouchEvent = event;
-            fn(event.touches[i]);
+            fn(event.touches[i], context);
           }
         }
         return;
       }, true);
     } else {
-      element.addEventListener(eventType, fn, false);
+      element.addEventListener(eventType, function(event) {
+        fn(event, context);
+      }, false);
     }
   }
 };

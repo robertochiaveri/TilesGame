@@ -3,26 +3,26 @@ game.newGame = function() {
 
   var animationDuration = 2000;
 
-  if (game.runtime.running) {
+  if (this.runtime.running) {
     console.log("user reset");
 
-    game.stop();
+    this.stop();
 
     setTimeout(function() {
 
-      game.loadGame(game.config.labels.SORTEDSAVE_LABEL);
+      this.loadGame(this.config.labels.SORTEDSAVE_LABEL);
 
-      game.refresh({
+      this.refresh({
         transitions: false
       });
 
-      game.saveGame(game.config.labels.SORTEDSAVE_LABEL);
+      this.saveGame(this.config.labels.SORTEDSAVE_LABEL);
 
 
     }, animationDuration * 0.34);
 
-    game.animate({
-      element: document.getElementById(game.config.labels.GAME_ID),
+    this.animate({
+      element: document.getElementById(this.config.labels.GAME_ID),
       animation: "resetboard",
       duration: animationDuration,
       easing: "ease-in-out"
@@ -31,14 +31,14 @@ game.newGame = function() {
   } else {
     console.log("first launch");
 
-    game.refresh({
+    this.refresh({
       transitions: false
     });
 
-    game.saveGame(game.config.labels.SORTEDSAVE_LABEL);
+    this.saveGame(this.config.labels.SORTEDSAVE_LABEL);
 
-    game.animate({
-      element: document.getElementById(game.config.labels.GAME_ID),
+    this.animate({
+      element: document.getElementById(this.config.labels.GAME_ID),
       animation: "intro",
       duration: animationDuration
     });
@@ -47,9 +47,9 @@ game.newGame = function() {
 
   setTimeout(function() {
 
-    game.shuffle(game.config.size.n * game.config.size.n);
-    game.saveGame(game.config.labels.SHUFFLEDSAVE_LABEL);
-    game.start();
+    this.shuffle(this.config.size.n * this.config.size.n);
+    this.saveGame(this.config.labels.SHUFFLEDSAVE_LABEL);
+    this.start();
 
   }, animationDuration * 0.85);
 };

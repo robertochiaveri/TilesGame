@@ -4,17 +4,17 @@ game.shuffle = function(n, refresh) {
   console.log("shuffle");
 
   if (typeof n === "undefined") {
-    n = 10 * game.config.size.n;
+    n = 10 * this.config.size.n;
   }
   if (typeof refresh === "undefined") {
     refresh = true;
   }
 
   var directions = [
-    game.config.labels.UP,
-    game.config.labels.RIGHT,
-    game.config.labels.DOWN,
-    game.config.labels.LEFT
+    this.config.labels.UP,
+    this.config.labels.RIGHT,
+    this.config.labels.DOWN,
+    this.config.labels.LEFT
   ];
 
   var movableTiles = [];
@@ -22,17 +22,16 @@ game.shuffle = function(n, refresh) {
   var d;
 
   for (var i = 0; i < n; i++) {
-    d = directions[Math.round(Math.random() * (directions.length -
-      1))];
+    d = directions[Math.round(Math.random() * (directions.length - 1))];
 
-    movableTiles = game.getMovableTiles({
+    movableTiles = this.getMovableTiles({
       direction: d,
       pushing: false,
       moving: true,
       force: true
     });
 
-    game.moveTile(
+    this.moveTile(
       movableTiles[0], {
         transitions: false,
         force: true,
@@ -42,7 +41,7 @@ game.shuffle = function(n, refresh) {
   }
 
   if (refresh) {
-    game.refresh({
+    this.refresh({
       transitions: true,
       transitionDuration: 100
     });

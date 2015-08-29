@@ -9,14 +9,14 @@ game.animate = function(params) {
     return false;
   }
   if (typeof params.duration !== "number") {
-    params.duration = game.config.transitionDuration.generic;
+    params.duration = this.config.transitionDuration.generic;
   }
 
 
   var CSSstyleDeclaration, prefix = "";
 
-  for (var p = 0; p < game.config.CSSprefixes.length; p++) {
-    prefix = game.config.CSSprefixes[p];
+  for (var p = 0; p < this.config.CSSprefixes.length; p++) {
+    prefix = this.config.CSSprefixes[p];
     CSSstyleDeclaration += prefix + "animation-fill-mode:both;";
     CSSstyleDeclaration += prefix + "animation-duration:" + params.duration +
       "ms;";
@@ -41,11 +41,11 @@ game.animate = function(params) {
 
 
     if (p < 0) {
-      game.utils.listenTo(params.element, "animationEnd", function(event) {
+      this.utils.listenTo(params.element, "animationEnd", function(event) {
         event.target.style["animation"] = "";
       });
     } else {
-      game.utils.listenTo(params.element, game.config.CSSprefixes[p] +
+      this.utils.listenTo(params.element, this.config.CSSprefixes[p] +
         "AnimationEnd",
         function(event) {
           event.target.style[event.type.replace("End", "")] = "";

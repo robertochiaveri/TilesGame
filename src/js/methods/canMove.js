@@ -1,8 +1,8 @@
 game.canMove = function(tile) {
   "use strict";
-  tile = game.isTile(tile) || null;
+  tile = this.isTile(tile) || null;
 
-  var hole = game.runtime.tiles[game.config.labels.TILE_PREFIX + game.config.labels
+  var hole = this.runtime.tiles[this.config.labels.TILE_PREFIX + this.config.labels
       .HOLE_INDEX],
     holePosition = hole.col + "-" + hole.row;
 
@@ -11,16 +11,16 @@ game.canMove = function(tile) {
   };
 
   if (holePosition === (tile.col) + "-" + (tile.row - 1)) {
-    return game.config.labels.UP;
+    return this.config.labels.UP;
   }
   if (holePosition === (tile.col + 1) + "-" + (tile.row)) {
-    return game.config.labels.RIGHT;
+    return this.config.labels.RIGHT;
   }
   if (holePosition === (tile.col) + "-" + (tile.row + 1)) {
-    return game.config.labels.DOWN;
+    return this.config.labels.DOWN;
   }
   if (holePosition === (tile.col - 1) + "-" + (tile.row)) {
-    return game.config.labels.LEFT;
+    return this.config.labels.LEFT;
   }
 
   return false;

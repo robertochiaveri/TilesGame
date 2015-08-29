@@ -3,10 +3,10 @@ game.getTile = function(param) {
 
   var target = null,
     maxLevels = 5,
-    tiles = game.runtime.tiles,
+    tiles = this.runtime.tiles,
     col = parseInt(param.col),
     row = parseInt(param.row),
-    prefix = game.config.labels.TILE_PREFIX,
+    prefix = this.config.labels.TILE_PREFIX,
     i;
 
   switch (typeof param) {
@@ -20,7 +20,7 @@ game.getTile = function(param) {
       } else if (!isNaN(parseInt(param.col)) && !isNaN(parseInt(
           param.row))) {
 
-        for (i = 0; i < game.config.size.n; i++) {
+        for (i = 0; i < this.config.size.n; i++) {
           if (tiles[prefix + i].col === col && tiles[prefix + i].row === row) {
             return tiles[prefix + i];
           }
@@ -43,8 +43,8 @@ game.getTile = function(param) {
           target.parentNode === null
         ) {
           return false;
-        } else if (target.parentNode.id === game.config.labels.BOARD_ID) {
-          return game.runtime.tiles[target.id];
+        } else if (target.parentNode.id === this.config.labels.BOARD_ID) {
+          return this.runtime.tiles[target.id];
         } else {
           target = target.parentNode;
         }
@@ -60,7 +60,7 @@ game.getTile = function(param) {
       return false;
 
     case "number":
-      if (param < game.config.size.n) {
+      if (param < this.config.size.n) {
         return tiles[prefix + param];
       }
       return false;

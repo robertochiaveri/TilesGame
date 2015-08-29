@@ -1,7 +1,7 @@
 game.init = function() {
   "use strict";
 
-  game.runtime = {
+  this.runtime = {
     started: false, //    - - false before running, a date obj when started
     running: false, //    - - true if the game is started (and user can win)    
     ended: false, //    - - false while running, a date obj when ended
@@ -15,22 +15,22 @@ game.init = function() {
     eventListeners: {}
   };
 
-  game.checkFeatures();
+  this.checkFeatures();
 
-  game.createBoard(); //   - - creates the board, the tiles objects and the html       
-  game.metricsUpdate();
-  game.initListeners(); //   - - create event listeners enabling user interaction
-  game.refresh({
+  this.createBoard(); //   - - creates the board, the tiles objects and the html       
+  this.metricsUpdate();
+  this.initListeners(); //   - - create event listeners enabling user interaction
+  this.refresh({
     transitions: false
   }); //    - - position each tile according to the game runtime      
-  if (!game.loadGame()) {
-    game.newGame(); //   - - repeatedly changes random tiles 
+  if (!this.loadGame()) {
+    this.newGame(); //   - - repeatedly changes random tiles 
   } else {
-    game.animate({
-      element: document.getElementById(game.config.labels.GAME_ID),
+    this.animate({
+      element: document.getElementById(this.config.labels.GAME_ID),
       animation: "load",
       duration: 1000
     });
-    game.start(); //   - - set the game as started. from this moment on the game checks if the user has won
+    this.start(); //   - - set the game as started. from this moment on the game checks if the user has won
   }
 };

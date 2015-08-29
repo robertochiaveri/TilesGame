@@ -1,13 +1,13 @@
 game.loadGame = function(type) {
   "use strict";
-  if (!game.config.useLstorage) {
+  if (!this.config.useLstorage) {
     return false;
   }
   if (typeof type === "undefined") {
-    type = game.config.labels.AUTOSAVE_LABEL;
+    type = this.config.labels.AUTOSAVE_LABEL;
   }
 
-  var loadedGames = JSON.parse(localStorage.getItem(game.config.labels.SAVEDGAMES_LABEL));
+  var loadedGames = JSON.parse(localStorage.getItem(this.config.labels.SAVEDGAMES_LABEL));
   var loadedGame = null;
   var tileID;
 
@@ -17,8 +17,7 @@ game.loadGame = function(type) {
       loadedGame = loadedGames[type];
 
       loadedGame.saveDate = new Date(Date.UTC.apply(this,
-        loadedGame.saveDate
-        .match(/\d+\.{0,1}\d+/g)));
+        loadedGame.saveDate.match(/\d+\.{0,1}\d+/g)));
 
 
       if (loadedGame.startedDate) {
@@ -26,25 +25,25 @@ game.loadGame = function(type) {
           loadedGame.startedDate.match(/\d+\.{0,1}\d+/g)));
       }
 
-      if (loadedGame.size !== game.config.size.n) {
+      if (loadedGame.size !== this.config.size.n) {
         console.log("cannot load game: different sizes:",
-          loadedGame.tiles.length, game.config.size.n);
+          loadedGame.tiles.length, this.config.size.n);
         return false;
       }
 
-      game.runtime.tiles = loadedGame.tiles;
+      this.runtime.tiles = loadedGame.tiles;
 
 
-      for (var i = 0; i < game.config.size.n; i++) {
+      for (var i = 0; i < this.config.size.n; i++) {
 
-        tileID = game.config.labels.TILE_PREFIX + i;
+        tileID = this.config.labels.TILE_PREFIX + i;
         loadedGame.tiles[tileID].htmlElement = document.getElementById(
           tileID);
       }
 
-      game.runtime.started = loadedGame.startedDate;
-      game.runtime.movesCount = parseInt(loadedGame.movesCount);
-      game.refresh({
+      this.runtime.started = loadedGame.startedDate;
+      this.runtime.movesCount = parseInt(loadedGame.movesCount);
+      this.refresh({
         transitions: (type === "user")
       });
 

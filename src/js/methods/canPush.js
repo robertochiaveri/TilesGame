@@ -1,8 +1,8 @@
 game.canPush = function(tile) {
   "use strict";
-  tile = game.isTile(tile) || false;
+  tile = this.isTile(tile) || false;
 
-  var hole = game.runtime.tiles[game.config.labels.TILE_PREFIX + game.config.labels
+  var hole = this.runtime.tiles[this.config.labels.TILE_PREFIX + this.config.labels
       .HOLE_INDEX],
     tilesToPush = 0;
 
@@ -10,7 +10,7 @@ game.canPush = function(tile) {
     return false;
   };
 
-  if (game.config.pushMultiple) {
+  if (this.config.pushMultiple) {
     if (tile.col === hole.col || tile.row === hole.row) {
       tilesToPush = (tile.col - hole.col === 0) ? hole.row - tile.row :
         hole.col - tile.col;
@@ -24,13 +24,13 @@ game.canPush = function(tile) {
         {
           return ({
             n: (Math.abs(tilesToPush) - 1),
-            direction: game.config.labels.DOWN
+            direction: this.config.labels.DOWN
           });
         } else // up
         {
           return ({
             n: (Math.abs(tilesToPush) - 1),
-            direction: game.config.labels.UP
+            direction: this.config.labels.UP
           });
         }
       } else // left or right
@@ -39,13 +39,13 @@ game.canPush = function(tile) {
         {
           return ({
             n: (Math.abs(tilesToPush) - 1),
-            direction: game.config.labels.RIGHT
+            direction: this.config.labels.RIGHT
           });
         } else // left
         {
           return ({
             n: (Math.abs(tilesToPush) - 1),
-            direction: game.config.labels.LEFT
+            direction: this.config.labels.LEFT
           });
         }
       }

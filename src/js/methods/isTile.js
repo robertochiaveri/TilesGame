@@ -7,17 +7,17 @@ game.isTile = function(tile) {
 
   switch (typeof tile) {
     case "object":
-      if (tile.id.indexOf(game.config.labels.TILE_PREFIX) < 0) {
+      if (tile.id.indexOf(this.config.labels.TILE_PREFIX) < 0) {
         return false;
       }
       break;
 
     case "string":
-      tile = game.runtime.tiles[tile];
+      tile = this.runtime.tiles[tile];
       if (typeof tile === "undefined") {
         return false;
       };
-      if (tile.id.indexOf(game.config.labels.TILE_PREFIX) < 0) {
+      if (tile.id.indexOf(this.config.labels.TILE_PREFIX) < 0) {
         return false;
       };
       break;

@@ -1,12 +1,12 @@
 game.dragTile = function(event) {
   "use strict";
 
-  if (!game.runtime.running) {
-    game.deselectTile();
+  if (!this.runtime.running) {
+    this.deselectTile();
     return false;
   }
 
-  var tile = game.isTile(game.runtime.selectedTile),
+  var tile = this.isTile(this.runtime.selectedTile),
     direction,
     newPosX,
     newPosY,
@@ -20,16 +20,16 @@ game.dragTile = function(event) {
     (typeof tile.offset === "undefined") ||
     (typeof tile.newPosition === "undefined")
   ) {
-    game.deselectTile();
+    this.deselectTile();
     return false;
   };
 
-  newPosX = event.pageX - game.metrics.borderSize.pixels - game.metrics.left -
+  newPosX = event.pageX - this.metrics.borderSize.pixels - this.metrics.left -
     tile.offset.left;
-  newPosY = event.pageY - game.metrics.borderSize.pixels - game.metrics.top -
+  newPosY = event.pageY - this.metrics.borderSize.pixels - this.metrics.top -
     tile.offset.top;
 
-  direction = (game.config.pushMultiple && tile.canPush) ? tile.canPush.direction :
+  direction = (this.config.pushMultiple && tile.canPush) ? tile.canPush.direction :
     tile.canMove;
 
   if (newPosY < tile.newPosition.top.min.pixels) {
@@ -48,17 +48,13 @@ game.dragTile = function(event) {
 
 
   if (
-    event.pageX - game.metrics.left - game.metrics.borderSize.pixels + game.metrics
-    .tileWidth * (game.config.touchTolerance) < newPosX ||
-    event.pageX - game.metrics.left - game.metrics.borderSize.pixels - game.metrics
-    .tileWidth * (1 + game.config.touchTolerance) > newPosX ||
-    event.pageY - game.metrics.top - game.metrics.borderSize.pixels + game.metrics
-    .tileHeight * (game.config.touchTolerance) < newPosY ||
-    event.pageY - game.metrics.top - game.metrics.borderSize.pixels - game.metrics
-    .tileHeight * (1 + game.config.touchTolerance) > newPosY
+    event.pageX - this.metrics.left - this.metrics.borderSize.pixels + this.metrics.tileWidth * (this.config.touchTolerance) < newPosX ||
+    event.pageX - this.metrics.left - this.metrics.borderSize.pixels - this.metrics.tileWidth * (1 + this.config.touchTolerance) > newPosX ||
+    event.pageY - this.metrics.top - this.metrics.borderSize.pixels + this.metrics.tileHeight * (this.config.touchTolerance) < newPosY ||
+    event.pageY - this.metrics.top - this.metrics.borderSize.pixels - this.metrics.tileHeight * (1 + this.config.touchTolerance) > newPosY
   ) {
 
-    game.deselectTile();
+    this.deselectTile();
 
     // console.log("dropped!");
 
@@ -71,8 +67,8 @@ game.dragTile = function(event) {
 
   switch (direction) {
 
-    case game.config.labels.LEFT:
-    case game.config.labels.RIGHT:
+    case this.config.labels.LEFT:
+    case this.config.labels.RIGHT:
 
       tile.newPosition.top.newValue.pixels = tile.oldPosition.top.pixels;
       tile.newPosition.left.newValue.pixels = newPosX;
@@ -83,13 +79,13 @@ game.dragTile = function(event) {
 
       // write the css for tile html element
 
-      for (p = 0; p < game.config.CSSprefixes.length; p++) {
-        prefix = game.config.CSSprefixes[p];
+      for (p = 0; p < this.config.CSSprefixes.length; p++) {
+        prefix = this.config.CSSprefixes[p];
         CSSstyleDeclaration += prefix + "transform:translate" +
-          game.metrics
+          this.metrics
           .transforms3Dsupport[0] + "(" + tile.newPosition.left.newValue
           .percent + "%," + tile.oldPosition.top.percent + "%" +
-          game.metrics
+          this.metrics
           .transforms3Dsupport[1] + "); " + prefix +
           "transition:none; ";
       }
@@ -97,21 +93,21 @@ game.dragTile = function(event) {
       break;
 
 
-    case game.config.labels.UP:
-    case game.config.labels.DOWN:
+    case this.config.labels.UP:
+    case this.config.labels.DOWN:
 
       tile.newPosition.top.newValue.pixels = newPosY;
       tile.newPosition.left.newValue.pixels = tile.oldPosition.left
         .pixels;
 
-      tile.newPosition.top.newValue.percent = newPosY * 100 / game.metrics
+      tile.newPosition.top.newValue.percent = newPosY * 100 / this.metrics
         .tileHeight;
 
       // write the css for tile html element
-      for (p = 0; p < game.config.CSSprefixes.length; p++) {
-        prefix = game.config.CSSprefixes[p];
+      for (p = 0; p < this.config.CSSprefixes.length; p++) {
+        prefix = this.config.CSSprefixes[p];
         CSSstyleDeclaration += prefix + "transform:translate" +
-          game.metrics
+          this.metrics
           .transforms3Dsupport[0] + "(" + tile.oldPosition.left.percent +
           "%," + tile.newPosition.top.newValue.percent + "%" + game
           .metrics
@@ -124,7 +120,7 @@ game.dragTile = function(event) {
 
   }
 
-  if (!game.config.pushMultiple || typeof tile.canPush.tiles === "undefined") {
+  if (!this.config.pushMultiple || typeof tile.canPush.tiles === "undefined") {
     return;
   }
 
@@ -135,9 +131,9 @@ game.dragTile = function(event) {
     prefix = "";
 
     switch (direction) {
-      case game.config.labels.UP:
+      case this.config.labels.UP:
 
-        otherTileNewPos = (tile.newPosition.top.newValue.pixels - (game.metrics
+        otherTileNewPos = (tile.newPosition.top.newValue.pixels - (this.metrics
           .tileHeight * (i + 1)));
 
         if (
@@ -150,21 +146,21 @@ game.dragTile = function(event) {
 
         // write the css for tile html element
 
-        for (p = 0; p < game.config.CSSprefixes.length; p++) {
-          prefix = game.config.CSSprefixes[p];
-          CSSstyleDeclaration += prefix + "transform:translate" + game.metrics
+        for (p = 0; p < this.config.CSSprefixes.length; p++) {
+          prefix = this.config.CSSprefixes[p];
+          CSSstyleDeclaration += prefix + "transform:translate" + this.metrics
             .transforms3Dsupport[0] + "(" + tile.oldPosition.left.percent +
-            "%," + otherTileNewPos + "px" + game.metrics.transforms3Dsupport[
+            "%," + otherTileNewPos + "px" + this.metrics.transforms3Dsupport[
               1] + "); " + prefix + "transition:none; ";
         }
 
         break;
 
-      case game.config.labels.RIGHT:
+      case this.config.labels.RIGHT:
 
         otherTileNewPos = (tile.newPosition.left.newValue.pixels +
           (
-            game.metrics.tileWidth * (i + 1)));
+            this.metrics.tileWidth * (i + 1)));
         if (otherTileNewPos > tile.canPush.tiles[i].max || tile.canPush
           .tiles[i].max == null) {
           tile.canPush.tiles[i].max = otherTileNewPos;
@@ -173,17 +169,17 @@ game.dragTile = function(event) {
         }
 
         // write the css for tile html element
-        for (p = 0; p < game.config.CSSprefixes.length; p++) {
-          prefix = game.config.CSSprefixes[p];
+        for (p = 0; p < this.config.CSSprefixes.length; p++) {
+          prefix = this.config.CSSprefixes[p];
           CSSstyleDeclaration += prefix + "transform:translate" +
-            game.metrics
+            this.metrics
             .transforms3Dsupport[0] + "(" + otherTileNewPos + "px," +
-            tile.oldPosition.top.percent + "%" + game.metrics.transforms3Dsupport[
+            tile.oldPosition.top.percent + "%" + this.metrics.transforms3Dsupport[
               1] + "); " + prefix + "transition:none; ";
         }
         break;
 
-      case game.config.labels.DOWN:
+      case this.config.labels.DOWN:
 
         otherTileNewPos = (tile.newPosition.top.newValue.pixels + (
           game
@@ -196,23 +192,23 @@ game.dragTile = function(event) {
         }
 
         // write the css for tile html element
-        for (p = 0; p < game.config.CSSprefixes.length; p++) {
-          prefix = game.config.CSSprefixes[p];
+        for (p = 0; p < this.config.CSSprefixes.length; p++) {
+          prefix = this.config.CSSprefixes[p];
           CSSstyleDeclaration += prefix + "transform:translate" +
-            game.metrics
+            this.metrics
             .transforms3Dsupport[0] + "(" + tile.oldPosition.left.percent +
-            "%," + otherTileNewPos + "px" + game.metrics.transforms3Dsupport[
+            "%," + otherTileNewPos + "px" + this.metrics.transforms3Dsupport[
               1] + "); " + prefix + "transition:none; ";
         }
 
 
         break;
 
-      case game.config.labels.LEFT:
+      case this.config.labels.LEFT:
 
         otherTileNewPos = (tile.newPosition.left.newValue.pixels -
           (
-            game.metrics.tileWidth * (i + 1)));
+            this.metrics.tileWidth * (i + 1)));
         if (otherTileNewPos < tile.canPush.tiles[i].max || tile.canPush
           .tiles[i].max == null) {
           tile.canPush.tiles[i].max = otherTileNewPos;
@@ -221,12 +217,12 @@ game.dragTile = function(event) {
         }
 
         // write the css for tile html element
-        for (p = 0; p < game.config.CSSprefixes.length; p++) {
-          prefix = game.config.CSSprefixes[p];
+        for (p = 0; p < this.config.CSSprefixes.length; p++) {
+          prefix = this.config.CSSprefixes[p];
           CSSstyleDeclaration += prefix + "transform:translate" +
-            game.metrics
+            this.metrics
             .transforms3Dsupport[0] + "(" + otherTileNewPos + "px," +
-            tile.oldPosition.top.percent + "%" + game.metrics.transforms3Dsupport[
+            tile.oldPosition.top.percent + "%" + this.metrics.transforms3Dsupport[
               1] + "); " + prefix + "transition:none; ";
         }
 
@@ -238,9 +234,9 @@ game.dragTile = function(event) {
     if (
       Math.abs(tile.oldPosition.left.pixels - tile.newPosition.left
         .newValue
-        .pixels) > game.metrics.tileWidth / 4 ||
+        .pixels) > this.metrics.tileWidth / 4 ||
       Math.abs(tile.oldPosition.top.pixels - tile.newPosition.top.newValue
-        .pixels) > game.metrics.tileHeight / 4
+        .pixels) > this.metrics.tileHeight / 4
     ) {
       otherTile.revert = false;
     } else {

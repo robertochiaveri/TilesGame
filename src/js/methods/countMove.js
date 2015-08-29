@@ -1,4 +1,4 @@
 game.countMove = function() {
   "use strict";
-  game.runtime.movesCount++;
+  this.runtime.movesCount++;
 };

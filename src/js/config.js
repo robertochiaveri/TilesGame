@@ -45,6 +45,11 @@ game.config = {
   },
 
   /*
+    time in ms after which releasing a tile won't trigger a movement
+   */
+  maxTimeForClickMove: 200,
+
+  /*
     listen to keyboard events during game
    */
   useKeyboard: true

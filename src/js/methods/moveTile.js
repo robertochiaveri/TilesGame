@@ -1,23 +1,23 @@
 game.moveTile = function(tile, params) {
   "use strict";
 
-  tile = game.isTile(tile);
+  tile = this.isTile(tile);
   if (!tile) {
     return false;
   };
 
-  var hole = game.runtime.tiles[game.config.labels.TILE_PREFIX + game.config.labels.HOLE_INDEX];
+  var hole = this.runtime.tiles[this.config.labels.TILE_PREFIX + this.config.labels.HOLE_INDEX];
   var temp = {};
 
-  if (!game.canMove(tile)) {
+  if (!this.canMove(tile)) {
     return false;
   }
 
   if (params.force !== true) {
-    if (!game.runtime.running) {
+    if (!this.runtime.running) {
       return false;
     }
-    game.countMove();
+    this.countMove();
   }
 
   temp.col = tile.col;
@@ -30,7 +30,7 @@ game.moveTile = function(tile, params) {
   hole.row = temp.row;
 
   if (params.refresh === true) {
-    game.refresh({
+    this.refresh({
       transitions: params.transitions,
       saveGame: !params.force,
       redraw: !!!params.force

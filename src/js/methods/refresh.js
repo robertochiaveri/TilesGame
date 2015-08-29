@@ -18,24 +18,24 @@ game.refresh = function(params) {
   } else // transitions = true
   {
     if (typeof params.transitionDuration !== "number") {
-      params.transitionDuration = game.config.transitionDuration.generic;
+      params.transitionDuration = this.config.transitionDuration.generic;
     }
   };
 
 
-  for (var i = 0; i < game.config.size.n; i++) {
+  for (var i = 0; i < this.config.size.n; i++) {
 
-    tileID = game.config.labels.TILE_PREFIX + i;
-    tile = game.runtime.tiles[tileID];
+    tileID = this.config.labels.TILE_PREFIX + i;
+    tile = this.runtime.tiles[tileID];
 
     // write the css for tile html element
     var prefix = "";
-    for (var p = 0; p < game.config.CSSprefixes.length; p++) {
-      prefix = game.config.CSSprefixes[p];
-      CSSstyleDeclaration += prefix + "transform:translate" + game.metrics
+    for (var p = 0; p < this.config.CSSprefixes.length; p++) {
+      prefix = this.config.CSSprefixes[p];
+      CSSstyleDeclaration += prefix + "transform:translate" + this.metrics
         .transforms3Dsupport[0] + "(" + (tile.col * 100) + "%," + (
           tile
-          .row * 100) + "%" + game.metrics.transforms3Dsupport[1] +
+          .row * 100) + "%" + this.metrics.transforms3Dsupport[1] +
         "); ";
 
 
@@ -46,7 +46,7 @@ game.refresh = function(params) {
         parseInt(
           Math.abs(params.transitionDuration)) + "ms !important;";
       CSSstyleDeclaration += prefix + "transition-timing-function:" +
-        game.config.easings.EASING_TILES_MOVEMENT + ";";
+        this.config.easings.EASING_TILES_MOVEMENT + ";";
 
 
     }
@@ -58,11 +58,11 @@ game.refresh = function(params) {
 
     tile.htmlElement.childNodes[0].style.backgroundPosition = "-" +
       (
-        tile.correctCol * game.metrics.tileWidth) + "px -" + (tile.correctRow *
-        game.metrics.tileHeight) + "px";
+        tile.correctCol * this.metrics.tileWidth) + "px -" + (tile.correctRow *
+        this.metrics.tileHeight) + "px";
 
-    tile.canMove = game.canMove(tileID);
-    tile.canPush = game.canPush(tileID);
+    tile.canMove = this.canMove(tileID);
+    tile.canPush = this.canPush(tileID);
 
     // clean up data created when dragging or moving a tile
     delete tile.offset;
@@ -79,14 +79,14 @@ game.refresh = function(params) {
 
   };
 
-  if (game.runtime.running && win /* && game.runtime.movesCount > 0 */ ) {
+  if (this.runtime.running && win /* && this.runtime.movesCount > 0 */ ) {
     setTimeout(function() {
       window.alert("Hai vinto!");
     }, 500);
-    game.stop();
+    this.stop();
   }
 
   if (params.saveGame === true) {
-    game.saveGame();
+    this.saveGame();
   }
 };

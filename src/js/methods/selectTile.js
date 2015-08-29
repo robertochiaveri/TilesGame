@@ -1,46 +1,45 @@
 game.selectTile = function(tile, event) {
   "use strict";
-  if (!game.runtime.running) {
+
+  if (!this.runtime.running) {
     return false;
   }
 
-  tile = game.isTile(tile);
+  tile = this.isTile(tile);
 
   if (!tile) {
     return false;
   };
 
-  var direction = (game.config.pushMultiple && tile.canPush) ? tile.canPush.direction : tile.canMove;
+  var direction = (this.config.pushMultiple && tile.canPush) ? tile.canPush.direction : tile.canMove;
 
-  game.runtime.selectedTile = tile;
+  this.runtime.selectedTile = tile;
 
-  if (game.canMove(tile) || game.config.pushMultiple) {
-    game.runtime.selectedTile.timeStamp = (typeof event !== "undefined") ?
-      event.timeStamp : new Date();
+  if (this.canMove(tile) || this.config.pushMultiple) {
 
-    game.runtime.selectedTile.oldPosition = {
+    this.runtime.selectedTile.timeStamp = (typeof event !== "undefined") ? event.timeStamp : new Date();
+
+    this.runtime.selectedTile.oldPosition = {
 
       left: {
         percent: 100 * tile.col,
-        pixels: game.metrics.tileWidth * tile.col
+        pixels: this.metrics.tileWidth * tile.col
       },
       top: {
         percent: 100 * tile.row,
-        pixels: game.metrics.tileHeight * tile.row
+        pixels: this.metrics.tileHeight * tile.row
       }
 
     };
-    game.runtime.selectedTile.offset = (typeof event !== "undefined") ? {
-      top: ((event.pageY - game.metrics.top - game.metrics.borderSize
-        .pixels) % game.metrics.tileHeight),
-      left: ((event.pageX - game.metrics.left - game.metrics.borderSize
-        .pixels) % game.metrics.tileWidth)
+    this.runtime.selectedTile.offset = (typeof event !== "undefined") ? {
+      top: ((event.pageY - this.metrics.top - this.metrics.borderSize.pixels) % this.metrics.tileHeight),
+      left: ((event.pageX - this.metrics.left - this.metrics.borderSize.pixels) % this.metrics.tileWidth)
     } : {
-      top: game.metrics.tileHeight / 2,
-      left: game.metrics.tileWidth / 2
+      top: this.metrics.tileHeight / 2,
+      left: this.metrics.tileWidth / 2
     };
 
-    game.runtime.selectedTile.newPosition = {
+    this.runtime.selectedTile.newPosition = {
       top: {
         min: {
           pixels: null,
@@ -73,82 +72,42 @@ game.selectTile = function(tile, event) {
 
     switch (direction) {
 
-      case game.config.labels.UP:
-        game.runtime.selectedTile.newPosition.top.min.pixels = Math
-          .round(
-            game.runtime.selectedTile.oldPosition.top.pixels - game
-            .metrics
-            .tileHeight);
-        game.runtime.selectedTile.newPosition.top.max.pixels = Math
-          .round(
-            game.runtime.selectedTile.oldPosition.top.pixels);
-        game.runtime.selectedTile.newPosition.left.min.pixels =
-          Math.round(
-            game.runtime.selectedTile.oldPosition.left.pixels);
-        game.runtime.selectedTile.newPosition.left.max.pixels =
-          Math.round(
-            game.runtime.selectedTile.oldPosition.left.pixels);
+      case this.config.labels.UP:
+        this.runtime.selectedTile.newPosition.top.min.pixels = Math.round(this.runtime.selectedTile.oldPosition.top.pixels - this.metrics.tileHeight);
+        this.runtime.selectedTile.newPosition.top.max.pixels = Math.round(this.runtime.selectedTile.oldPosition.top.pixels);
+        this.runtime.selectedTile.newPosition.left.min.pixels = Math.round(this.runtime.selectedTile.oldPosition.left.pixels);
+        this.runtime.selectedTile.newPosition.left.max.pixels = Math.round(this.runtime.selectedTile.oldPosition.left.pixels);
         break;
 
-      case game.config.labels.DOWN:
-        game.runtime.selectedTile.newPosition.top.min.pixels = Math
-          .round(
-            game.runtime.selectedTile.oldPosition.top.pixels);
-        game.runtime.selectedTile.newPosition.top.max.pixels = Math
-          .round(
-            game.runtime.selectedTile.oldPosition.top.pixels + game
-            .metrics
-            .tileHeight);
-        game.runtime.selectedTile.newPosition.left.min.pixels =
-          Math.round(
-            game.runtime.selectedTile.oldPosition.left.pixels);
-        game.runtime.selectedTile.newPosition.left.max.pixels =
-          Math.round(
-            game.runtime.selectedTile.oldPosition.left.pixels);
+      case this.config.labels.DOWN:
+        this.runtime.selectedTile.newPosition.top.min.pixels = Math.round(this.runtime.selectedTile.oldPosition.top.pixels);
+        this.runtime.selectedTile.newPosition.top.max.pixels = Math.round(this.runtime.selectedTile.oldPosition.top.pixels + this.metrics.tileHeight);
+        this.runtime.selectedTile.newPosition.left.min.pixels = Math.round(this.runtime.selectedTile.oldPosition.left.pixels);
+        this.runtime.selectedTile.newPosition.left.max.pixels = Math.round(this.runtime.selectedTile.oldPosition.left.pixels);
         break;
 
-      case game.config.labels.LEFT:
-        game.runtime.selectedTile.newPosition.left.min.pixels =
-          Math.round(
-            game.runtime.selectedTile.oldPosition.left.pixels -
-            game.metrics
-            .tileWidth);
-        game.runtime.selectedTile.newPosition.left.max.pixels =
-          Math.round(
-            game.runtime.selectedTile.oldPosition.left.pixels);
-        game.runtime.selectedTile.newPosition.top.min.pixels = Math
-          .round(
-            game.runtime.selectedTile.oldPosition.top.pixels);
-        game.runtime.selectedTile.newPosition.top.max.pixels = Math
-          .round(
-            game.runtime.selectedTile.oldPosition.top.pixels);
+      case this.config.labels.LEFT:
+        this.runtime.selectedTile.newPosition.left.min.pixels = Math.round(this.runtime.selectedTile.oldPosition.left.pixels - this.metrics.tileWidth);
+        this.runtime.selectedTile.newPosition.left.max.pixels = Math.round(this.runtime.selectedTile.oldPosition.left.pixels);
+        this.runtime.selectedTile.newPosition.top.min.pixels = Math.round(this.runtime.selectedTile.oldPosition.top.pixels);
+        this.runtime.selectedTile.newPosition.top.max.pixels = Math.round(this.runtime.selectedTile.oldPosition.top.pixels);
         break;
 
-      case game.config.labels.RIGHT:
-        game.runtime.selectedTile.newPosition.left.min.pixels =
-          Math.round(
-            game.runtime.selectedTile.oldPosition.left.pixels);
-        game.runtime.selectedTile.newPosition.left.max.pixels =
-          Math.round(
-            game.runtime.selectedTile.oldPosition.left.pixels +
-            game.metrics
-            .tileWidth);
-        game.runtime.selectedTile.newPosition.top.min.pixels = Math
-          .round(
-            game.runtime.selectedTile.oldPosition.top.pixels);
-        game.runtime.selectedTile.newPosition.top.max.pixels = Math
-          .round(
-            game.runtime.selectedTile.oldPosition.top.pixels);
+      case this.config.labels.RIGHT:
+        this.runtime.selectedTile.newPosition.left.min.pixels = Math.round(this.runtime.selectedTile.oldPosition.left.pixels);
+        this.runtime.selectedTile.newPosition.left.max.pixels = Math.round(this.runtime.selectedTile.oldPosition.left.pixels + this.metrics.tileWidth);
+        this.runtime.selectedTile.newPosition.top.min.pixels = Math.round(this.runtime.selectedTile.oldPosition.top.pixels);
+        this.runtime.selectedTile.newPosition.top.max.pixels = Math.round(this.runtime.selectedTile.oldPosition.top.pixels);
         break;
     }
 
-    if (!game.runtime.dragging) {
-      game.utils.addClass(tile.htmlElement, game.config.labels.PRESSED_LABEL +
+    if (!this.runtime.dragging) {
+      this.utils.addClass(tile.htmlElement, this.config.labels.PRESSED_LABEL +
         " " +
-        game.config.labels.SELECTED_LABEL);
+        this.config.labels.SELECTED_LABEL);
     }
 
-    if (tile.canPush !== false && game.config.pushMultiple) {
+    if (tile.canPush !== false && this.config.pushMultiple) {
 
       tile.canPush.tiles = [];
 
@@ -156,29 +115,29 @@ game.selectTile = function(tile, event) {
 
         switch (tile.canPush.direction) {
 
-          case game.config.labels.UP:
-            tile.canPush.tiles.push(game.getTile({
+          case this.config.labels.UP:
+            tile.canPush.tiles.push(this.getTile({
               col: tile.col,
               row: tile.row - i
             }));
             break;
 
-          case game.config.labels.RIGHT:
-            tile.canPush.tiles.push(game.getTile({
+          case this.config.labels.RIGHT:
+            tile.canPush.tiles.push(this.getTile({
               col: tile.col + i,
               row: tile.row
             }));
             break;
 
-          case game.config.labels.DOWN:
-            tile.canPush.tiles.push(game.getTile({
+          case this.config.labels.DOWN:
+            tile.canPush.tiles.push(this.getTile({
               col: tile.col,
               row: tile.row + i
             }));
             break;
 
-          case game.config.labels.LEFT:
-            tile.canPush.tiles.push(game.getTile({
+          case this.config.labels.LEFT:
+            tile.canPush.tiles.push(this.getTile({
               col: tile.col - i,
               row: tile.row
             }));
@@ -188,9 +147,9 @@ game.selectTile = function(tile, event) {
 
         tile.canPush.tiles[i - 1].max = null;
 
-        if (!game.runtime.dragging) {
+        if (!this.runtime.dragging) {
 
-          game.utils.addClass(tile.canPush.tiles[i - 1].htmlElement, game.config
+          this.utils.addClass(tile.canPush.tiles[i - 1].htmlElement, this.config
             .labels
             .SELECTED_LABEL);
 
@@ -200,7 +159,7 @@ game.selectTile = function(tile, event) {
 
     }
 
-    game.runtime.dragging = true;
+    this.runtime.dragging = true;
 
     //console.log("selected",tile);
 

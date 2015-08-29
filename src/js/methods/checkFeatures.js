@@ -1,14 +1,11 @@
 game.checkFeatures = function() {
   "use strict";
 
-
-
-
   /*
     if the device supports it listen for touch 
     events instead of mouse events      
    */
-  game.config.useTouch = game.utils.useTouch();
+  this.config.useTouch = this.utils.useTouch();
 
 
   /*
@@ -16,35 +13,35 @@ game.checkFeatures = function() {
     (which should be hardware accellerated) 
     instead of 2D transforms
    */
-  game.config.use3Dtransforms = game.utils.use3D();
+  this.config.use3Dtransforms = this.utils.use3D();
 
 
   /*
     if the devive supports it, use HTML5 
     localStorage to save games
    */
-  game.config.useLstorage = game.utils.useLocalStorage();
+  this.config.useLstorage = this.utils.useLocalStorage();
 
 
   /*
     if the devive supports it, use CSS3 
     animations
    */
-  game.config.useCssAnimations = game.utils.useCSS3Animations();
+  this.config.useCssAnimations = this.utils.useCSS3Animations();
 
 
   /*
     detects Safari fullscreen mode (for ex. 
     launched as app from home screen)
    */
-  game.config.launchedAsApp = game.utils.detectFullscreen();
+  this.config.launchedAsApp = this.utils.detectFullscreen();
 
 
   /*
     list of browser vendors prefixes to 
     support for CSS3 properties    
    */
-  game.config.CSSprefixes = ["", game.utils.getBrowserPrefix().css];
+  this.config.CSSprefixes = ["", this.utils.getBrowserPrefix().css];
 
 
 

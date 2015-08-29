@@ -1,13 +1,13 @@
 game.deselectTile = function() {
   "use strict";
 
-  var tile = game.isTile(game.runtime.selectedTile);
+  var tile = this.isTile(this.runtime.selectedTile);
   if (!tile) {
     return false;
   };
 
-  game.utils.removeClass(tile.htmlElement, game.config.labels.SELECTED_LABEL);
-  game.utils.removeClass(tile.htmlElement, game.config.labels.PRESSED_LABEL);
+  this.utils.removeClass(tile.htmlElement, this.config.labels.SELECTED_LABEL);
+  this.utils.removeClass(tile.htmlElement, this.config.labels.PRESSED_LABEL);
 
 
   if (typeof tile.newPosition === "undefined") {
@@ -16,11 +16,11 @@ game.deselectTile = function() {
 
   if (typeof tile.newPosition.left.newValue.pixels !== "undefined") {
 
-    if (game.config.pushMultiple && typeof tile.canPush.tiles !== "undefined") {
+    if (this.config.pushMultiple && typeof tile.canPush.tiles !== "undefined") {
 
       for (var i = tile.canPush.tiles.length; i > 0; i--) {
         if (tile.canPush.tiles[0].revert !== true) {
-          game.moveTile(
+          this.moveTile(
             tile.canPush.tiles[i - 1], {
               transitions: true,
               force: false,
@@ -28,19 +28,15 @@ game.deselectTile = function() {
             }
           );
         }
-        game.utils.removeClass(tile.canPush.tiles[i - 1].htmlElement, game.config
-          .labels
-          .SELECTED_LABEL);
+        this.utils.removeClass(tile.canPush.tiles[i - 1].htmlElement, this.config.labels.SELECTED_LABEL);
       }
 
 
       if (
-        (Math.abs(tile.newPosition.left.newValue.pixels - tile.oldPosition
-          .left.pixels) >= game.metrics.tileWidth / 3) ||
-        (Math.abs(tile.newPosition.top.newValue.pixels - tile.oldPosition
-          .top.pixels) >= game.metrics.tileHeight / 3)
+        (Math.abs(tile.newPosition.left.newValue.pixels - tile.oldPosition.left.pixels) >= this.metrics.tileWidth / 3) ||
+        (Math.abs(tile.newPosition.top.newValue.pixels - tile.oldPosition.top.pixels) >= this.metrics.tileHeight / 3)
       ) {
-        game.moveTile(
+        this.moveTile(
           tile, {
             transitions: true,
             force: false,
@@ -50,11 +46,11 @@ game.deselectTile = function() {
 
       }
 
-      game.runtime.selectedTile = null;
+      this.runtime.selectedTile = null;
 
       // console.log("de-selected",tile);
 
-      game.refresh({
+      this.refresh({
         saveGame: true
       });
 
@@ -62,13 +58,11 @@ game.deselectTile = function() {
       if (
         (tile.newPosition.left.newValue.pixels != null) &&
         (
-          (Math.abs(tile.newPosition.left.newValue.pixels - tile.oldPosition
-            .left.pixels) >= game.metrics.tileWidth / 3) ||
-          (Math.abs(tile.newPosition.top.newValue.pixels - tile.oldPosition
-            .top.pixels) >= game.metrics.tileHeight / 3)
+          (Math.abs(tile.newPosition.left.newValue.pixels - tile.oldPosition.left.pixels) >= this.metrics.tileWidth / 3) ||
+          (Math.abs(tile.newPosition.top.newValue.pixels - tile.oldPosition.top.pixels) >= this.metrics.tileHeight / 3)
         )
       ) {
-        game.moveTile(
+        this.moveTile(
           tile, {
             transitions: true,
             force: false,
@@ -76,13 +70,13 @@ game.deselectTile = function() {
           }
         );
       } else {
-        game.refresh();
+        this.refresh();
       }
 
     }
 
   }
 
-  game.runtime.selectedTile = null;
-  game.runtime.dragging = false;
+  this.runtime.selectedTile = null;
+  this.runtime.dragging = false;
 };

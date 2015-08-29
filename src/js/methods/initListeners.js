@@ -5,151 +5,158 @@ game.initListeners = function() {
 
   // start/down
   // board
-  game.utils.listenTo(
-    document.getElementById(game.config.labels.BOARD_ID), (game.config.useTouch ?
-      "touchstart" : "mousedown"),
-    function(event) {
+  this.utils.listenTo(
+    document.getElementById(this.config.labels.BOARD_ID), (this.config.useTouch ? "touchstart" : "mousedown"),
+    function(event, context) {
 
       // ignore doubleclicks  
-      if (event.timeStamp - game.runtime.latestSelection < 300) {
+      if (event.timeStamp - context.runtime.latestSelection < 300) {
         return false;
       }
-      game.runtime.latestSelection = event.timeStamp;
+      context.runtime.latestSelection = event.timeStamp;
 
-      game.selectTile(game.getTile(event), event);
+      context.selectTile(context.getTile(event), event);
 
     },
-    game.runtime.eventListeners);
+    this.runtime.eventListeners,
+    this
+  );
+
+
 
   // move
-  game.utils.listenTo(
-    document.getElementById(game.config.labels.BOARD_ID), (game.config.useTouch ?
-      "touchmove" : "mousemove"),
-    function(event) {
+  this.utils.listenTo(
+    document.getElementById(this.config.labels.BOARD_ID), (this.config.useTouch ? "touchmove" : "mousemove"),
+    function(event, context) {
 
-      if (!!game.runtime.selectedTile) {
-        game.dragTile(event);
+
+      if (!!context.runtime.selectedTile) {
+        context.dragTile(event);
       } else if (event.type !== "mousemove") {
 
         // ignore doubleclicks  
-        if (event.timeStamp - game.runtime.latestSelection < 300) {
+        if (event.timeStamp - context.runtime.latestSelection < 300) {
           return false;
         }
-        game.runtime.latestSelection = event.timeStamp;
+        context.runtime.latestSelection = event.timeStamp;
 
-        game.selectTile(game.getTile(event), event);
+        context.selectTile(context.getTile(event), event);
       }
 
 
     },
-    game.runtime.eventListeners);
+    this.runtime.eventListeners,
+    this
+  );
+
+
 
   //  end/up
-  game.utils.listenTo(
-    document.getElementById(game.config.labels.WRAPPER_ID), (game.config.useTouch ?
-      "touchend" : "mouseup"),
-    function() {
+  this.utils.listenTo(
+    document.getElementById(this.config.labels.WRAPPER_ID), (this.config.useTouch ? "touchend" : "mouseup"),
+    function(event, context) {
 
-      if (typeof game.runtime.selectedTile === "undefined" || game.runtime.selectedTile ===
-        null) {
+      if (typeof context.runtime.selectedTile === "undefined" || context.runtime.selectedTile === null) {
         return false;
       }
 
-      /*
-            if (typeof game.runtime.selectedTile.newPosition != "undefined")
-            {
-              
-              if (( event.timeStamp - game.runtime.selectedTile.timeStamp) < 150)
-              {
-                game.moveTile(
-                  game.getTile(event),
-                  {
-                    transitions:  true,
-                    force:      false,
-                    refresh:    true
-                  }               
-                );
-              }
-        
-            }*/
+      if ((event.timeStamp - context.runtime.selectedTile.timeStamp) > context.config.maxTimeForClickMove) {
 
-      game.deselectTile();
+        if (
+          context.runtime.selectedTile.newPosition.top.newValue.pixels === null &&
+          context.runtime.selectedTile.newPosition.left.newValue.pixels === null
+        ) {
+          context.runtime.selectedTile.newPosition = undefined;
+        }
+      };
+
+      context.deselectTile();
 
     },
-    game.runtime.eventListeners);
+    this.runtime.eventListeners,
+    this);
 
   // mouseout
-  game.utils.listenTo(
-    document.getElementById(game.config.labels.GAME_ID),
+  this.utils.listenTo(
+    document.getElementById(this.config.labels.GAME_ID),
     "mouseout",
-    function(e) {
-      e = e ? e : window.event;
-      var from = e.relatedTarget || e.toElement;
+    function(event, context) {
+      event = event ? event : window.event;
+      var from = event.relatedTarget || event.toElement;
       if (!from || from.nodeName === "HTML") {
-        game.deselectTile();
+        context.deselectTile();
       }
     },
-    game.runtime.eventListeners);
+    this.runtime.eventListeners,
+    this);
 
 
   // END TOUCH/MOUSE EVENTS
 
-  if (game.config.useKeyboard) {
-    game.utils.listenTo(
+  if (this.config.useKeyboard) {
+    this.utils.listenTo(
       document.body,
       "keyup",
-      function(e) {
+      function(event, context) {
 
-        switch (e.which) {
-          case game.config.keycodes.KEY_ARROW_LEFT:
-            game.moveAnyTile({
-              direction: game.config.labels.LEFT,
-              pushing: e.ctrlKey
+        switch (event.which) {
+          case context.config.keycodes.KEY_ARROW_LEFT:
+            context.moveAnyTile({
+              direction: context.config.labels.LEFT,
+              pushing: event.ctrlKey
             });
             break;
 
-          case game.config.keycodes.KEY_ARROW_UP:
-            game.moveAnyTile({
-              direction: game.config.labels.UP,
-              pushing: e.ctrlKey
+          case context.config.keycodes.KEY_ARROW_UP:
+            context.moveAnyTile({
+              direction: context.config.labels.UP,
+              pushing: event.ctrlKey
             });
             break;
 
-          case game.config.keycodes.KEY_ARROW_RIGHT:
-            game.moveAnyTile({
-              direction: game.config.labels.RIGHT,
-              pushing: e.ctrlKey
+          case context.config.keycodes.KEY_ARROW_RIGHT:
+            context.moveAnyTile({
+              direction: context.config.labels.RIGHT,
+              pushing: event.ctrlKey
             });
             break;
 
-          case game.config.keycodes.KEY_ARROW_DOWN:
-            game.moveAnyTile({
-              direction: game.config.labels.DOWN,
-              pushing: e.ctrlKey
+          case context.config.keycodes.KEY_ARROW_DOWN:
+            context.moveAnyTile({
+              direction: context.config.labels.DOWN,
+              pushing: event.ctrlKey
             });
             break;
 
         }
 
       },
-      game.runtime.eventListeners);
+      this.runtime.eventListeners,
+      this);
   }
 
   // resize
-  game.utils.listenTo(window, "resize", function() {
+  this.utils.listenTo(window,
+    "resize",
+    function(event, context) {
 
-      if (game.runtime.resizeTimer !== -1) {
-        clearTimeout(game.runtime.resizeTimer);
+      if (context.runtime.resizeTimer !== -1) {
+        clearTimeout(context.runtime.resizeTimer);
       }
 
-      game.runtime.resizeTimer = window.setTimeout(function() {
-        game.deselectTile();
-        game.metricsUpdate();
-        game.refresh();
-      }, 100);
+      context.runtime.resizeTimer = window.setTimeout(function(context) {
+
+        if (typeof context !== "undefined") {
+          context.deselectTile();
+          context.metricsUpdate();
+          context.refresh();
+        }
+
+      }, 500, context);
 
     },
-    game.runtime.eventListeners);
+    this.runtime.eventListeners,
+    this);
 
 
 };

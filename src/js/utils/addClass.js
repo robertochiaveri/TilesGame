@@ -1,7 +1,7 @@
 game.utils.addClass = function(element, cls) {
   "use strict";
-  if (!game.utils.hasClass(element, cls)) {
-    element.className = element.className + " " + game.utils.trim(cls);
+  if ((" " + element.className + " ").indexOf(" " + cls + " ") > -1) {
+    element.className = element.className + " " + cls;
   }
-  return (element.className);
+  return element.className.replace(/  +/g, " ");
 };
