@@ -115,7 +115,8 @@ module.exports = function(grunt) {
         // You can override this by defining a "files" array below.
         "files": {
           "src": [
-            "<%= globalConfig.srcDir %>/scss/**/*.scss"
+            "<%= globalConfig.srcDir %>/scss/**/*.scss",
+            "<%= globalConfig.srcDir %>/js/**/*.js"
           ]
         },
 

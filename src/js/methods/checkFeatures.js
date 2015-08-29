@@ -5,7 +5,7 @@ game.checkFeatures = function() {
     if the device supports it listen for touch 
     events instead of mouse events      
    */
-  this.config.useTouch = this.utils.useTouch();
+  this.config.useTouch = Modernizr.touch;
 
 
   /*
@@ -13,21 +13,21 @@ game.checkFeatures = function() {
     (which should be hardware accellerated) 
     instead of 2D transforms
    */
-  this.config.use3Dtransforms = this.utils.use3D();
+  this.config.use3Dtransforms = Modernizr.csstransforms3d;
 
 
   /*
     if the devive supports it, use HTML5 
     localStorage to save games
    */
-  this.config.useLstorage = this.utils.useLocalStorage();
+  this.config.useLstorage = Modernizr.localstorage;
 
 
   /*
     if the devive supports it, use CSS3 
     animations
    */
-  this.config.useCssAnimations = this.utils.useCSS3Animations();
+  this.config.useCssAnimations = Modernizr.cssanimations;
 
 
   /*
