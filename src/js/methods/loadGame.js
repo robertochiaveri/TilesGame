@@ -27,7 +27,7 @@ game.loadGame = function(type) {
 
       if (loadedGame.size !== this.config.size.n) {
         console.log("cannot load game: different sizes:",
-          loadedGame.tiles.length, this.config.size.n);
+          loadedGame.size, this.config.size.n);
         return false;
       }
 

@@ -8,24 +8,30 @@ game.createBoard = function() {
     row = 0, //   - - vertical position of each tile, starting from 0
     col = 0; //   - - horizontal position of each tile, starting from 0
 
+  if (document.getElementById(this.config.labels.BOARD_ID) === null) {
+    // create the board html element, assigns it its id attribute and adds it to the game di
+    boardHTML = document.createElement("div");
+    boardHTML.setAttribute("id", this.config.labels.BOARD_ID);
 
-  // update game config with the total number of tiles
-  this.config.size.n = this.config.size.h * this.config.size.v;
+    document.getElementById(this.config.labels.GAME_ID).appendChild(boardHTML); // the board is now in the DOM  
 
-  // save the index of the last tile as the "hole" during the game
-  this.config.labels.HOLE_INDEX = this.config.size.n - 1;
+  } else {
 
-  // create the board html element, assigns it its id attribute and adds it to the game di
-  boardHTML = document.createElement("div");
-  boardHTML.setAttribute("id", this.config.labels.BOARD_ID);
+    document.getElementById(this.config.labels.BOARD_ID).innerHTML = "";
 
-  document.getElementById(this.config.labels.GAME_ID).appendChild(boardHTML); // the board is now in the DOM  
+  };
+
 
   /**
    * TODO: handle re-creation of the board with different sizes
    */
 
 
+  // update game config with the total number of tiles
+  this.config.size.n = this.config.size.h * this.config.size.v;
+
+  // save the index of the last tile as the "hole" during the game
+  this.config.labels.HOLE_INDEX = this.config.size.n - 1;
 
 
   // populates the board with the tiles
