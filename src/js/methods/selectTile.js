@@ -148,7 +148,7 @@ game.selectTile = function(tile, event) {
         game.config.labels.SELECTED_LABEL);
     }
 
-    if (game.config.pushMultiple) {
+    if (tile.canPush !== false && game.config.pushMultiple) {
 
       tile.canPush.tiles = [];
 
