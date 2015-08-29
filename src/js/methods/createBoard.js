@@ -18,13 +18,14 @@ game.createBoard = function() {
   // create the board html element, assigns it its id attribute and adds it to the game di
   boardHTML = document.createElement("div");
   boardHTML.setAttribute("id", this.config.labels.BOARD_ID);
-  if (this.config.useTouch) {
-    this.utils.addClass(document.documentElement, this.config.labels.USETOUCH_LABEL);
-  } else {
-    this.utils.addClass(document.documentElement, this.config.labels.NO_TOUCH_LABEL);
-  }
-  document.getElementById(this.config.labels.GAME_ID).appendChild(
-    boardHTML); // the board is now in the DOM  
+
+  document.getElementById(this.config.labels.GAME_ID).appendChild(boardHTML); // the board is now in the DOM  
+
+  /**
+   * TODO: handle re-creation of the board with different sizes
+   */
+
+
 
 
   // populates the board with the tiles
@@ -47,12 +48,15 @@ game.createBoard = function() {
 
     tile.htmlElement.setAttribute("id", this.config.labels.TILE_PREFIX + i);
     tile.htmlElement.setAttribute("tabindex", i);
-    tile.htmlElement.setAttribute("class", " tile" + ((tile.evenRow) ?
-      " even-row" : " odd-row") + ((tile.evenCol) ? " even-col" :
-      " odd-col") + ((tile.even) ? " even" : " odd") + ((i === this.config
-      .labels.HOLE_INDEX) ? " hole" : "") + " col-" + col + " row-" + row);
-    tile.htmlElement.innerHTML = '<div class="inner"><div class="number">' +
-      (i + 1) + '</div></div>';
+    tile.htmlElement.setAttribute("class", " tile" +
+      ((tile.evenRow) ? " even-row" : " odd-row") +
+      ((tile.evenCol) ? " even-col" : " odd-col") +
+      ((tile.even) ? " even" : " odd") +
+      ((i === this.config.labels.HOLE_INDEX) ? " hole" : "") +
+      " col-" + col +
+      " row-" + row
+    );
+    tile.htmlElement.innerHTML = '<div class="inner"><div class="number">' + (i + 1) + '</div></div>';
 
     this.runtime.tiles[this.config.labels.TILE_PREFIX + i] = tile;
 

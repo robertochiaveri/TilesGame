@@ -8,21 +8,21 @@ game.newGame = function() {
 
     this.stop();
 
-    setTimeout(function() {
+    setTimeout(function(context) {
 
-      this.loadGame(this.config.labels.SORTEDSAVE_LABEL);
+      context.loadGame(context.config.labels.SORTEDSAVE_LABEL);
 
-      this.refresh({
+      context.refresh({
         transitions: false
       });
 
-      this.saveGame(this.config.labels.SORTEDSAVE_LABEL);
+      context.saveGame(context.config.labels.SORTEDSAVE_LABEL);
 
 
-    }, animationDuration * 0.34);
+    }, animationDuration * 0.34, this);
 
-    this.animate({
-      element: document.getElementById(this.config.labels.GAME_ID),
+    context.animate({
+      element: document.getElementById(context.config.labels.GAME_ID),
       animation: "resetboard",
       duration: animationDuration,
       easing: "ease-in-out"
@@ -45,11 +45,11 @@ game.newGame = function() {
 
   }
 
-  setTimeout(function() {
+  setTimeout(function(context) {
 
-    this.shuffle(this.config.size.n * this.config.size.n);
-    this.saveGame(this.config.labels.SHUFFLEDSAVE_LABEL);
-    this.start();
+    context.shuffle(context.config.size.n * context.config.size.n);
+    context.saveGame(context.config.labels.SHUFFLEDSAVE_LABEL);
+    context.start();
 
-  }, animationDuration * 0.85);
+  }, animationDuration * 0.85, this);
 };

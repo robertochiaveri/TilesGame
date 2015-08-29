@@ -1,6 +1,10 @@
 game.checkFeatures = function() {
   "use strict";
 
+
+  this.config.browserOK = game.utils.checkBrowser();
+
+
   /*
     if the device supports it listen for touch 
     events instead of mouse events      

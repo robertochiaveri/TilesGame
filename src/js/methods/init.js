@@ -17,6 +17,11 @@ game.init = function() {
 
   this.checkFeatures();
 
+  if (!this.config.browserOK) {
+    console.log("Browser non supportato");
+    return false;
+  }
+
   this.createBoard(); //   - - creates the board, the tiles objects and the html       
   this.metricsUpdate();
   this.initListeners(); //   - - create event listeners enabling user interaction

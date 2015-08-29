@@ -60,7 +60,7 @@ game.initListeners = function() {
         return false;
       }
 
-      if ((event.timeStamp - context.runtime.selectedTile.timeStamp) > context.config.maxTimeForClickMove) {
+      if (context.config.useTouch && ((event.timeStamp - context.runtime.selectedTile.timeStamp) > context.config.maxTimeForClickMove)) {
 
         if (
           context.runtime.selectedTile.newPosition.top.newValue.pixels === null &&
