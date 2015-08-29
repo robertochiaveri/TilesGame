@@ -1,7 +1,3 @@
-game = game || {};
-game.config = game.config || {};
-
-
 /*
   a collection of easing functions
  */

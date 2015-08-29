@@ -1,5 +1,3 @@
-game = game || {};
-
 game.refresh = function(params) {
 
   var tileID,

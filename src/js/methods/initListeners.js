@@ -1,5 +1,3 @@
-game = game || {};
-
 game.initListeners = function() {
 
   // BEGIN TOUCH/CLICK EVENTS
@@ -19,7 +17,7 @@ game.initListeners = function() {
       game.selectTile(game.getTile(event), event);
 
     },
-    game.runtime.eventListenerseventLisen);
+    game.runtime.eventListeners);
 
   // move
   game.utils.listenTo(
@@ -149,4 +147,6 @@ game.initListeners = function() {
 
     },
     game.runtime.eventListeners);
+
+
 };

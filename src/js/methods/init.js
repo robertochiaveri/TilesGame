@@ -1,5 +1,3 @@
-game = game || {};
-
 game.init = function() {
   "use strict";
 
@@ -29,7 +27,7 @@ game.init = function() {
     game.newGame(); //   - - repeatedly changes random tiles 
   } else {
     game.animate({
-      element: document.getElementById("game"),
+      element: document.getElementById(game.config.labels.GAME_ID),
       animation: "load",
       duration: 1000
     });

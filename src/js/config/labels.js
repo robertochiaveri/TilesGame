@@ -1,7 +1,3 @@
-game = game || {};
-game.config = game.config || {};
-
-
 /*
   abstraction for IDs, CLASSES and so on
  */
@@ -13,7 +9,7 @@ game.config.labels = {
   WRAPPER_ID: "gameWrapper",
 
   /* html id of the game container */
-  GAME_ID: "game", //   - - 
+  GAME_ID: "game",
 
   /* id of the board*/
   BOARD_ID: "board",

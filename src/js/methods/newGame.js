@@ -1,5 +1,3 @@
-game = game || {};
-
 game.newGame = function() {
 
   var animationDuration = 2000;
@@ -24,7 +22,7 @@ game.newGame = function() {
     }, animationDuration * .34);
 
     game.animate({
-      element: document.getElementById("game"),
+      element: document.getElementById(game.config.labels.GAME_ID),
       animation: "resetboard",
       duration: animationDuration,
       easing: "ease-in-out"
@@ -40,7 +38,7 @@ game.newGame = function() {
     game.saveGame(game.config.labels.SORTEDSAVE_LABEL);
 
     game.animate({
-      element: document.getElementById("game"),
+      element: document.getElementById(game.config.labels.GAME_ID),
       animation: "intro",
       duration: animationDuration
     });

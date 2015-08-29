@@ -1,5 +1,3 @@
-game = game || {};
-
 game.selectTile = function(tile, event) {
 
   if (!game.runtime.running) {

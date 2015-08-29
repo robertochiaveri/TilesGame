@@ -1,6 +1,3 @@
-game = game || {};
-game.utils = game.utils || {};
-
 game.utils.createCSSClass = function(selector, style) {
   if (!document.styleSheets) {
     return;

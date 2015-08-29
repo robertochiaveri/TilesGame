@@ -1,5 +1,3 @@
-game = game || {};
-
 game.moveTile = function(tile, params) {
 
   tile = game.isTile(tile);

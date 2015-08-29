@@ -1,7 +1,3 @@
-game = game || {};
-game.config = game.config || {};
-
-
 /* keycodes abstractions */
 game.config.keycodes = {
   KEY_ARROW_LEFT: 37,

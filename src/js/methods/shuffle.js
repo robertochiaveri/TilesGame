@@ -1,5 +1,3 @@
-game = game || {};
-
 game.shuffle = function(n, refresh) {
 
   console.log("shuffle");

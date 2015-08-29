@@ -1,6 +1,3 @@
-game = game || {};
-game.utils = game.utils || {};
-
 game.utils.trim = function(str) {
   var str = str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, ''),
     ws = /\s/,

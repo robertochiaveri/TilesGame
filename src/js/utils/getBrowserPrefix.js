@@ -1,6 +1,3 @@
-game = game || {};
-game.utils = game.utils || {};
-
 game.utils.getBrowserPrefix = function() {
   var styles = window.getComputedStyle(document.documentElement, ''),
     pre = (Array.prototype.slice

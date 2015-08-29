@@ -1,5 +1,3 @@
-game = game || {};
-
 game.deselectTile = function() {
 
   var tile = game.isTile(game.runtime.selectedTile);

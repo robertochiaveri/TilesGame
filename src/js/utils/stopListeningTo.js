@@ -1,6 +1,3 @@
-game = game || {};
-game.utils = game.utils || {};
-
 game.utils.stopListeningTo = function(element, eventType, listenersList) {
   "use strict";
 

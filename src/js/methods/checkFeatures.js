@@ -1,9 +1,8 @@
-game = game || {};
-
 game.checkFeatures = function() {
   "use strict";
 
-  game.config = game.config || {};
+
+
 
   /*
     if the device supports it listen for touch 

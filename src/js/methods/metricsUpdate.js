@@ -1,5 +1,3 @@
-game = game || {};
-
 game.metricsUpdate = function() {
 
   game.metrics = game.metrics || {};

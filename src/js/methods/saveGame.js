@@ -1,5 +1,3 @@
-game = game || {};
-
 game.saveGame = function(type) {
 
   if (!game.config.useLstorage) {

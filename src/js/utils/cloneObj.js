@@ -1,6 +1,3 @@
-game = game || {};
-game.utils = game.utils || {};
-
 game.utils.cloneObj = function(obj) {
   if (null == obj || "object" != typeof obj) return obj;
   var copy = obj.constructor();

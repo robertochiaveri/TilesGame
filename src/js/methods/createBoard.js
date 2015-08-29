@@ -1,5 +1,3 @@
-game = game || {};
-
 game.createBoard = function() {
   //    - creates the board, the tiles objects and the html 
 

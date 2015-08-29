@@ -1,6 +1,3 @@
-game = game || {};
-game.utils = game.utils || {};
-
 game.utils.useCSS3Animations = function() {
   var div = document.createElement('div'),
     divStyle = div.style,

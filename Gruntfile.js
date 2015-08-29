@@ -252,6 +252,9 @@ module.exports = function(grunt) {
 
       js: {
         src: [
+
+          "<%= globalConfig.srcDir %>/js/app.js",
+
           "<%= globalConfig.destDir %>/js/modernizr-custom.js",
 
           "<%= globalConfig.srcDir %>/js/plugins/*.js",
@@ -262,10 +265,8 @@ module.exports = function(grunt) {
 
           "<%= globalConfig.srcDir %>/js/config/*.js",
 
-          "<%= globalConfig.srcDir %>/js/methods/*.js",
+          "<%= globalConfig.srcDir %>/js/methods/*.js"
 
-          "<%= globalConfig.srcDir %>/js/app.js"
-          
         ],
         dest: "<%= globalConfig.destDir %>/js/concat.js"
       }
@@ -466,7 +467,7 @@ module.exports = function(grunt) {
     "stripJsonComments",
     "concat:js",
     "uglify:js",
-    "clean:js"
+   // "clean:js"
   ]);
 
   grunt.registerTask("stylesheets", [

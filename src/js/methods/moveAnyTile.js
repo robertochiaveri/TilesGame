@@ -1,5 +1,3 @@
-game = game || {};
-
 game.moveAnyTile = function(params) {
 
 

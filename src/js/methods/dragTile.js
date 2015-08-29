@@ -1,5 +1,3 @@
-game = game || {};
-
 game.dragTile = function(event) {
 
   if (!game.runtime.running) {

@@ -1,5 +1,3 @@
-game = game || {};
-
 game.start = function() {
   game.runtime.started = new Date(); //   - - saves the time of game start
   game.runtime.ended = false;

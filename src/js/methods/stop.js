@@ -1,5 +1,3 @@
-game = game || {};
-
 game.stop = function() {
   //    - reverse start()
   game.runtime.ended = new Date(); //   - - saves the time of game end

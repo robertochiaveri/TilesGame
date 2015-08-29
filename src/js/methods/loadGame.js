@@ -1,5 +1,3 @@
-game = game || {};
-
 game.loadGame = function(type) {
   if (!game.config.useLstorage) {
     return false;

@@ -1,5 +1,3 @@
-game = game || {};
-
 game.isTile = function(tile) {
   if (tile == null || tile == undefined) {
     return false;

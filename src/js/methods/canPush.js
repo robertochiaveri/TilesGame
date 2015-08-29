@@ -1,5 +1,3 @@
-game = game || {};
-
 game.canPush = function(tile) {
 
   var tile = game.isTile(tile),

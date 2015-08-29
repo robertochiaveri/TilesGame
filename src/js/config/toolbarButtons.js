@@ -1,7 +1,3 @@
-game = game || {};
-game.config = game.config || {};
-
-
 /* keycodes abstractions */
 game.config.toolbarButtons = [{
   id: "new",
@@ -26,7 +22,7 @@ game.config.toolbarButtons = [{
       game.loadGame(game.config.labels.USERSAVE_LABEL);
     };
     game.animate({
-      element: document.getElementById("game"),
+      element: document.getElementById(game.config.labels.GAME_ID),
       animation: "load",
       duration: 1000
     });

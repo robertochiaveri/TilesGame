@@ -1,5 +1,3 @@
-game = game || {};
-
 game.getMovableTiles = function(params) {
   var direction = params.direction,
     pushing = params.pushing,

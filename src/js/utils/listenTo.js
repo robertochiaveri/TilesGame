@@ -1,10 +1,12 @@
-game = game || {};
-game.utils = game.utils || {};
-
 game.utils.listenTo = function(element, eventType, fn, listenersList) {
   "use strict";
 
   listenersList = listenersList || {};
+
+  if (!element) {
+    console.log("can't find this element: " + element);
+    return false;
+  }
 
   var id = element.id;
 

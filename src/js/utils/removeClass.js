@@ -1,6 +1,3 @@
-game = game || {};
-game.utils = game.utils || {};
-
 game.utils.removeClass = function(element, cls) {
   var regexp = new RegExp('\\b' + cls + '\\b', 'g');
   element.className = " " + element.className + " ";

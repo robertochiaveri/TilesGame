@@ -1,11 +1,11 @@
-game = game || {};
-
 game.animate = function(params) {
   "use strict";
 
-  if (typeof params === "undefined" ||
-    typeof params.element === "undefined" ||
+  if (
+    typeof params === "undefined" ||
+    !params.element ||
     typeof params.animation !== "string") {
+    console.log("wrong parameters in animate call", params);
     return false;
   }
   if (typeof params.duration !== "number") {
