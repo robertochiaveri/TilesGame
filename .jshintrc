@@ -41,10 +41,10 @@
   "newcap": true,
 
   // Enforce use of single quotation marks for strings.
-  // "quotmark": "single",
+  "quotmark": "double",
 
   // Enforce placing 'use strict' at the top function scope
-  // "strict": true,
+  "strict": true,
 
   // Prohibit use of explicitly undeclared variables.
   "undef": true,
