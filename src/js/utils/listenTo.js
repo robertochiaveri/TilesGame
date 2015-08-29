@@ -43,7 +43,7 @@ game.utils.listenTo = function(element, eventType, fn, listenersList, context) {
   } else if (element.addEventListener) {
 
     if (eventType.indexOf("touch") === 0) {
-      element.addEventListener(eventType, function(event, context) {
+      element.addEventListener(eventType, function(event) {
         event.preventDefault();
         if (event.touches.length === 0) //touchend
         {
