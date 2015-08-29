@@ -1,5 +1,3 @@
-
-
 module.exports = function(grunt) {
   "use strict";
 
@@ -91,7 +89,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: "<%= globalConfig.srcDir %>/",
-          src: ["**/*.html"],
+          src: ["**/*.html","!fonts/**"],
           dest: "<%= globalConfig.destDir %>/",
           ext: ".html",
           extDot: "first"
@@ -348,14 +346,16 @@ module.exports = function(grunt) {
           Normalizes indentation in JS and HTML files
           =====================================================
       */
-      files: [
-        "<%= globalConfig.srcDir %>/js/**/*.js",
-        "<%= globalConfig.srcDir %>/**/*.json",
-        "<%= globalConfig.srcDir %>/**/*.html"
-      ],
-      options: {
-
-        config: ".jsbeautifyrc"
+      build: {
+        src: [
+          "<%= globalConfig.srcDir %>/js/**/*.js",
+          "<%= globalConfig.srcDir %>/**/*.json",
+          "<%= globalConfig.srcDir %>/**/*.html",
+          "!<%= globalConfig.srcDir %>/fonts/**"
+        ],
+        options: {
+          config: ".jsbeautifyrc"
+        }
       }
     },
 
@@ -364,7 +364,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: "<%= globalConfig.srcDir %>/",
-          src: ["**/*.json"],
+          src: ["**/*.json","!fonts/**"],
           dest: "<%= globalConfig.destDir %>/"
         }]
       }
@@ -467,7 +467,7 @@ module.exports = function(grunt) {
     "stripJsonComments",
     "concat:js",
     "uglify:js",
-   // "clean:js"
+    "clean:js"
   ]);
 
   grunt.registerTask("stylesheets", [
