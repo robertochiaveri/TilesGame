@@ -1,4 +1,4 @@
-#gameWrapper {
+#game-wrapper {
   height: 100%;
 }
 
@@ -67,7 +67,7 @@
       .inner {
         background-color: $color-tiles-default-pressed;
         transform: scale(0.95);
-        transition-duration: 100ms;
+        transition-duration: 10ms;
         transition-timing-function: ease-in;
       }
       .number {

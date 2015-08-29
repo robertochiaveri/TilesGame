@@ -6,7 +6,7 @@ game.config.labels = {
   /* 
     id of the main wrapper of the page 
   */
-  WRAPPER_ID: "gameWrapper",
+  WRAPPER_ID: "game-wrapper",
 
   /* html id of the game container */
   GAME_ID: "game",
