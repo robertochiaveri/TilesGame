@@ -19,7 +19,8 @@ game.utils.listenTo = function(element, eventType, fn, listenersList) {
     } else if (element === window) {
       id = "window";
     } else {
-      console.log("better not add a listener to elements witout id: ", element);
+      console.log("better not add a listener to elements witout id: ",
+        element);
       return false;
     }
   };
@@ -29,7 +30,8 @@ game.utils.listenTo = function(element, eventType, fn, listenersList) {
   };
 
   if (typeof listenersList[id][eventType] !== "undefined") {
-    console.log("cannot add another listener for " + eventType + " to ", element);
+    console.log("cannot add another listener for " + eventType + " to ",
+      element);
     return false;
   };
 

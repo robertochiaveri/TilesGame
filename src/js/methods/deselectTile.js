@@ -1,4 +1,5 @@
 game.deselectTile = function() {
+  "use strict";
 
   var tile = game.isTile(game.runtime.selectedTile);
   if (!tile) {
@@ -9,14 +10,13 @@ game.deselectTile = function() {
   game.utils.removeClass(tile.htmlElement, game.config.labels.PRESSED_LABEL);
 
 
-  if (typeof tile.newPosition == "undefined") {
+  if (typeof tile.newPosition === "undefined") {
     return false;
   };
 
-  if (typeof tile.newPosition.left.newValue.pixels != "undefined") {
+  if (typeof tile.newPosition.left.newValue.pixels !== "undefined") {
 
-    if (game.config.pushMultiple && typeof tile.canPush.tiles !=
-      "undefined") {
+    if (game.config.pushMultiple && typeof tile.canPush.tiles !== "undefined") {
 
       for (var i = tile.canPush.tiles.length; i > 0; i--) {
         if (tile.canPush.tiles[0].revert !== true) {

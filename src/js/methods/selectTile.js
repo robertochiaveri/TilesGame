@@ -1,5 +1,5 @@
 game.selectTile = function(tile, event) {
-
+  "use strict";
   if (!game.runtime.running) {
     return false;
   }
@@ -10,15 +10,12 @@ game.selectTile = function(tile, event) {
     return false;
   };
 
-  var direction = (game.config.pushMultiple && tile.canPush) ? tile
-    .canPush
-    .direction : tile.canMove;
+  var direction = (game.config.pushMultiple && tile.canPush) ? tile.canPush.direction : tile.canMove;
 
   game.runtime.selectedTile = tile;
 
   if (game.canMove(tile) || game.config.pushMultiple) {
-    game.runtime.selectedTile.timeStamp = (typeof event !=
-        "undefined") ?
+    game.runtime.selectedTile.timeStamp = (typeof event !== "undefined") ?
       event.timeStamp : new Date();
 
     game.runtime.selectedTile.oldPosition = {
@@ -33,7 +30,7 @@ game.selectTile = function(tile, event) {
       }
 
     };
-    game.runtime.selectedTile.offset = (typeof event != "undefined") ? {
+    game.runtime.selectedTile.offset = (typeof event !== "undefined") ? {
       top: ((event.pageY - game.metrics.top - game.metrics.borderSize
         .pixels) % game.metrics.tileHeight),
       left: ((event.pageX - game.metrics.left - game.metrics.borderSize

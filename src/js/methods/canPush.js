@@ -1,10 +1,9 @@
 game.canPush = function(tile) {
+  "use strict";
+  tile = game.isTile(tile) || false;
 
-  var tile = game.isTile(tile),
-    hole = game.runtime.tiles[game.config.labels.TILE_PREFIX + game
-      .config
-      .labels.HOLE_INDEX],
-    holePosition = hole.col + "-" + hole.row,
+  var hole = game.runtime.tiles[game.config.labels.TILE_PREFIX + game.config.labels
+      .HOLE_INDEX],
     tilesToPush = 0;
 
   if (!tile) {
@@ -12,14 +11,14 @@ game.canPush = function(tile) {
   };
 
   if (game.config.pushMultiple) {
-    if (tile.col == hole.col || tile.row == hole.row) {
-      tilesToPush = (tile.col - hole.col == 0) ? hole.row - tile.row :
+    if (tile.col === hole.col || tile.row === hole.row) {
+      tilesToPush = (tile.col - hole.col === 0) ? hole.row - tile.row :
         hole.col - tile.col;
-      if (tilesToPush == 0) {
+      if (tilesToPush === 0) {
         return false;
       }
 
-      if (tile.col == hole.col) // up or down
+      if (tile.col === hole.col) // up or down
       {
         if (tilesToPush > 0) // down
         {

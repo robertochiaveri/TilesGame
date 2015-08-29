@@ -1,14 +1,13 @@
 game.metricsUpdate = function() {
+  "use strict";
 
   game.metrics = game.metrics || {};
 
-  var wrapperHTML = document.getElementById(game.config.labels.WRAPPER_ID), // main wrapper html element
-    gameHTML = document.getElementById(game.config.labels.GAME_ID), // game div html element
-    boardHTML = document.getElementById(game.config.labels.BOARD_ID), // game div html element
-    wrapperWidth = wrapperHTML.offsetWidth;
-  wrapperHeight = wrapperHTML.offsetHeight;
-  windowWidth = window.innerWidth;
-  windowHeight = window.innerHeight;
+  var wrapperHTML = document.getElementById(game.config.labels.WRAPPER_ID); // main wrapper html element
+  var gameHTML = document.getElementById(game.config.labels.GAME_ID); // game div html element
+  var wrapperWidth = wrapperHTML.offsetWidth;
+  var wrapperHeight = wrapperHTML.offsetHeight;
+
 
 
   // save values in metrics obj
@@ -134,13 +133,8 @@ game.metricsUpdate = function() {
   wrapperHTML.style.visibility = "hidden";
 
   // write the css for game html element
-  var prefix = "";
-  var CSSstyleDeclaration = "" + "padding:" + Math.round(game.metrics
-      .borderSize
-      .pixels) + "px;" + "width:" + game.metrics.width + "px; " +
-    "height:" + game.metrics.height + "px; " + "left:" + game.metrics
-    .left +
-    "px; " + "top:" + game.metrics.top + "px; ";
+
+  var CSSstyleDeclaration = "" + "padding:" + Math.round(game.metrics.borderSize.pixels) + "px;" + "width:" + game.metrics.width + "px; " + "height:" + game.metrics.height + "px; " + "left:" + game.metrics.left + "px; " + "top:" + game.metrics.top + "px; ";
 
   gameHTML.style.cssText = CSSstyleDeclaration;
 

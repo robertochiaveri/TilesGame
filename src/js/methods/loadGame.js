@@ -1,17 +1,18 @@
 game.loadGame = function(type) {
+  "use strict";
   if (!game.config.useLstorage) {
     return false;
   }
-  if (typeof type == "undefined") {
+  if (typeof type === "undefined") {
     type = game.config.labels.AUTOSAVE_LABEL;
   }
 
-  var loadedGames = JSON.parse(localStorage.getItem(game.config.labels
-      .SAVEDGAMES_LABEL)),
-    loadedGame = null;
+  var loadedGames = JSON.parse(localStorage.getItem(game.config.labels.SAVEDGAMES_LABEL));
+  var loadedGame = null;
+  var tileID;
 
-  if (loadedGames != null) {
-    if (typeof loadedGames[type] != "undefined" && loadedGames[type] !=
+  if (loadedGames !== null) {
+    if (typeof loadedGames[type] !== "undefined" && loadedGames[type] !==
       null) {
       loadedGame = loadedGames[type];
 
@@ -25,10 +26,9 @@ game.loadGame = function(type) {
           loadedGame.startedDate.match(/\d+\.{0,1}\d+/g)));
       }
 
-      if (loadedGame.size != game.config.size.n) {
+      if (loadedGame.size !== game.config.size.n) {
         console.log("cannot load game: different sizes:",
-          loadedGame.tiles
-          .length, game.config.size.n)
+          loadedGame.tiles.length, game.config.size.n);
         return false;
       }
 
@@ -45,14 +45,14 @@ game.loadGame = function(type) {
       game.runtime.started = loadedGame.startedDate;
       game.runtime.movesCount = parseInt(loadedGame.movesCount);
       game.refresh({
-        transitions: (type == "user")
+        transitions: (type === "user")
       });
 
       console.log("game loaded");
       return true;
     }
 
-    console.log("cannot find saved game '" + type + "'")
+    console.log("cannot find saved game '" + type + "'");
     return false;
 
   }

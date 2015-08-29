@@ -1,4 +1,5 @@
 game.dragTile = function(event) {
+  "use strict";
 
   if (!game.runtime.running) {
     game.deselectTile();
@@ -7,29 +8,29 @@ game.dragTile = function(event) {
 
   var tile = game.isTile(game.runtime.selectedTile),
     direction,
-    newposX,
+    newPosX,
     newPosY,
-    offset,
     otherTile,
     otherTileNewPos,
-    CSSstyleDeclaration = null;
+    CSSstyleDeclaration = null,
+    p;
 
   if (!tile ||
     (!!!tile.canMove && !tile.canPush.n) ||
-    (typeof tile.offset == "undefined") ||
-    (typeof tile.newPosition == "undefined")
+    (typeof tile.offset === "undefined") ||
+    (typeof tile.newPosition === "undefined")
   ) {
     game.deselectTile();
     return false;
   };
 
-  newPosX = event.pageX - game.metrics.borderSize.pixels - game.metrics
-    .left - tile.offset.left;
-  newPosY = event.pageY - game.metrics.borderSize.pixels - game.metrics
-    .top - tile.offset.top;
+  newPosX = event.pageX - game.metrics.borderSize.pixels - game.metrics.left -
+    tile.offset.left;
+  newPosY = event.pageY - game.metrics.borderSize.pixels - game.metrics.top -
+    tile.offset.top;
 
-  direction = (game.config.pushMultiple && tile.canPush) ? tile.canPush
-    .direction : tile.canMove;
+  direction = (game.config.pushMultiple && tile.canPush) ? tile.canPush.direction :
+    tile.canMove;
 
   if (newPosY < tile.newPosition.top.min.pixels) {
     newPosY = tile.newPosition.top.min.pixels;
@@ -46,17 +47,15 @@ game.dragTile = function(event) {
 
 
 
-  if (event.pageX - game.metrics.left - game.metrics.borderSize.pixels +
-    game.metrics.tileWidth * (game.config.touchTolerance) < newPosX ||
-    event.pageX - game.metrics.left - game.metrics.borderSize.pixels -
-    game.metrics.tileWidth * (1 + game.config.touchTolerance) >
-    newPosX ||
-    event.pageY - game.metrics.top - game.metrics.borderSize.pixels +
-    game.metrics.tileHeight * (game.config.touchTolerance) <
-    newPosY ||
-    event.pageY - game.metrics.top - game.metrics.borderSize.pixels -
-    game.metrics.tileHeight * (1 + game.config.touchTolerance) >
-    newPosY
+  if (
+    event.pageX - game.metrics.left - game.metrics.borderSize.pixels + game.metrics
+    .tileWidth * (game.config.touchTolerance) < newPosX ||
+    event.pageX - game.metrics.left - game.metrics.borderSize.pixels - game.metrics
+    .tileWidth * (1 + game.config.touchTolerance) > newPosX ||
+    event.pageY - game.metrics.top - game.metrics.borderSize.pixels + game.metrics
+    .tileHeight * (game.config.touchTolerance) < newPosY ||
+    event.pageY - game.metrics.top - game.metrics.borderSize.pixels - game.metrics
+    .tileHeight * (1 + game.config.touchTolerance) > newPosY
   ) {
 
     game.deselectTile();
@@ -84,7 +83,7 @@ game.dragTile = function(event) {
 
       // write the css for tile html element
 
-      for (var p = 0; p < game.config.CSSprefixes.length; p++) {
+      for (p = 0; p < game.config.CSSprefixes.length; p++) {
         prefix = game.config.CSSprefixes[p];
         CSSstyleDeclaration += prefix + "transform:translate" +
           game.metrics
@@ -109,7 +108,7 @@ game.dragTile = function(event) {
         .tileHeight;
 
       // write the css for tile html element
-      for (var p = 0; p < game.config.CSSprefixes.length; p++) {
+      for (p = 0; p < game.config.CSSprefixes.length; p++) {
         prefix = game.config.CSSprefixes[p];
         CSSstyleDeclaration += prefix + "transform:translate" +
           game.metrics
@@ -125,24 +124,25 @@ game.dragTile = function(event) {
 
   }
 
-  if (!game.config.pushMultiple || typeof tile.canPush.tiles ==
-    "undefined") {
+  if (!game.config.pushMultiple || typeof tile.canPush.tiles === "undefined") {
     return;
   }
 
 
   for (var i = 0; i < tile.canPush.tiles.length; i++) {
+
     otherTile = tile.canPush.tiles[i];
-    var prefix = "";
+    prefix = "";
 
     switch (direction) {
       case game.config.labels.UP:
 
-        otherTileNewPos = (tile.newPosition.top.newValue.pixels - (
-          game
-          .metrics.tileHeight * (i + 1)));
-        if (otherTileNewPos < tile.canPush.tiles[i].max || tile.canPush
-          .tiles[i].max == null) {
+        otherTileNewPos = (tile.newPosition.top.newValue.pixels - (game.metrics
+          .tileHeight * (i + 1)));
+
+        if (
+          otherTileNewPos < tile.canPush.tiles[i].max ||
+          tile.canPush.tiles[i].max == null) {
           tile.canPush.tiles[i].max = otherTileNewPos;
         } else {
           return false;
@@ -150,10 +150,9 @@ game.dragTile = function(event) {
 
         // write the css for tile html element
 
-        for (var p = 0; p < game.config.CSSprefixes.length; p++) {
+        for (p = 0; p < game.config.CSSprefixes.length; p++) {
           prefix = game.config.CSSprefixes[p];
-          CSSstyleDeclaration += prefix + "transform:translate" +
-            game.metrics
+          CSSstyleDeclaration += prefix + "transform:translate" + game.metrics
             .transforms3Dsupport[0] + "(" + tile.oldPosition.left.percent +
             "%," + otherTileNewPos + "px" + game.metrics.transforms3Dsupport[
               1] + "); " + prefix + "transition:none; ";
@@ -174,7 +173,7 @@ game.dragTile = function(event) {
         }
 
         // write the css for tile html element
-        for (var p = 0; p < game.config.CSSprefixes.length; p++) {
+        for (p = 0; p < game.config.CSSprefixes.length; p++) {
           prefix = game.config.CSSprefixes[p];
           CSSstyleDeclaration += prefix + "transform:translate" +
             game.metrics
@@ -197,7 +196,7 @@ game.dragTile = function(event) {
         }
 
         // write the css for tile html element
-        for (var p = 0; p < game.config.CSSprefixes.length; p++) {
+        for (p = 0; p < game.config.CSSprefixes.length; p++) {
           prefix = game.config.CSSprefixes[p];
           CSSstyleDeclaration += prefix + "transform:translate" +
             game.metrics
@@ -222,7 +221,7 @@ game.dragTile = function(event) {
         }
 
         // write the css for tile html element
-        for (var p = 0; p < game.config.CSSprefixes.length; p++) {
+        for (p = 0; p < game.config.CSSprefixes.length; p++) {
           prefix = game.config.CSSprefixes[p];
           CSSstyleDeclaration += prefix + "transform:translate" +
             game.metrics

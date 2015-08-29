@@ -1,28 +1,27 @@
 game.saveGame = function(type) {
-
+  "use strict";
   if (!game.config.useLstorage) {
     return false;
   }
-  if (game.runtime.ended != false) {
+  if (game.runtime.ended !== false) {
     return false;
   }
-  if (typeof type == "undefined") {
+  if (typeof type === "undefined") {
     type = "automatic";
   }
 
-  var savedGames = {},
-    savedGame = {
-      saveDate: new Date().toUTCString(),
-      type: type,
-      size: game.config.size.n,
-      tiles: {},
-      movesCount: game.runtime.movesCount
-    };
+  var savedGames = {};
+  var savedGame = {
+    saveDate: new Date().toUTCString(),
+    type: type,
+    size: game.config.size.n,
+    tiles: {},
+    movesCount: game.runtime.movesCount
+  };
+  var tileID;
 
-  if (JSON.parse(localStorage.getItem(game.config.labels.SAVEDGAMES_LABEL)) !=
-    null) {
-    savedGames = JSON.parse(localStorage.getItem(game.config.labels
-      .SAVEDGAMES_LABEL));
+  if (JSON.parse(localStorage.getItem(game.config.labels.SAVEDGAMES_LABEL)) != null) {
+    savedGames = JSON.parse(localStorage.getItem(game.config.labels.SAVEDGAMES_LABEL));
   }
 
   if (game.runtime.started) {

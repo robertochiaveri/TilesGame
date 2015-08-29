@@ -17,7 +17,8 @@ game.utils.stopListeningTo = function(element, eventType, listenersList) {
     } else if (element === window) {
       id = "window";
     } else {
-      console.log("better not add a listener to elements witout id: ", element);
+      console.log("better not add a listener to elements witout id: ",
+        element);
       return false;
     }
   };

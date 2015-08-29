@@ -1,15 +1,22 @@
 game.shuffle = function(n, refresh) {
+  "use strict";
 
   console.log("shuffle");
 
-  if (typeof n == "undefined") {
+  if (typeof n === "undefined") {
     n = 10 * game.config.size.n;
   }
-  if (typeof refresh == "undefined") {
+  if (typeof refresh === "undefined") {
     refresh = true;
   }
 
-  var directions = ["up", "right", "down", "left"];
+  var directions = [
+    game.config.labels.UP,
+    game.config.labels.RIGHT,
+    game.config.labels.DOWN,
+    game.config.labels.LEFT
+  ];
+
   var movableTiles = [];
 
   var d;
@@ -40,5 +47,5 @@ game.shuffle = function(n, refresh) {
       transitionDuration: 100
     });
   }
-  t1 = new Date();
+
 };

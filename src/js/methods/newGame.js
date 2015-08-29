@@ -1,4 +1,5 @@
 game.newGame = function() {
+  "use strict";
 
   var animationDuration = 2000;
 
@@ -6,7 +7,6 @@ game.newGame = function() {
     console.log("user reset");
 
     game.stop();
-
 
     setTimeout(function() {
 
@@ -19,7 +19,7 @@ game.newGame = function() {
       game.saveGame(game.config.labels.SORTEDSAVE_LABEL);
 
 
-    }, animationDuration * .34);
+    }, animationDuration * 0.34);
 
     game.animate({
       element: document.getElementById(game.config.labels.GAME_ID),
@@ -51,5 +51,5 @@ game.newGame = function() {
     game.saveGame(game.config.labels.SHUFFLEDSAVE_LABEL);
     game.start();
 
-  }, animationDuration * .85);
+  }, animationDuration * 0.85);
 };

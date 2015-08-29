@@ -1,11 +1,12 @@
 game.refresh = function(params) {
+  "use strict";
 
   var tileID,
     tile,
     CSSstyleDeclaration = "",
     win = true;
 
-  if (typeof params == "undefined") {
+  if (typeof params === "undefined") {
     params = {
       transitions: true,
       saveGame: false
@@ -16,7 +17,7 @@ game.refresh = function(params) {
     params.transitionDuration = 0;
   } else // transitions = true
   {
-    if (typeof params.transitionDuration != "number") {
+    if (typeof params.transitionDuration !== "number") {
       params.transitionDuration = game.config.transitionDuration.generic;
     }
   };
@@ -72,7 +73,7 @@ game.refresh = function(params) {
     delete tile.max;
 
     // check if the user has won
-    if (tile.correctCol != tile.col || tile.correctRow != tile.row) {
+    if (tile.correctCol !== tile.col || tile.correctRow !== tile.row) {
       win = false;
     }
 
@@ -80,7 +81,7 @@ game.refresh = function(params) {
 
   if (game.runtime.running && win /* && game.runtime.movesCount > 0 */ ) {
     setTimeout(function() {
-      alert("Hai vinto!")
+      window.alert("Hai vinto!");
     }, 500);
     game.stop();
   }

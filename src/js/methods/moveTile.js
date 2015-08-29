@@ -1,14 +1,13 @@
 game.moveTile = function(tile, params) {
+  "use strict";
 
   tile = game.isTile(tile);
   if (!tile) {
     return false;
   };
 
-  var hole = game.runtime.tiles[game.config.labels.TILE_PREFIX +
-      game.config
-      .labels.HOLE_INDEX],
-    temp = {};
+  var hole = game.runtime.tiles[game.config.labels.TILE_PREFIX + game.config.labels.HOLE_INDEX];
+  var temp = {};
 
   if (!game.canMove(tile)) {
     return false;

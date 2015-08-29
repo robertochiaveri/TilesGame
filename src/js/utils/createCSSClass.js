@@ -1,39 +1,43 @@
 game.utils.createCSSClass = function(selector, style) {
+  "use strict";
   if (!document.styleSheets) {
-    return;
+    return false;
   }
 
-  if (document.getElementsByTagName("head").length == 0) {
-    return;
+  if (document.getElementsByTagName("head").length === 0) {
+    return false;
   }
 
-  var stylesheet;
+  var styleSheet;
   var mediaType;
+  var media;
+  var i;
+
   if (document.styleSheets.length > 0) {
     for (i = 0; i < document.styleSheets.length; i++) {
       if (document.styleSheets[i].disabled) {
         continue;
       }
-      var media = document.styleSheets[i].media;
+      media = document.styleSheets[i].media;
       mediaType = typeof media;
 
-      if (mediaType == "string") {
-        if (media == "" || (media.indexOf("screen") != -1)) {
+      if (mediaType === "string") {
+        if (media === "" || (media.indexOf("screen") !== -1)) {
           styleSheet = document.styleSheets[i];
         }
-      } else if (mediaType == "object") {
-        if (media.mediaText == "" || (media.mediaText.indexOf("screen") != -1)) {
+      } else if (mediaType === "object") {
+        if (media.mediaText === "" || (media.mediaText.indexOf("screen") !== -1)) {
           styleSheet = document.styleSheets[i];
         }
       }
 
-      if (typeof styleSheet != "undefined") {
+      if (typeof styleSheet !== "undefined") {
         break;
       }
     }
   }
 
-  if (typeof styleSheet == "undefined") {
+  if (typeof styleSheet === "undefined") {
     var styleSheetElement = document.createElement("style");
     styleSheetElement.type = "text/css";
 
@@ -46,22 +50,22 @@ game.utils.createCSSClass = function(selector, style) {
       styleSheet = document.styleSheets[i];
     }
 
-    var media = styleSheet.media;
+    media = styleSheet.media;
     mediaType = typeof media;
   }
 
-  if (mediaType == "string") {
+  if (mediaType === "string") {
     for (i = 0; i < styleSheet.rules.length; i++) {
-      if (styleSheet.rules[i].selectorText.toLowerCase() == selector.toLowerCase()) {
+      if (styleSheet.rules[i].selectorText.toLowerCase() === selector.toLowerCase()) {
         styleSheet.rules[i].style.cssText = style;
         return;
       }
     }
 
     styleSheet.addRule(selector, style);
-  } else if (mediaType == "object") {
+  } else if (mediaType === "object") {
     for (i = 0; i < styleSheet.cssRules.length; i++) {
-      if (styleSheet.cssRules[i].selectorText.toLowerCase() == selector.toLowerCase()) {
+      if (styleSheet.cssRules[i].selectorText.toLowerCase() === selector.toLowerCase()) {
         styleSheet.cssRules[i].style.cssText = style;
         return;
       }

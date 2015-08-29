@@ -1,6 +1,7 @@
 game.utils.removeClass = function(element, cls) {
-  var regexp = new RegExp('\\b' + cls + '\\b', 'g');
+  "use strict";
+  var regexp = new RegExp("\\b" + cls + "\\b", "g");
   element.className = " " + element.className + " ";
-  element.className = game.utils.trim(element.className.replace(regexp, ''));
+  element.className = game.utils.trim(element.className.replace(regexp, ""));
   return (element.className);
 };

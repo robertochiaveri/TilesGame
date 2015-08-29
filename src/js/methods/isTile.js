@@ -1,5 +1,7 @@
 game.isTile = function(tile) {
-  if (tile == null || tile == undefined) {
+  "use strict";
+
+  if (tile === null || tile === undefined) {
     return false;
   }
 
@@ -12,17 +14,17 @@ game.isTile = function(tile) {
 
     case "string":
       tile = game.runtime.tiles[tile];
-      if (typeof tile == "undefined") {
+      if (typeof tile === "undefined") {
         return false;
-      }
+      };
       if (tile.id.indexOf(game.config.labels.TILE_PREFIX) < 0) {
         return false;
-      }
-      break
+      };
+      break;
 
     default:
       return false;
-      break
+      break;
   }
   return tile;
 };

@@ -1,4 +1,4 @@
 game.utils.useTouch = function() {
-  return !!('ontouchstart' in window) // works on most browsers 
-    || !!('onmsgesturechange' in window); // works on ie10
+  "use strict";
+  return !!("ontouchstart" in window) || !!("onmsgesturechange" in window); // works on ie10
 };

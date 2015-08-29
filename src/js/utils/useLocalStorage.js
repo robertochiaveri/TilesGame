@@ -1,4 +1,4 @@
 game.utils.useLocalStorage = function() {
-  return (typeof(Storage) !== "undefined" && typeof localStorage !==
-    "undefined");
+  "use strict";
+  return (typeof(Storage) !== "undefined" && typeof localStorage !== "undefined");
 };

@@ -1,6 +1,5 @@
 game.config = {
 
-
   /*
     size of the board, in tiles 
     (h for columns, v for rows)
@@ -23,18 +22,15 @@ game.config = {
    */
   borderSize: 4,
 
-
   /*
     when true tiles near the hole can be pushed by dragged tiles    
    */
   pushMultiple: true,
 
-
   /*
     percent of tile size to add during touch drag before dropping
    */
   touchTolerance: 0.2,
-
 
   /*
     transitonDurations

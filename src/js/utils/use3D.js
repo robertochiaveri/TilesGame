@@ -1,3 +1,4 @@
 game.utils.use3D = function() {
-  return ('WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix());
+  "use strict";
+  return ("WebKitCSSMatrix" in window && "m11" in new WebKitCSSMatrix());
 }

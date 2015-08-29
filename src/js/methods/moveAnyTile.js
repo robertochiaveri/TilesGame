@@ -1,7 +1,7 @@
 game.moveAnyTile = function(params) {
+  "use strict";
 
-
-  var tiles = (params.pushing == true) ? game.getMovableTiles({
+  var tiles = (params.pushing === true) ? game.getMovableTiles({
       pushing: false,
       moving: true,
       direction: params.direction

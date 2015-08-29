@@ -1,11 +1,13 @@
 game.initListeners = function() {
+  "use strict";
 
   // BEGIN TOUCH/CLICK EVENTS
 
   // start/down
   // board
   game.utils.listenTo(
-    document.getElementById(game.config.labels.BOARD_ID), (game.config.useTouch ? "touchstart" : "mousedown"),
+    document.getElementById(game.config.labels.BOARD_ID), (game.config.useTouch ?
+      "touchstart" : "mousedown"),
     function(event) {
 
       // ignore doubleclicks  
@@ -21,12 +23,13 @@ game.initListeners = function() {
 
   // move
   game.utils.listenTo(
-    document.getElementById(game.config.labels.BOARD_ID), (game.config.useTouch ? "touchmove" : "mousemove"),
+    document.getElementById(game.config.labels.BOARD_ID), (game.config.useTouch ?
+      "touchmove" : "mousemove"),
     function(event) {
 
       if (!!game.runtime.selectedTile) {
         game.dragTile(event);
-      } else if (event.type != "mousemove") {
+      } else if (event.type !== "mousemove") {
 
         // ignore doubleclicks  
         if (event.timeStamp - game.runtime.latestSelection < 300) {
@@ -43,13 +46,12 @@ game.initListeners = function() {
 
   //  end/up
   game.utils.listenTo(
-    document.getElementById(
-      game.config.labels.WRAPPER_ID), (game.config.useTouch ? "touchend" : "mouseup"),
-    function(event) {
+    document.getElementById(game.config.labels.WRAPPER_ID), (game.config.useTouch ?
+      "touchend" : "mouseup"),
+    function() {
 
-      if (typeof game.runtime.selectedTile == "undefined" || game
-        .runtime
-        .selectedTile === null) {
+      if (typeof game.runtime.selectedTile === "undefined" || game.runtime.selectedTile ===
+        null) {
         return false;
       }
 
@@ -83,7 +85,7 @@ game.initListeners = function() {
     function(e) {
       e = e ? e : window.event;
       var from = e.relatedTarget || e.toElement;
-      if (!from || from.nodeName == "HTML") {
+      if (!from || from.nodeName === "HTML") {
         game.deselectTile();
       }
     },
@@ -103,28 +105,28 @@ game.initListeners = function() {
             game.moveAnyTile({
               direction: game.config.labels.LEFT,
               pushing: e.ctrlKey
-            })
+            });
             break;
 
           case game.config.keycodes.KEY_ARROW_UP:
             game.moveAnyTile({
               direction: game.config.labels.UP,
               pushing: e.ctrlKey
-            })
+            });
             break;
 
           case game.config.keycodes.KEY_ARROW_RIGHT:
             game.moveAnyTile({
               direction: game.config.labels.RIGHT,
               pushing: e.ctrlKey
-            })
+            });
             break;
 
           case game.config.keycodes.KEY_ARROW_DOWN:
             game.moveAnyTile({
               direction: game.config.labels.DOWN,
               pushing: e.ctrlKey
-            })
+            });
             break;
 
         }
@@ -134,10 +136,11 @@ game.initListeners = function() {
   }
 
   // resize
-  game.utils.listenTo(window, "resize", function(e) {
+  game.utils.listenTo(window, "resize", function() {
 
-      if (game.runtime.resizeTimer != -1)
+      if (game.runtime.resizeTimer !== -1) {
         clearTimeout(game.runtime.resizeTimer);
+      }
 
       game.runtime.resizeTimer = window.setTimeout(function() {
         game.deselectTile();
