@@ -52,6 +52,9 @@
   // Warn when variables are defined but never used.
   "unused": true,
 
+  // Suppress error "Unnecessary semicolon"
+  "-W032":true,
+
   /*
    * RELAXING OPTIONS
    * =================
