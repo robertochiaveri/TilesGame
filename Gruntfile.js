@@ -253,9 +253,19 @@ module.exports = function(grunt) {
       js: {
         src: [
           "<%= globalConfig.destDir %>/js/modernizr-custom.js",
+
+          "<%= globalConfig.srcDir %>/js/plugins/*.js",
+
+          "<%= globalConfig.srcDir %>/js/utils/*.js",
+
           "<%= globalConfig.srcDir %>/js/config.js",
-          "<%= globalConfig.srcDir %>/js/plugins.js",
-          "<%= globalConfig.srcDir %>/js/scripts.js",
+
+          "<%= globalConfig.srcDir %>/js/config/*.js",
+
+          "<%= globalConfig.srcDir %>/js/methods/*.js",
+
+          "<%= globalConfig.srcDir %>/js/app.js"
+          
         ],
         dest: "<%= globalConfig.destDir %>/js/concat.js"
       }
