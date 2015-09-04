@@ -7,7 +7,7 @@ game.metricsUpdate = function() {
   var gameHTML = document.getElementById(this.config.labels.GAME_ID); // game div html element
   var wrapperWidth = wrapperHTML.offsetWidth;
   var wrapperHeight = wrapperHTML.offsetHeight;
-
+  var cssPrefix = "#" + this.config.labels.GAME_ID + " ";
 
 
   // save values in metrics obj
@@ -97,20 +97,20 @@ game.metricsUpdate = function() {
 
   gameHTML.style.cssText = CSSstyleDeclaration;
 
+  // font size (used both for numbers, spacing and borders)
+
+  document.getElementById(this.config.labels.GAME_ID).style.fontSize = "" + document.getElementById(this.config.labels.BOARD_ID).offsetHeight / this.config.size.v / 2 + "px";
+
+
   // css for tiles
-  this.utils.createCSSClass(".tile",
+  this.utils.createCSSClass(cssPrefix + ".tile",
     "width: " + (100 / this.config.size.h) + "%; " +
     "height: " + (100 / this.config.size.v) + "%; "
   );
 
   // tiles visible div
-  this.utils.createCSSClass(".tile > .inner",
+  this.utils.createCSSClass(cssPrefix + ".tile > .inner",
     "background-size: auto " + this.metrics.height + "px;"
-  );
-
-  // tile numbers
-  this.utils.createCSSClass(".tile > .inner > .number",
-    "font-size: " + document.getElementById(this.config.labels.BOARD_ID).offsetHeight / this.config.size.v / 2 / 10 + "em;"
   );
 
   // finally, reveal the updated html element

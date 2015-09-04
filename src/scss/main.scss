@@ -1,18 +1,14 @@
 @import "reset";
-@import "plugins";
 @import "vars";
 @import "colors";
 @import "animations";
 @import "game";
 
 html, body {
-  overflow: hidden;
-  height: 100%;
+  @extend %full-size;
 }
 
 body {
-  font-size: 62.5%;
-  // 1em = 10px
   background: $color-body-bg;
   color: $color-body-text;
   user-select: none;
