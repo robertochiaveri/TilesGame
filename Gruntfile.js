@@ -5,7 +5,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-htmlmin");
   grunt.loadNpmTasks("grunt-modernizr");
   grunt.loadNpmTasks("grunt-contrib-sass");
-  grunt.loadNpmTasks("grunt-prettysass");
   grunt.loadNpmTasks("grunt-postcss");
   grunt.loadNpmTasks("csswring");
   grunt.loadNpmTasks("grunt-scss-lint");
@@ -165,20 +164,6 @@ module.exports = function(grunt) {
         // Have custom Modernizr tests? Add paths to their location here.
         "customTests": []
       }
-    },
-
-    "prettysass": {
-      /* 
-          =====================================================
-          Normalizes indentation in SASS files
-          =====================================================
-      */
-      options: {
-        alphabetize: false
-      },
-      app: {
-        src: ["<%= globalConfig.srcDir %>/scss/**/*.scss"]
-      },
     },
 
     "scsslint": {
@@ -472,7 +457,6 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask("stylesheets", [
-    "prettysass",
     "sass",
     "scsslint",
     "concat:css",
