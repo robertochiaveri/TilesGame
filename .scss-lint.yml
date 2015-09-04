@@ -66,7 +66,7 @@ linters:
 
   HexNotation:
     enabled: true
-    style: uppercase # or 'uppercase'
+    style: uppercase # or 'lowercase'
 
   HexValidation:
     enabled: true
@@ -115,7 +115,7 @@ linters:
     max_properties: 10
 
   PropertySortOrder:
-    enabled: true
+    enabled: false
     ignore_unspecified: false
     min_properties: 2
     separate_groups: false
@@ -141,7 +141,7 @@ linters:
     enabled: true
     allow_element_with_attribute: false
     allow_element_with_class: false
-    allow_element_with_id: false
+    allow_element_with_id: true
 
   SelectorDepth:
     enabled: true
@@ -189,7 +189,7 @@ linters:
     spaces: 0
 
   StringQuotes:
-    enabled: false
+    enabled: true
     style: double_quotes # or single_quotes
 
   TrailingSemicolon:
