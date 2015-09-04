@@ -22,7 +22,6 @@
     "grunt-jsbeautifier": "^0.2.10",
     "grunt-modernizr": "^0.6.0",
     "grunt-postcss": "^0.5.5",
-    "grunt-prettysass": "^0.2.3",
     "grunt-scss-lint": "^0.3.8",
     "grunt-strip-json-comments": "^1.0.1",
     "grunt-text-replace": "^0.4.0",
