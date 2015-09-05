@@ -31,7 +31,9 @@ game.refresh = function(params) {
     // write the css for tile html element
     var prefix = "";
     for (var p = 0; p < this.config.CSSprefixes.length; p++) {
+
       prefix = this.config.CSSprefixes[p];
+
       CSSstyleDeclaration += prefix + "transform:translate" + this.metrics
         .transforms3Dsupport[0] + "(" + (tile.col * 100) + "%," + (
           tile
@@ -48,7 +50,6 @@ game.refresh = function(params) {
       CSSstyleDeclaration += prefix + "transition-timing-function:" +
         this.config.easings.EASING_TILES_MOVEMENT + ";";
 
-
     }
 
 
@@ -56,21 +57,18 @@ game.refresh = function(params) {
       tile.htmlElement.style.cssText = CSSstyleDeclaration;
     }
 
-    tile.htmlElement.childNodes[0].style.backgroundPosition = "-" +
-      (
-        tile.correctCol * this.metrics.tileWidth) + "px -" + (tile.correctRow *
-        this.metrics.tileHeight) + "px";
+    tile.htmlElement.childNodes[0].style.backgroundPosition = "-" + (tile.correctCol * this.metrics.tileWidth) + "px -" + (tile.correctRow * this.metrics.tileHeight) + "px";
 
     tile.canMove = this.canMove(tileID);
     tile.canPush = this.canPush(tileID);
 
     // clean up data created when dragging or moving a tile
-    delete tile.offset;
-    delete tile.newPosition;
-    delete tile.oldPosition;
-    delete tile.timeStamp;
-    delete tile.revert;
-    delete tile.max;
+    tile.offse = undefined;
+    tile.newPosition = undefined;
+    tile.oldPosition = undefined;
+    tile.timeStamp = undefined;
+    tile.revert = undefined;
+    tile.max = undefined;
 
     // check if the user has won
     if (tile.correctCol !== tile.col || tile.correctRow !== tile.row) {

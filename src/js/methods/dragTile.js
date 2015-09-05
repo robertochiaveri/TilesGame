@@ -12,7 +12,7 @@ game.dragTile = function(event) {
     newPosY,
     otherTile,
     otherTileNewPos,
-    CSSstyleDeclaration = null,
+    CSSstyleDeclaration = "",
     p;
 
   if (!tile ||
