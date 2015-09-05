@@ -102,6 +102,8 @@ game.metricsUpdate = function() {
   document.getElementById(this.config.labels.GAME_ID).style.fontSize = "" + document.getElementById(this.config.labels.BOARD_ID).offsetHeight / this.config.size.v / 2 + "px";
 
 
+  console.log("metricsUpdate");
+
   // css for tiles
   this.utils.createCSSClass(cssPrefix + ".tile",
     "width: " + (100 / this.config.size.h) + "%; " +

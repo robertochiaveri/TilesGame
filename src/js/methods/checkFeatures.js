@@ -4,6 +4,10 @@ game.checkFeatures = function() {
 
   this.config.browserOK = game.utils.checkBrowser();
 
+  if (!this.config.browserOK) {
+    console.log("Browser non supportato");
+    return false;
+  }
 
   /*
     if the device supports it listen for touch 
@@ -11,6 +15,27 @@ game.checkFeatures = function() {
    */
   this.config.useTouch = Modernizr.touch;
 
+  this.utils.addClass(document.getElementById(this.config.labels.GAME_ID),
+    this.config.useTouch ? this.config.labels.USETOUCH_LABEL : this.config.labels.NO_TOUCH_LABEL
+  );
+
+  /*
+    if the device supports it use 3D transforms 
+    (which should be hardware accellerated) 
+    instead of 2D transforms
+   */
+  this.config.useCSStransitions = Modernizr.csstransitions;
+
+  if (!this.config.useCSStransitions)  {
+
+    console.log("css transitions are disabled");
+
+    this.utils.createCSSClass(
+      "#" + this.config.labels.GAME_ID + " * ",
+      "transition: none !important;"
+    );
+
+  }
 
   /*
     if the device supports it use 3D transforms 
@@ -45,9 +70,7 @@ game.checkFeatures = function() {
     list of browser vendors prefixes to 
     support for CSS3 properties    
    */
-  this.config.CSSprefixes = ["", this.utils.getBrowserPrefix().css];
-
-
+  this.config.browserPrefixes = this.utils.getBrowserPrefix();
 
 
 };

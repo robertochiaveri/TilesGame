@@ -13,44 +13,67 @@ game.animate = function(params) {
   }
 
 
-  var CSSstyleDeclaration, prefix = "";
+  var CSSstyleDeclaration;
+  var prefix = "";
 
-  for (var p = 0; p < this.config.CSSprefixes.length; p++) {
-    prefix = this.config.CSSprefixes[p];
+  for (var p = 0; p < this.config.browserPrefixes.css.length; p++) {
+
+    prefix = this.config.browserPrefixes.css[p];
+
     CSSstyleDeclaration += prefix + "animation-fill-mode:both;";
-    CSSstyleDeclaration += prefix + "animation-duration:" + params.duration +
-      "ms;";
-    CSSstyleDeclaration += prefix + "animation-name:" + params.animation +
-      ";";
+    CSSstyleDeclaration += prefix + "animation-duration:" + params.duration + "ms;";
+    CSSstyleDeclaration += prefix + "animation-name:" + params.animation + ";";
 
     if (typeof params.iterations !== "undefined") {
-      CSSstyleDeclaration += prefix + "animation-iteration-count:" +
-        params.iteration + ";";
+      CSSstyleDeclaration += prefix + "animation-iteration-count:" + params.iteration + ";";
     }
 
     if (typeof params.delay === "number") {
-      CSSstyleDeclaration += prefix + "animation-delay:" + params.delay +
-        "ms;";
+      CSSstyleDeclaration += prefix + "animation-delay:" + params.delay + "ms;";
     }
 
     if (typeof params.easing === "string") {
-      CSSstyleDeclaration += prefix + "animation-timing-function:" +
-        params.easing + ";";
+      CSSstyleDeclaration += prefix + "animation-timing-function:" + params.easing + ";";
     }
-
-
 
     if (p < 0) {
-      this.utils.listenTo(params.element, "animationEnd", function(event) {
-        event.target.style["animation"] = "";
-      });
+      this.utils.listenTo(
+        params.element,
+        "animationend",
+        function(event, context) {
+
+          context.utils.stopListeningTo(
+            params.element,
+            "animationend",
+            context.runtime.eventListeners
+          );
+
+          event.target.style["animation-name"] = "";
+        },
+        this.runtime.eventListeners,
+        this);
     } else {
-      this.utils.listenTo(params.element, this.config.CSSprefixes[p] +
-        "AnimationEnd",
-        function(event) {
-          event.target.style[event.type.replace("End", "")] = "";
-        });
+
+      this.utils.listenTo(params.element, this.config.browserPrefixes.lowercase[p] + "AnimationEnd",
+        function(event, context) {
+
+          context.utils.stopListeningTo(
+            params.element,
+            event.type,
+            context.runtime.eventListeners
+          );
+
+          event.target.style[event.type.replace("End", "Name")] = "";
+
+          context.utils.removeClass(params.element, context.config.labels.ANIMATED_LABEL);
+
+        },
+        this.runtime.eventListeners,
+        this
+      );
+
     }
   }
+  game.utils.addClass(params.element, game.config.labels.ANIMATED_LABEL);
   params.element.style.cssText += CSSstyleDeclaration;
 };

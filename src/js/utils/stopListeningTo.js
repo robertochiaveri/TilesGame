@@ -2,7 +2,7 @@ game.utils.stopListeningTo = function(element, eventType, listenersList) {
   "use strict";
 
   if (typeof listenersList === "undefined") {
-    console.log("no registered listeners");
+    console.log("no registered listeners in ", listenersList);
     return false;
   };
 
@@ -26,8 +26,11 @@ game.utils.stopListeningTo = function(element, eventType, listenersList) {
   if (typeof listenersList[id][eventType] !== "undefined") {
     element.removeEventListener(eventType, listenersList[id][eventType]);
     listenersList[id][eventType] = undefined;
+    // console.log("removed event listener for " + eventType + " from " + id);
     return true;
   }
+
+
   return false;
 
 };

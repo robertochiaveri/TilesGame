@@ -5,12 +5,28 @@
   overflow: hidden;
 }
 
-#game-wrapper {
-  @include meyer-reset;
+body {
+  margin: 0;
 }
 
-#game-wrapper, 
-#game, 
+#game-wrapper {
+  @include meyer-reset;
+  position: relative;
+}
+
+#bg {
+  @extend %full-size;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  img {
+    filter: blur(18px) brightness(110%);
+  }
+}
+
+#game-wrapper,
+#game,
 #board {
   @extend %full-size;
 }
@@ -20,9 +36,12 @@
   z-index: 10;
   background-color: $color-board-outer;
   border-radius: $board-border-radius-outer;
+  box-shadow: 0.05em 0.05em 0.5em rgba(0,0,0,0.2);
+  transition: box-shadow 1s 1s;
 
-  &.noTransitions * {
-    transition: none !important;
+  &.animationInProgress {
+    transition: none;
+    box-shadow: none;
   }
 }
 
@@ -31,22 +50,18 @@
   box-shadow: 0 0 0 $tiles-spacing $color-board-inner;
   border-radius: $board-border-radius-inner;
   background: $color-board-inner;
-
   .tile {
     position: absolute;
     cursor: pointer;
     transform: translateZ(0);
     transform-style: preserve-3d;
     backface-visibility: hidden;
-
     &:focus {
       outline: 0;
     }
-
     &.hole {
       display: none;
     }
-
     .inner {
       @extend %full-size;
       margin: 0;
@@ -59,7 +74,6 @@
       transition-duration: 200ms;
       transition-timing-function: ease-out;
     }
-
     .number {
       @extend %full-size;
       line-height: 200%;
@@ -67,50 +81,39 @@
       font-family: sans-serif;
       color: $color-numbers-default;
     }
-
     &.selected {
       transition: none;
     }
-
     .noTouch &:hover,
     &.pressed {
-
       .inner {
         background-color: $color-tiles-default-pressed;
         transform: scale(0.95);
         transition-duration: 10ms;
         transition-timing-function: ease-in;
       }
-
       .number {
         color: $color-numbers-default-pressed;
       }
-
     }
-
     &.even-row.odd-col,
     &.odd-row.even-col {
-
       .inner {
         background-color: $color-tiles-alternate;
       }
-
       .number {
         color: $color-numbers-alternate;
       }
-
       .noTouch &:hover,
       &.pressed {
-
         .inner {
           background-color: $color-tiles-alternate-pressed;
         }
-
         .number {
           color: $color-numbers-alternate-pressed;
         }
-
       }
     }
   }
 }
+

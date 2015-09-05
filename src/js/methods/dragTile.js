@@ -79,8 +79,8 @@ game.dragTile = function(event) {
 
       // write the css for tile html element
 
-      for (p = 0; p < this.config.CSSprefixes.length; p++) {
-        prefix = this.config.CSSprefixes[p];
+      for (p = 0; p < this.config.browserPrefixes.css.length; p++) {
+        prefix = this.config.browserPrefixes.css[p];
         CSSstyleDeclaration += prefix + "transform:translate" +
           this.metrics
           .transforms3Dsupport[0] + "(" + tile.newPosition.left.newValue
@@ -104,8 +104,8 @@ game.dragTile = function(event) {
         .tileHeight;
 
       // write the css for tile html element
-      for (p = 0; p < this.config.CSSprefixes.length; p++) {
-        prefix = this.config.CSSprefixes[p];
+      for (p = 0; p < this.config.browserPrefixes.css.length; p++) {
+        prefix = this.config.browserPrefixes.css[p];
         CSSstyleDeclaration += prefix + "transform:translate" +
           this.metrics
           .transforms3Dsupport[0] + "(" + tile.oldPosition.left.percent +
@@ -146,8 +146,8 @@ game.dragTile = function(event) {
 
         // write the css for tile html element
 
-        for (p = 0; p < this.config.CSSprefixes.length; p++) {
-          prefix = this.config.CSSprefixes[p];
+        for (p = 0; p < this.config.browserPrefixes.css.length; p++) {
+          prefix = this.config.browserPrefixes.css[p];
           CSSstyleDeclaration += prefix + "transform:translate" + this.metrics
             .transforms3Dsupport[0] + "(" + tile.oldPosition.left.percent +
             "%," + otherTileNewPos + "px" + this.metrics.transforms3Dsupport[
@@ -169,8 +169,8 @@ game.dragTile = function(event) {
         }
 
         // write the css for tile html element
-        for (p = 0; p < this.config.CSSprefixes.length; p++) {
-          prefix = this.config.CSSprefixes[p];
+        for (p = 0; p < this.config.browserPrefixes.css.length; p++) {
+          prefix = this.config.browserPrefixes.css[p];
           CSSstyleDeclaration += prefix + "transform:translate" +
             this.metrics
             .transforms3Dsupport[0] + "(" + otherTileNewPos + "px," +
@@ -192,8 +192,8 @@ game.dragTile = function(event) {
         }
 
         // write the css for tile html element
-        for (p = 0; p < this.config.CSSprefixes.length; p++) {
-          prefix = this.config.CSSprefixes[p];
+        for (p = 0; p < this.config.browserPrefixes.css.length; p++) {
+          prefix = this.config.browserPrefixes.css[p];
           CSSstyleDeclaration += prefix + "transform:translate" +
             this.metrics
             .transforms3Dsupport[0] + "(" + tile.oldPosition.left.percent +
@@ -217,8 +217,8 @@ game.dragTile = function(event) {
         }
 
         // write the css for tile html element
-        for (p = 0; p < this.config.CSSprefixes.length; p++) {
-          prefix = this.config.CSSprefixes[p];
+        for (p = 0; p < this.config.browserPrefixes.css.length; p++) {
+          prefix = this.config.browserPrefixes.css[p];
           CSSstyleDeclaration += prefix + "transform:translate" +
             this.metrics
             .transforms3Dsupport[0] + "(" + otherTileNewPos + "px," +

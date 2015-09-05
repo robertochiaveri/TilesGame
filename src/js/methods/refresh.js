@@ -30,9 +30,9 @@ game.refresh = function(params) {
 
     // write the css for tile html element
     var prefix = "";
-    for (var p = 0; p < this.config.CSSprefixes.length; p++) {
+    for (var p = 0; p < this.config.browserPrefixes.css.length; p++) {
 
-      prefix = this.config.CSSprefixes[p];
+      prefix = this.config.browserPrefixes.css[p];
 
       CSSstyleDeclaration += prefix + "transform:translate" + this.metrics
         .transforms3Dsupport[0] + "(" + (tile.col * 100) + "%," + (

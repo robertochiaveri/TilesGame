@@ -21,8 +21,8 @@ game.newGame = function() {
 
     }, animationDuration * 0.34, this);
 
-    context.animate({
-      element: document.getElementById(context.config.labels.GAME_ID),
+    this.animate({
+      element: document.getElementById(this.config.labels.GAME_ID),
       animation: "resetboard",
       duration: animationDuration,
       easing: "ease-in-out"

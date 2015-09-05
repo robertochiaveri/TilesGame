@@ -17,6 +17,12 @@ game.config.labels = {
   /* id of the toolbar */
   TOOLBAR_ID: "toolbar",
 
+  /* id of the background image container */
+  BACKGROUND_CONTAINER_ID: "bg",
+
+  /* id of the background image element */
+  BACKGROUND_IMAGE_ID: "bg-img",
+
   /* prefix for all tiles ids */
   TILE_PREFIX: "tile-",
 
@@ -29,14 +35,16 @@ game.config.labels = {
   /* class added to a tile when is being pressed */
   PRESSED_LABEL: "pressed",
 
-  /* class added to the game main div to inhibit transitions */
-  NO_TRANSITIONS: "noTransitions",
+
+  /* class added to a tile when is being animated */
+  ANIMATED_LABEL: "animationInProgress",
+
 
   /* class added to the game main div when touch enabled */
-  USETOUCH_LABEL: "useTouch",
+  USETOUCH_LABEL: "touch",
 
   /* class added to the game main div when touch disabled */
-  NO_TOUCH_LABEL: "noTouch",
+  NO_TOUCH_LABEL: "no-touch",
 
 
   /* Directions Abstraction */
