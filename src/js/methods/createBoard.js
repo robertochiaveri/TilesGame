@@ -62,7 +62,7 @@ game.createBoard = function() {
       " col-" + col +
       " row-" + row
     );
-    tile.htmlElement.innerHTML = '<div class="inner"><div class="number">' + (i + 1) + '</div></div>';
+    tile.htmlElement.innerHTML = '<div class="' + this.config.labels.TILE_INNER_CLASS + '"><div class="' + this.config.labels.TILE_NUMBER_CLASS + '">' + (i + 1) + '</div></div>';
 
     this.runtime.tiles[this.config.labels.TILE_PREFIX + i] = tile;
 

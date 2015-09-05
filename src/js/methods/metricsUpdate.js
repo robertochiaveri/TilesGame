@@ -7,8 +7,7 @@ game.metricsUpdate = function() {
   var gameHTML = document.getElementById(this.config.labels.GAME_ID); // game div html element
   var wrapperWidth = wrapperHTML.offsetWidth;
   var wrapperHeight = wrapperHTML.offsetHeight;
-  var cssPrefix = "#" + this.config.labels.GAME_ID + " ";
-
+  var cssPrefix = "#" + this.config.labels.BOARD_ID;
 
   // save values in metrics obj
   this.metrics.transforms3Dsupport = (this.config.use3Dtransforms) ? ["3d", ",0"] : ["", ""]; // allows transformations 2d and 3d 
@@ -32,7 +31,7 @@ game.metricsUpdate = function() {
   this.metrics.boardLayout = (this.config.size.h >= this.config.size.v) ? this.config.labels.LANDSCAPE : this.config.labels.PORTRAIT;
   this.metrics.boardRatio = this.config.size.h / this.config.size.v;
 
-  // this is a pregmatic way to calculate a good font size for tile numbers
+  // this is a pragmatic way to calculate a good font size for tile numbers
   this.metrics.fontSize = parseInt((document.body.currentStyle || (window.getComputedStyle && getComputedStyle(document.body, null)) || document.body.style).fontSize);
 
   // initialize the margin around the game board
@@ -102,18 +101,35 @@ game.metricsUpdate = function() {
   document.getElementById(this.config.labels.GAME_ID).style.fontSize = "" + document.getElementById(this.config.labels.BOARD_ID).offsetHeight / this.config.size.v / 2 + "px";
 
 
-  console.log("metricsUpdate");
+  // css for tile
+  var tileWpc = (100 / this.config.size.h) + "%";
+  var tileHpc = (100 / this.config.size.v) + "%";
 
-  // css for tiles
-  this.utils.createCSSClass(cssPrefix + ".tile",
-    "width: " + (100 / this.config.size.h) + "%; " +
-    "height: " + (100 / this.config.size.v) + "%; "
-  );
+  // if the class rule is not present..
+  if (this.utils.editCSSRule(cssPrefix + " ." + this.config.labels.TILE_CLASS) === null) {
 
-  // tiles visible div
-  this.utils.createCSSClass(cssPrefix + ".tile > .inner",
-    "background-size: auto " + this.metrics.height + "px;"
-  );
+    // ...create it
+    this.utils.createCSSClass(cssPrefix + " ." + this.config.labels.TILE_CLASS,
+      "width: " + tileWpc + "; height: " + tileHpc + ";"
+    );
+
+  } else {
+
+    // ...or updated it
+    this.utils.editCSSRule(cssPrefix + " ." + this.config.labels.TILE_CLASS, "width", tileWpc);
+    this.utils.editCSSRule(cssPrefix + " ." + this.config.labels.TILE_CLASS, "height", tileHpc);
+
+  };
+
+  // same for inner class
+  var bgSize = "auto " + this.metrics.height + "px";
+
+  if (this.utils.editCSSRule(cssPrefix + " ." + this.config.labels.TILE_INNER_CLASS) === null) {
+    this.utils.createCSSClass(cssPrefix + "." + this.config.labels.TILE_INNER_CLASS, "background-size: " + bgSize + ";");
+  } else {
+    this.utils.editCSSRule(cssPrefix + " ." + this.config.labels.TILE_INNER_CLASS, "backgroundSize", bgSize);
+  }
+
 
   // finally, reveal the updated html element
   wrapperHTML.style.visibility = "visible";

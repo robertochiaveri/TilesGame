@@ -1,20 +1,20 @@
 // BODY
 $color-body-bg: #DDD;
-$color-body-text: #666;
+$color-body-text: #F00;
 
 // BOARD
-$color-board-outer: #EEE;
-$color-board-inner: #CCC;
+$color-board-outer: #999;
+$color-board-inner: #222;
 
 // IDLE STATE
 
 // tiles
-$color-tiles-default: #F0F0F0;
-$color-tiles-alternate: #E8E8E8;
+$color-tiles-default: #999;
+$color-tiles-alternate: #777;
 
 // numbers
-$color-numbers-default: #A0A0A0;
-$color-numbers-alternate: #989898;
+$color-numbers-default: rgba(255,255,255,1);
+$color-numbers-alternate: rgba(255,255,255,1);
 
 // PRESSED STATE
 
@@ -23,5 +23,5 @@ $color-tiles-default-pressed: #E8E8E8;
 $color-tiles-alternate-pressed: #E0E0E0;
 
 // numbers
-$color-numbers-default-pressed: #989898;
-$color-numbers-alternate-pressed: #909090;
+$color-numbers-default-pressed: rgba(200,200,200,1);
+$color-numbers-alternate-pressed: rgba(200,200,200,1);

@@ -26,6 +26,15 @@ game.config.labels = {
   /* prefix for all tiles ids */
   TILE_PREFIX: "tile-",
 
+  /* className for tile element */
+  TILE_CLASS: "tile",
+
+  /* className for tile inner wrapper */
+  TILE_INNER_CLASS: "inner",
+
+  /* className for tile number element*/
+  TILE_NUMBER_CLASS: "number",
+
   /* prefix for all toolbar buttons ids */
   TBUTTON_PREFIX: "btn-",
 

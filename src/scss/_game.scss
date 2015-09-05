@@ -19,9 +19,9 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-
   img {
-    filter: blur(18px) brightness(110%);
+    @extend %full-size;
+    filter: blur(20px) brightness(80%);
   }
 }
 
@@ -36,9 +36,8 @@ body {
   z-index: 10;
   background-color: $color-board-outer;
   border-radius: $board-border-radius-outer;
-  box-shadow: 0.05em 0.05em 0.5em rgba(0,0,0,0.2);
-  transition: box-shadow 1s 1s;
-
+  box-shadow: 0 0 0.3em rgba(0, 0, 0, 1), 0 0 0.1em rgba(0, 0, 0, 1);
+  transition: box-shadow 0.2s 1s;
   &.animationInProgress {
     transition: none;
     box-shadow: none;
@@ -50,6 +49,7 @@ body {
   box-shadow: 0 0 0 $tiles-spacing $color-board-inner;
   border-radius: $board-border-radius-inner;
   background: $color-board-inner;
+
   .tile {
     position: absolute;
     cursor: pointer;
@@ -62,58 +62,69 @@ body {
     &.hole {
       display: none;
     }
+
+ .noTouch &:hover,
+  &.pressed {
     .inner {
-      @extend %full-size;
-      margin: 0;
-      box-sizing: border-box;
-      box-shadow: 0 0 0 $tiles-spacing $color-board-inner inset;
-      background-color: $color-tiles-default;
-      background-repeat: no-repeat;
-      border-radius: $board-border-radius-inner + $tiles-spacing;
-      transition-property: color, background-color, transform;
-      transition-duration: 200ms;
-      transition-timing-function: ease-out;
+      background-color: $color-tiles-default-pressed;
+      transform: scale(0.95);
+      transition-duration: 10ms;
+      transition-timing-function: ease-in;
     }
     .number {
-      @extend %full-size;
-      line-height: 200%;
-      text-align: center;
-      font-family: sans-serif;
-      color: $color-numbers-default;
+      color: $color-numbers-default-pressed;
     }
-    &.selected {
-      transition: none;
+  }
+  &.even-row.odd-col,
+  &.odd-row.even-col {
+    .inner {
+      background-color: $color-tiles-alternate;
+    }
+    .number {
+      color: $color-numbers-alternate;
     }
     .noTouch &:hover,
     &.pressed {
       .inner {
-        background-color: $color-tiles-default-pressed;
-        transform: scale(0.95);
-        transition-duration: 10ms;
-        transition-timing-function: ease-in;
+        background-color: $color-tiles-alternate-pressed;
       }
       .number {
-        color: $color-numbers-default-pressed;
-      }
-    }
-    &.even-row.odd-col,
-    &.odd-row.even-col {
-      .inner {
-        background-color: $color-tiles-alternate;
-      }
-      .number {
-        color: $color-numbers-alternate;
-      }
-      .noTouch &:hover,
-      &.pressed {
-        .inner {
-          background-color: $color-tiles-alternate-pressed;
-        }
-        .number {
-          color: $color-numbers-alternate-pressed;
-        }
+        color: $color-numbers-alternate-pressed;
       }
     }
   }
+    
+  }
+
+
+
+
+  .inner {
+    @extend %full-size;
+    margin: 0;
+    box-sizing: border-box;
+    box-shadow: 0 0 0 $tiles-spacing $color-board-inner inset;
+    background-color: $color-tiles-default;
+    background-size: auto;
+    background-repeat: no-repeat;
+    border-radius: $board-border-radius-inner + $tiles-spacing;
+    transition-property: color, background-color, transform;
+    transition-duration: 200ms;
+    transition-timing-function: ease-out;
+    &.selected {
+      transition: none;
+    }
+  }
+
+  .number {
+    @extend %full-size;
+    line-height: 200%;
+    text-align: center;
+    font-family: sans-serif;
+    color: $color-numbers-default;
+    text-shadow: 0.01em 0.01em 0.1em rgba(0, 0, 0, 1);
+  }
+ 
+ 
 }
 
