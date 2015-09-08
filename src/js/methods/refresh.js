@@ -1,8 +1,6 @@
 game.refresh = function(params) {
   "use strict";
 
-  console.log("refresh");
-
   var tileID,
     tile,
     CSSstyleDeclaration = "",
@@ -24,6 +22,7 @@ game.refresh = function(params) {
     }
   };
 
+  console.log("refresh", params);
 
   for (var i = 0; i < this.config.size.n; i++) {
 
