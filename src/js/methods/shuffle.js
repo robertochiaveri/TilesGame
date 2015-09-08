@@ -2,6 +2,7 @@ game.shuffle = function(n, refresh) {
   "use strict";
 
   console.log("shuffle");
+  this.vibrate("shuffle");
 
   if (typeof n === "undefined") {
     n = 10 * this.config.size.n;

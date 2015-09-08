@@ -8,7 +8,8 @@ game.deselectTile = function() {
 
   this.utils.removeClass(tile.htmlElement, this.config.labels.SELECTED_LABEL);
   this.utils.removeClass(tile.htmlElement, this.config.labels.PRESSED_LABEL);
-
+  this.runtime.dragging = false;
+  this.vibrate("deselect");
 
   if (typeof tile.newPosition === "undefined") {
     return false;
@@ -16,7 +17,7 @@ game.deselectTile = function() {
 
   if (typeof tile.newPosition.left.newValue.pixels !== "undefined") {
 
-    if (this.config.pushMultiple && typeof tile.canPush.tiles !== "undefined") {
+    if (this.config.pushMultiple && typeof tile.canPush.tiles === "object") {
 
       for (var i = tile.canPush.tiles.length; i > 0; i--) {
         if (tile.canPush.tiles[0].revert !== true) {
@@ -29,13 +30,13 @@ game.deselectTile = function() {
           );
         }
         this.utils.removeClass(tile.canPush.tiles[i - 1].htmlElement, this.config.labels.SELECTED_LABEL);
-      }
-
+      };
 
       if (
         (Math.abs(tile.newPosition.left.newValue.pixels - tile.oldPosition.left.pixels) >= this.metrics.tileWidth / 3) ||
         (Math.abs(tile.newPosition.top.newValue.pixels - tile.oldPosition.top.pixels) >= this.metrics.tileHeight / 3)
       ) {
+
         this.moveTile(
           tile, {
             transitions: true,
@@ -44,7 +45,7 @@ game.deselectTile = function() {
           }
         );
 
-      }
+      };
 
       this.runtime.selectedTile = null;
 
@@ -62,6 +63,7 @@ game.deselectTile = function() {
           (Math.abs(tile.newPosition.top.newValue.pixels - tile.oldPosition.top.pixels) >= this.metrics.tileHeight / 3)
         )
       ) {
+
         this.moveTile(
           tile, {
             transitions: true,
@@ -69,6 +71,7 @@ game.deselectTile = function() {
             refresh: true
           }
         );
+
       } else {
         this.refresh();
       }
@@ -78,5 +81,4 @@ game.deselectTile = function() {
   }
 
   this.runtime.selectedTile = null;
-  this.runtime.dragging = false;
 };

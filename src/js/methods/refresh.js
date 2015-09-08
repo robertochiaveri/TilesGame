@@ -1,6 +1,8 @@
 game.refresh = function(params) {
   "use strict";
 
+  console.log("refresh");
+
   var tileID,
     tile,
     CSSstyleDeclaration = "",
@@ -34,22 +36,10 @@ game.refresh = function(params) {
 
       prefix = this.config.browserPrefixes.css[p];
 
-      CSSstyleDeclaration += prefix + "transform:translate" + this.metrics
-        .transforms3Dsupport[0] + "(" + (tile.col * 100) + "%," + (
-          tile
-          .row * 100) + "%" + this.metrics.transforms3Dsupport[1] +
-        "); ";
-
-
-      CSSstyleDeclaration += prefix + "transition-property:" +
-        prefix +
-        "transform;";
-      CSSstyleDeclaration += prefix + "transition-duration:" +
-        parseInt(
-          Math.abs(params.transitionDuration)) + "ms !important;";
-      CSSstyleDeclaration += prefix + "transition-timing-function:" +
-        this.config.easings.EASING_TILES_MOVEMENT + ";";
-
+      CSSstyleDeclaration += prefix + "transform:translate" + this.metrics.transforms3Dsupport[0] + "(" + (tile.col * 100) + "%," + (tile.row * 100) + "%" + this.metrics.transforms3Dsupport[1] + "); ";
+      CSSstyleDeclaration += prefix + "transition-property:" + prefix + "transform;";
+      CSSstyleDeclaration += prefix + "transition-duration:" + parseInt(Math.abs(params.transitionDuration)) + "ms !important;";
+      CSSstyleDeclaration += prefix + "transition-timing-function:" + this.config.easings.EASING_TILES_MOVEMENT + ";";
     }
 
 
@@ -82,6 +72,8 @@ game.refresh = function(params) {
       window.alert("Hai vinto!");
     }, 500);
     this.stop();
+
+    this.newGame();
   }
 
   if (params.saveGame === true) {

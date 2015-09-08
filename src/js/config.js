@@ -38,7 +38,7 @@ game.config = {
   transitionDuration: {
 
     /* for tile movements on clicks, drags and gestures */
-    generic: 150,
+    generic: 60,
 
     /* for tile movement initiated by keyboard events*/
     byKeyboard: 100

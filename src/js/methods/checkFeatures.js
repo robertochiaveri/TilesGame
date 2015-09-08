@@ -52,6 +52,9 @@ game.checkFeatures = function() {
   this.config.useLstorage = Modernizr.localstorage;
 
 
+  this.config.useVibration = true;
+
+
   /*
     if the devive supports it, use CSS3 
     animations

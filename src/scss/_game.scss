@@ -45,10 +45,12 @@ body {
 }
 
 #board {
+
   position: relative;
   box-shadow: 0 0 0 $tiles-spacing $color-board-inner;
   border-radius: $board-border-radius-inner;
   background: $color-board-inner;
+
 
   .tile {
     position: absolute;
@@ -63,41 +65,37 @@ body {
       display: none;
     }
 
- .noTouch &:hover,
-  &.pressed {
-    .inner {
-      background-color: $color-tiles-default-pressed;
-      transform: scale(0.95);
-      transition-duration: 10ms;
-      transition-timing-function: ease-in;
-    }
-    .number {
-      color: $color-numbers-default-pressed;
-    }
-  }
-  &.even-row.odd-col,
-  &.odd-row.even-col {
-    .inner {
-      background-color: $color-tiles-alternate;
-    }
-    .number {
-      color: $color-numbers-alternate;
-    }
     .noTouch &:hover,
     &.pressed {
       .inner {
-        background-color: $color-tiles-alternate-pressed;
+        transform: scale(0.97);
+        transition-duration: 10ms;
+        transition-timing-function: ease-in-out;
       }
       .number {
-        color: $color-numbers-alternate-pressed;
+        // color: $color-numbers-default-pressed;
       }
     }
-  }
+    &.even-row.odd-col,
+    &.odd-row.even-col {
+      .inner {
+        // background-color: $color-tiles-alternate;
+      }
+      .number {
+        // color: $color-numbers-alternate;
+      }
+      .noTouch &:hover,
+      &.pressed {
+        .inner {
+          // background-color: $color-tiles-alternate-pressed;
+        }
+        .number {
+          // color: $color-numbers-alternate-pressed;
+        }
+      }
+    }
     
-  }
-
-
-
+  } // tile
 
   .inner {
     @extend %full-size;
@@ -108,9 +106,10 @@ body {
     background-size: auto;
     background-repeat: no-repeat;
     border-radius: $board-border-radius-inner + $tiles-spacing;
-    transition-property: color, background-color, transform;
-    transition-duration: 200ms;
-    transition-timing-function: ease-out;
+    // transition-property: color, background-color, transform;
+    // transition-duration: 200ms;
+    // transition-timing-function: ease-out;
+    
     &.selected {
       transition: none;
     }
@@ -126,5 +125,5 @@ body {
   }
  
  
-}
+} // board
 

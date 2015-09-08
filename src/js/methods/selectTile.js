@@ -147,19 +147,15 @@ game.selectTile = function(tile, event) {
 
         tile.canPush.tiles[i - 1].max = null;
 
-        if (!this.runtime.dragging) {
-
-          this.utils.addClass(tile.canPush.tiles[i - 1].htmlElement, this.config
-            .labels
-            .SELECTED_LABEL);
-
-        }
-
       }
 
     }
 
-    this.runtime.dragging = true;
+    this.vibrate("select");
+
+    if (!!tile.canMove || !!tile.canPush) {
+      this.runtime.dragging = true;
+    }
 
     //console.log("selected",tile);
 
