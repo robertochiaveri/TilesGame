@@ -213,12 +213,11 @@ game.dragTile = function(event) {
     }
     otherTile.htmlElement.style.cssText = CSSstyleDeclaration;
 
+
+
     if (
-      Math.abs(tile.oldPosition.left.pixels - tile.newPosition.left
-        .newValue
-        .pixels) > this.metrics.tileWidth / 4 ||
-      Math.abs(tile.oldPosition.top.pixels - tile.newPosition.top.newValue
-        .pixels) > this.metrics.tileHeight / 4
+      (Math.abs(tile.newPosition.left.newValue.pixels - tile.oldPosition.left.pixels) >= this.metrics.tileWidth * this.config.minDistanceToMoveTile) ||
+      (Math.abs(tile.newPosition.top.newValue.pixels - tile.oldPosition.top.pixels) >= this.metrics.tileHeight * this.config.minDistanceToMoveTile)
     ) {
       otherTile.revert = false;
     } else {

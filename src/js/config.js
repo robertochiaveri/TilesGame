@@ -27,8 +27,32 @@ game.config = {
    */
   pushMultiple: true,
 
+
   /*
-    percent of tile size to add during touch drag before dropping
+    move tolerance; the percent of a tile size after which 
+    the tile snaps into the new position. If it's moved less than
+    this, the tile snaps back.
+   */
+  minDistanceToMoveTile: 0.33,
+
+
+  /* 
+    allow move by click (touching and shortly releasing a tile 
+    but not dragging it)
+  */
+
+  clickToMove: true,
+
+
+  /*
+    time in ms after which releasing a tile won't trigger a movement
+   */
+  maxTimeForClickMove: 200,
+
+
+  /*
+    touch tolerance area around the tile considered draggable 
+    during touch drag before dropping
    */
   touchTolerance: 0.2,
 
@@ -43,11 +67,6 @@ game.config = {
     /* for tile movement initiated by keyboard events*/
     byKeyboard: 100
   },
-
-  /*
-    time in ms after which releasing a tile won't trigger a movement
-   */
-  maxTimeForClickMove: 200,
 
   /*
     listen to keyboard events during game
