@@ -124,6 +124,8 @@ game.applyBgColor = function(rgb) {
 
   this.runtime.backgroundImage = this.runtime.backgroundImage || {};
   this.runtime.backgroundImage.averageRGB = rgb;
+  this.runtime.backgroundImage.averageRGB_darker = rgbDark;
+  this.runtime.backgroundImage.averageRGB_brighter = rgbBright;
 
   document.getElementById(this.config.labels.BACKGROUND_CONTAINER_ID).style.backgroundColor = rgbVal;
   document.getElementById(this.config.labels.GAME_ID).style.backgroundColor = rgbBrightVal;

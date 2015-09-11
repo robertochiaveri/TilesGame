@@ -19,7 +19,7 @@ game.metricsUpdate = function() {
   // if it doesn't exists yet, create wrapperSize obj
   if (typeof this.metrics.wrapperSize === "undefined") {
     this.metrics.wrapperSize = {};
-  }
+  };
 
   // if it doesn't exist yet, create a sub-obj for storing metric sinformation for each screen orientation    
   this.metrics.wrapperSize[this.metrics.wrapperOrientation] = {
@@ -93,6 +93,13 @@ game.metricsUpdate = function() {
   // write the css for game html element
 
   var CSSstyleDeclaration = "" + "padding:" + Math.round(this.metrics.borderSize.pixels) + "px;" + "width:" + this.metrics.width + "px; " + "height:" + this.metrics.height + "px; " + "left:" + this.metrics.left + "px; " + "top:" + this.metrics.top + "px; ";
+
+  if (typeof game.runtime.backgroundImage !== "undefined") {
+    var rgb = game.runtime.backgroundImage.averageRGB_brighter;
+    if (typeof rgb === "object") {
+      CSSstyleDeclaration += "background-color: rgb(" + rgb.r + "," + rgb.g + "," + rgb.b + ");"
+    };
+  };
 
   gameHTML.style.cssText = CSSstyleDeclaration;
 
