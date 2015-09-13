@@ -88,7 +88,7 @@ game.metricsUpdate = function() {
   // WRITING PHASE
 
   // hide to speed up redraws; also write the page height as inline style to prevent reflows
-  wrapperHTML.style.visibility = "hidden";
+  this.optimizeRedraws("on");
 
   // write the css for game html element
 
@@ -139,6 +139,6 @@ game.metricsUpdate = function() {
 
 
   // finally, reveal the updated html element
-  wrapperHTML.style.visibility = "visible";
+  this.optimizeRedraws("off");
 
 };

@@ -140,7 +140,7 @@ game.initListeners = function() {
     "resize",
     function(event, context) {
 
-      document.getElementById(context.config.labels.GAME_ID).style.visibility = "hidden";
+      context.optimizeRedraws("on");
 
       if (context.runtime.resizeTimer !== -1) {
         clearTimeout(context.runtime.resizeTimer);
@@ -152,7 +152,7 @@ game.initListeners = function() {
           context.deselectTile();
           context.metricsUpdate();
           context.refresh();
-          document.getElementById(context.config.labels.GAME_ID).style.visibility = "normal";
+          context.optimizeRedraws("off");
         }
 
       }, 500, context);
