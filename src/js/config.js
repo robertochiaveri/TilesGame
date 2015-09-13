@@ -33,7 +33,7 @@ game.config = {
     the tile snaps into the new position. If it's moved less than
     this, the tile snaps back.
    */
-  minDistanceToMoveTile: 0.33,
+  minDistanceToMoveTile: 0.25,
 
 
   /* 

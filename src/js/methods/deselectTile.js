@@ -43,26 +43,32 @@ game.deselectTile = function() {
         //  this.utils.removeClass(tile.canPush.tiles[i - 1].htmlElement, this.config.labels.SELECTED_LABEL);
       };
 
-      console.log("now, the tile has been released far enough to its original position in order to move it?")
+    }
 
-      if (
-        (Math.abs(tile.newPosition.left.newValue.pixels - tile.oldPosition.left.pixels) >= this.metrics.tileWidth * this.config.minDistanceToMoveTile) ||
-        (Math.abs(tile.newPosition.top.newValue.pixels - tile.oldPosition.top.pixels) >= this.metrics.tileHeight * this.config.minDistanceToMoveTile)
-      ) {
+    console.log("now, the tile has been released far enough to its original position in order to move it?")
 
-        console.log("yes, it's far enough. not refreshing. ")
+    if (
+      (Math.abs(tile.newPosition.left.newValue.pixels - tile.oldPosition.left.pixels) >= this.metrics.tileWidth * this.config.minDistanceToMoveTile) ||
+      (Math.abs(tile.newPosition.top.newValue.pixels - tile.oldPosition.top.pixels) >= this.metrics.tileHeight * this.config.minDistanceToMoveTile)
+    ) {
 
-        tilesMoved++;
+      console.log("yes, it's far enough. ")
 
-        this.moveTile(
-          tile, {
-            transitions: true,
-            force: false,
-            refresh: false
-          }
-        );
-      };
+      tilesMoved++;
+
+      this.moveTile(
+        tile, {
+          transitions: true,
+          force: false,
+          refresh: false
+        }
+      );
+    } else {
+      console.log("nope, snapping back ")
     };
+
+
+
   } else {
 
     console.log("tile has not been moved at all.")
