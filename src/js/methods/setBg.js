@@ -10,11 +10,14 @@ game.setBgImage = function(params) {
   var img = document.getElementById(this.config.labels.BACKGROUND_IMAGE_ID) || document.createElement("img");
   var rgb = {};
 
+  console.log("loading image " + params.imgUrl + "...");
+  img.crossOrigin = '';
   img.src = params.imgUrl;
   img.crossOrigin = "";
   img.id = this.config.labels.BACKGROUND_IMAGE_ID;
 
   this.utils.listenTo(img, "load", function(event, context) {
+      console.log("background image loading complete", img)
       context.applyBgImage(event.target);
     },
     this.runtime.eventListeners,
@@ -33,6 +36,7 @@ game.applyBgImage = function(img) {
   var i;
   var tileName;
   var tile;
+  var averageRGB;
 
   this.runtime.backgroundImage = this.runtime.backgroundImage || {};
   this.runtime.backgroundImage.src = img.src;
@@ -50,7 +54,11 @@ game.applyBgImage = function(img) {
 
   document.getElementById(this.config.labels.BACKGROUND_CONTAINER_ID).appendChild(img);
 
-  this.applyBgColor(this.utils.getAverageRGB(img));
+  averageRGB = this.utils.getAverageRGB(img);
+
+  console.log("The average color for this image is ", averageRGB);
+
+  this.applyBgColor(averageRGB);
 
   this.utils.stopListeningTo(
     img,

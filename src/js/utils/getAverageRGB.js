@@ -1,59 +1,46 @@
-game.utils.getAverageRGB = function(imgEl) {
+game.utils.getAverageRGB = function(img) {
   "use strict";
 
-  var blockSize = 5; // only visit every 5 pixels
+  var canvas = document.createElement('canvas');
+  var ctx = canvas.getContext('2d');
+  var width = canvas.width = img.naturalWidth;
+  var height = canvas.height = img.naturalHeight;
+  var imageData, data;
   var defaultRGB = {
-    r: 255,
-    g: 255,
-    b: 255
-  }; // for non-supporting envs
-  var canvas = document.createElement("canvas");
-  var context = !!canvas.getContext && canvas.getContext("2d");
-  var data;
-  var width;
-  var height;
-  var i = -4;
-  var length;
-  var rgb = {
-    r: 0,
-    g: 0,
-    b: 0
+    r: 200,
+    g: 200,
+    b: 200
   };
-  var count = 0;
 
-  if (!context) {
-    return defaultRGB;
-  }
-
-  height = canvas.height = imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height;
-  width = canvas.width = imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width;
-
-  context.drawImage(imgEl, 0, 0);
+  ctx.drawImage(img, 0, 0);
 
   try {
-    data = context.getImageData(0, 0, width, height);
+    imageData = ctx.getImageData(0, 0, width, height);
   } catch (e) {
-    /* security error, img on diff domain */
+    console.log("Problem parsing this image", e);
     return defaultRGB;
   }
 
+  data = imageData.data;
 
+  var r = 0;
+  var g = 0;
+  var b = 0;
 
-
-  length = data.data.length;
-
-  while ((i += blockSize * 4) < length) {
-    ++count;
-    rgb.r += data.data[i];
-    rgb.g += data.data[i + 1];
-    rgb.b += data.data[i + 2];
+  for (var i = 0, l = data.length; i < l; i += 4) {
+    r += data[i];
+    g += data[i + 1];
+    b += data[i + 2];
   }
 
-  // ~~ used to floor values
-  rgb.r = ~~(rgb.r / count);
-  rgb.g = ~~(rgb.g / count);
-  rgb.b = ~~(rgb.b / count);
+  r = Math.floor(r / (data.length / 4));
+  g = Math.floor(g / (data.length / 4));
+  b = Math.floor(b / (data.length / 4));
 
-  return rgb;
+  return {
+    r: r,
+    g: g,
+    b: b
+  };
 
 };

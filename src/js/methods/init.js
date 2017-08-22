@@ -34,14 +34,10 @@ game.init = function() {
   }
 
 
-  jsonpCall("http://www.panoramio.com/map/get_panoramas.php?set=public&from=0&to=20&minx=-180&miny=-90&maxx=180&maxy=90&size=original&mapfilter=true",
-    function(data) {
 
-      game.setBgImage({
-        imgUrl: data.photos[Math.round(Math.random() * 20)].photo_file_url
-      });
-
-    });
+  game.setBgImage({
+    imgUrl: "https://source.unsplash.com/random/" + this.metrics.width + "x" + this.metrics.height
+  });
 
 
 

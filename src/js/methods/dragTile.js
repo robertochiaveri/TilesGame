@@ -59,8 +59,6 @@ game.dragTile = function(event) {
     return false;
   }
 
-
-
   var prefix = "";
 
   switch (direction) {
@@ -79,7 +77,6 @@ game.dragTile = function(event) {
         prefix = this.config.browserPrefixes.css[p];
         CSSstyleDeclaration += prefix + "transform:translate" + this.metrics.transforms3Dsupport[0] + "(" + tile.newPosition.left.newValue.percent + "%," + tile.oldPosition.top.percent + "%" + this.metrics.transforms3Dsupport[1] + "); " + prefix + "transition:none; ";
       }
-      tile.htmlElement.style.cssText = CSSstyleDeclaration;
       break;
 
 
@@ -96,16 +93,15 @@ game.dragTile = function(event) {
         prefix = this.config.browserPrefixes.css[p];
         CSSstyleDeclaration += prefix + "transform:translate" + this.metrics.transforms3Dsupport[0] + "(" + tile.oldPosition.left.percent + "%," + tile.newPosition.top.newValue.percent + "%" + game.metrics.transforms3Dsupport[1] + "); " + prefix + "transition:none; ";
       }
-      tile.htmlElement.style.cssText = CSSstyleDeclaration;
-
       break;
 
   }
 
+  tile.htmlElement.style.cssText = CSSstyleDeclaration;
+
   if (!this.config.pushMultiple || typeof tile.canPush.tiles === "undefined") {
     return;
   }
-
 
   for (var i = 0; i < tile.canPush.tiles.length; i++) {
 
@@ -214,7 +210,6 @@ game.dragTile = function(event) {
     otherTile.htmlElement.style.cssText = CSSstyleDeclaration;
 
 
-
     if (
       (Math.abs(tile.newPosition.left.newValue.pixels - tile.oldPosition.left.pixels) >= this.metrics.tileWidth * this.config.minDistanceToMoveTile) ||
       (Math.abs(tile.newPosition.top.newValue.pixels - tile.oldPosition.top.pixels) >= this.metrics.tileHeight * this.config.minDistanceToMoveTile)
@@ -225,4 +220,5 @@ game.dragTile = function(event) {
     }
 
   }
+  
 };
