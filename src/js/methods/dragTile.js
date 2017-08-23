@@ -97,7 +97,12 @@ game.dragTile = function(event) {
 
   }
 
-  tile.htmlElement.style.cssText = CSSstyleDeclaration;
+  if (!!this.config.useReqAnimFrame) {
+    this.addMovingTile(tile, CSSstyleDeclaration);
+    window.requestAnimationFrame(game.renderMovingTiles);
+  } else {
+    tile.htmlElement.style.cssText = CSSstyleDeclaration;
+  }
 
   if (!this.config.pushMultiple || typeof tile.canPush.tiles === "undefined") {
     return;
@@ -207,8 +212,13 @@ game.dragTile = function(event) {
         break;
 
     }
-    otherTile.htmlElement.style.cssText = CSSstyleDeclaration;
 
+    if (!!this.config.useReqAnimFrame) {
+      this.addMovingTile(otherTile, CSSstyleDeclaration);
+      window.requestAnimationFrame(game.renderMovingTiles);
+    } else {
+      otherTile.htmlElement.style.cssText = CSSstyleDeclaration;
+    }
 
     if (
       (Math.abs(tile.newPosition.left.newValue.pixels - tile.oldPosition.left.pixels) >= this.metrics.tileWidth * this.config.minDistanceToMoveTile) ||
@@ -220,5 +230,5 @@ game.dragTile = function(event) {
     }
 
   }
-  
+
 };

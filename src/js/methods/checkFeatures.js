@@ -5,7 +5,8 @@ game.checkFeatures = function() {
   this.config.browserOK = game.utils.checkBrowser();
 
   if (!this.config.browserOK) {
-    console.log("Browser non supportato");
+    console.log("Browser not supported");
+    alert("this browser version isn't supported")
     return false;
   }
 
@@ -75,5 +76,10 @@ game.checkFeatures = function() {
    */
   this.config.browserPrefixes = this.utils.getBrowserPrefix();
 
+
+  /*
+    will use RAF when supported by the browser
+  */
+  this.config.useReqAnimFrame = !!window.requestAnimationFrame;
 
 };

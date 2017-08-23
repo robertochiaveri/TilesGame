@@ -135,9 +135,34 @@ game.initListeners = function() {
       this);
   }
 
-  // resize
+  // resize event will fire a layoutChange event
   this.utils.listenTo(window,
     "resize",
+    function(event, context) {
+
+      var event = new Event('layoutChange');
+      window.dispatchEvent(event);
+    },
+    this.runtime.eventListeners,
+    this
+  );
+
+  // resize event will fire a layoutChange event
+  this.utils.listenTo(window,
+    "orientationchange",
+    function(event, context) {
+
+      var event = new Event('layoutChange');
+      window.dispatchEvent(event);
+    },
+    this.runtime.eventListeners,
+    this
+  );
+
+
+  // layoutChange custom event: fired when resized or rotated
+  this.utils.listenTo(window,
+    "layoutChange",
     function(event, context) {
 
       context.optimizeRedraws("on");
@@ -160,6 +185,5 @@ game.initListeners = function() {
     },
     this.runtime.eventListeners,
     this);
-
 
 };

@@ -87,9 +87,6 @@ game.metricsUpdate = function() {
 
   // WRITING PHASE
 
-  // hide to speed up redraws; also write the page height as inline style to prevent reflows
-  this.optimizeRedraws("on");
-
   // write the css for game html element
 
   var CSSstyleDeclaration = "" + "padding:" + Math.round(this.metrics.borderSize.pixels) + "px;" + "width:" + this.metrics.width + "px; " + "height:" + this.metrics.height + "px; " + "left:" + this.metrics.left + "px; " + "top:" + this.metrics.top + "px; ";
@@ -136,9 +133,5 @@ game.metricsUpdate = function() {
   } else {
     this.utils.editCSSRule(cssPrefix + " ." + this.config.labels.TILE_INNER_CLASS, "backgroundSize", bgSize);
   }
-
-
-  // finally, reveal the updated html element
-  this.optimizeRedraws("off");
 
 };

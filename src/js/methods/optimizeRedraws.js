@@ -12,18 +12,18 @@ game.optimizeRedraws = function(state) {
 
   if (state == "on") {
 
-
+    console.log("hiding elements during layout change...")
     for (i = 0; i < elements.length; i++) {
       document.getElementById(elements[i]).style.visibility = "hidden";
     }
 
   } else {
 
+    console.log("...showing back again elements after layout change")
     for (i = 0; i < elements.length; i++) {
       document.getElementById(elements[i]).style.visibility = "visible";
 
     }
-
 
   };
 

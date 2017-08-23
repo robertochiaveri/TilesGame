@@ -23,6 +23,7 @@ game.refresh = function(params) {
   };
 
   console.log("refresh", params);
+  game.runtime.movingTiles = {};
 
   for (var i = 0; i < this.config.size.n; i++) {
 
