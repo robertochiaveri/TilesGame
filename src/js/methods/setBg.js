@@ -1,3 +1,5 @@
+game.getClosestColor = getClosestColor; /* Bower dependency included in the main .js */
+
 game.setBgImage = function(params) {
   "use strict";
 
@@ -121,22 +123,33 @@ game.applyBgColor = function(rgb) {
   "use strict";
 
   var rgbVal = "rgb(" + rgb.r + "," + rgb.g + "," + rgb.b + ")";
+  var hexVal = "#" + rgb.r.toString(16) + rgb.g.toString(16) + rgb.b.toString(16);
 
-  var rgbDark = this.adjustColor(rgb, "darker", 0.75);
+  var rgbDark = this.adjustColor(rgb, "darker", 0.65);
   var rgbDarkVal = "rgb(" + rgbDark.r + "," + rgbDark.g + "," + rgbDark.b + ")";
+  var hexDarkVal = "#" + rgbDark.r.toString(16) + rgbDark.g.toString(16) + rgbDark.b.toString(16);
 
 
-  var rgbBright = this.adjustColor(rgb, "brighter", 0.25);
+  var rgbBright = this.adjustColor(rgb, "brighter", 0.2);
   var rgbBrightVal = "rgb(" + rgbBright.r + "," + rgbBright.g + "," + rgbBright.b + ")";
+  var hexBrightVal = "#" + rgbBright.r.toString(16) + rgbBright.g.toString(16) + rgbBright.b.toString(16);
 
 
   this.runtime.backgroundImage = this.runtime.backgroundImage || {};
-  this.runtime.backgroundImage.averageRGB = rgb;
-  this.runtime.backgroundImage.averageRGB_darker = rgbDark;
-  this.runtime.backgroundImage.averageRGB_brighter = rgbBright;
+
+  this.runtime.backgroundImage.averageRGB = rgbVal;
+  this.runtime.backgroundImage.averageRGB_darker = rgbDarkVal;
+  this.runtime.backgroundImage.averageRGB_brighter = rgbBrightVal;
+
+  this.runtime.backgroundImage.averageHEX = hexVal;
+  this.runtime.backgroundImage.averageHEX_darker = hexDarkVal;
+  this.runtime.backgroundImage.averageHEX_brighter = hexBrightVal;
+
+  this.runtime.backgroundImage.blackish = (getClosestColor(hexVal, ["#000", "#FFF"]) == "#000");
+  this.runtime.backgroundImage.whiteish = !this.runtime.backgroundImage.blackish;
 
   document.getElementById(this.config.labels.BACKGROUND_CONTAINER_ID).style.backgroundColor = rgbVal;
-  document.getElementById(this.config.labels.GAME_ID).style.backgroundColor = rgbBrightVal;
+  document.getElementById(this.config.labels.GAME_ID).style.backgroundColor = hexBrightVal;
 
 
   var currentBoxShadow = this.utils.editCSSRule("#" + this.config.labels.BOARD_ID + " ." + this.config.labels.TILE_INNER_CLASS, "boxShadow");
@@ -154,7 +167,7 @@ game.applyBgColor = function(rgb) {
 
     this.utils.editCSSRule("#" + this.config.labels.BOARD_ID + " ." + this.config.labels.TILE_INNER_CLASS, "boxShadow", boxShadowProps.join(" "));
 
-    document.getElementById(this.config.labels.BOARD_ID).style.backgroundColor = rgbDarkVal;
+    document.getElementById(this.config.labels.BOARD_ID).style.backgroundColor = hexDarkVal;
 
   };
 

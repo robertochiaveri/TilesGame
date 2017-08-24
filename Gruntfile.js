@@ -120,7 +120,7 @@ module.exports = function(grunt) {
         },
 
         // Path to save out the built file.
-        "outputFile": "<%= globalConfig.destDir %>/js/modernizr-custom.js",
+        "outputFile": "<%= globalConfig.srcDir %>/js/plugins/modernizr-custom.js",
 
         // Based on default settings on http://modernizr.com/download/
         "extra": {
@@ -239,7 +239,7 @@ module.exports = function(grunt) {
 
           "<%= globalConfig.srcDir %>/js/app.js",
 
-          "<%= globalConfig.destDir %>/js/modernizr-custom.js",
+          "<%= globalConfig.bowerDir %>/closestColor/closestColor.js",
 
           "<%= globalConfig.srcDir %>/js/plugins/*.js",
 

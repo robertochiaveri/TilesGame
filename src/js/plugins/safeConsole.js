@@ -1,4 +1,5 @@
 // Avoid `console` errors in browsers that lack a console.
+// credits https://github.com/h5bp/html5-boilerplate/blob/master/dist/js/plugins.js
 (function() {
   "use strict";
   var method;
