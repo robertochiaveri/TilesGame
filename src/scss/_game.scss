@@ -19,6 +19,8 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+  pointer-events: none;
+
   img {
     @extend %full-size;
     filter: blur(20px) brightness(80%);

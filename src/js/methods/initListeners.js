@@ -24,7 +24,19 @@ game.initListeners = function() {
 
 
 
-  // move
+
+
+  // ignore swipes outside the board
+  this.utils.listenTo(
+    document.getElementById(this.config.labels.WRAPPER_ID), (this.config.useTouch ? "touchmove" : "mousemove"),
+    function(event, context) {
+      return false;
+    },
+    this.runtime.eventListeners,
+    this
+  );
+
+  // swipes on the board;
   this.utils.listenTo(
     document.getElementById(this.config.labels.BOARD_ID), (this.config.useTouch ? "touchmove" : "mousemove"),
     function(event, context) {
