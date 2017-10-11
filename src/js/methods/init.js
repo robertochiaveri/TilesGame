@@ -17,8 +17,8 @@ game.init = function() {
 
   this.checkFeatures();
   this.createBoard(); // creates the board, the tiles objects and the html       
-  this.changeBg(); // will load a random background image 
   this.metricsUpdate();
+  this.changeBg(); // will load a random background image   
   this.initListeners(); // create event listeners enabling user interaction
   this.refresh({
     transitions: false
