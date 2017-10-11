@@ -9,6 +9,8 @@ game.setBgImage = function(params) {
     return false;
   }
 
+  console.log("*****", document.getElementById(this.config.labels.BACKGROUND_IMAGE_ID));
+
   var img = document.getElementById(this.config.labels.BACKGROUND_IMAGE_ID) || document.createElement("img");
   var rgb = {};
 
@@ -18,18 +20,29 @@ game.setBgImage = function(params) {
   img.crossOrigin = "";
   img.id = this.config.labels.BACKGROUND_IMAGE_ID;
 
-  this.utils.listenTo(img, "load", function(event, context) {
-      console.log("background image loading complete", img)
-      context.applyBgImage(event.target);
-    },
-    this.runtime.eventListeners,
-    this
-  );
+  this.utils.listenTo(img, "load", game.handleBgImageLoaded, this.runtime.eventListeners, this);
 
   return true;
 
 };
 
+game.handleBgImageLoaded = function(event, context) {
+
+  console.log("background image loading complete")
+  context.utils.stopListeningTo(event.target, "load", context.runtime.eventListeners);
+
+  var averageRGB = context.utils.getAverageRGB(event.target);
+
+  console.log("The average color for this image is ", averageRGB);
+
+  if (context.utils.getAverage([averageRGB.r, averageRGB.g, averageRGB.b]) > 100) {
+    context.applyBgColor(averageRGB);
+    context.applyBgImage(event.target);
+  } else {
+    console.log("The average color for this image is too dark, better to load another...");
+  }
+
+};
 
 game.applyBgImage = function(img) {
 
@@ -38,7 +51,6 @@ game.applyBgImage = function(img) {
   var i;
   var tileName;
   var tile;
-  var averageRGB;
 
   this.runtime.backgroundImage = this.runtime.backgroundImage || {};
   this.runtime.backgroundImage.src = img.src;
@@ -48,25 +60,18 @@ game.applyBgImage = function(img) {
     tile = this.getTile(tileName).htmlElement;
     for (i = 0; i < tile.childNodes.length; i++) {
       if (tile.childNodes[i].className === this.config.labels.TILE_INNER_CLASS) {
-        tile.childNodes[i].style.backgroundImage = "url(" + img.src + ")";
+        tile.childNodes[i].style.backgroundImage = "url(" + this.runtime.backgroundImage.src + ")";
         break;
       }
     }
   }
 
-  document.getElementById(this.config.labels.BACKGROUND_CONTAINER_ID).appendChild(img);
-
-  averageRGB = this.utils.getAverageRGB(img);
-
-  console.log("The average color for this image is ", averageRGB);
-
-  this.applyBgColor(averageRGB);
-
-  this.utils.stopListeningTo(
-    img,
-    "load",
-    this.runtime.eventListeners
-  );
+  if (typeof this.runtime.eventListeners[img.id]["load"] == "undefined") {
+    document.getElementById(this.config.labels.BACKGROUND_CONTAINER_ID).innerHTML = "";
+    document.getElementById(this.config.labels.BACKGROUND_CONTAINER_ID).appendChild(img);
+  } else {
+    console.log("Couldn't change bg image because still has a listener attached.", this.runtime.eventListeners[img.id]["load"])
+  }
 
 };
 

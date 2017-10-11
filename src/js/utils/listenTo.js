@@ -3,14 +3,14 @@ game.utils.listenTo = function(element, eventType, fn, listenersList, context) {
 
   listenersList = listenersList || {};
 
-  if (!element) {
+  if (!element || element === null) {
     console.log("can't find this element: " + element);
     return false;
   }
 
   var id = element.id;
 
-  if (typeof id === "undefined" || id === "") {
+  if (!id || element.id == "") {
 
     if (element === document.body) {
       id = "body";
@@ -19,8 +19,7 @@ game.utils.listenTo = function(element, eventType, fn, listenersList, context) {
     } else if (element === window) {
       id = "window";
     } else {
-      console.log("better not add a listener to elements witout id: ",
-        element);
+      console.log("better not add a listener to elements witout id: ", element);
       return false;
     }
   };
@@ -30,20 +29,20 @@ game.utils.listenTo = function(element, eventType, fn, listenersList, context) {
   };
 
   if (typeof listenersList[id][eventType] !== "undefined") {
-    console.log("cannot add another listener for " + eventType + " to ",
-      element);
+    console.log("cannot add another listener for " + eventType + " to ", element);
     return false;
   };
-
-  listenersList[id][eventType] = fn;
 
 
   if (!element.addEventListener) {
     element.attachEvent("on" + eventType, fn);
   } else if (element.addEventListener) {
 
+    var fnWrapper;
+
     if (eventType.indexOf("touch") === 0) {
-      element.addEventListener(eventType, function(event) {
+
+      fnWrapper = function(event) {
         event.preventDefault();
         if (event.touches.length === 0) //touchend
         {
@@ -57,11 +56,21 @@ game.utils.listenTo = function(element, eventType, fn, listenersList, context) {
           }
         }
         return;
-      }, true);
+      };
+
+      element.addEventListener(eventType, fnWrapper, true);
+
     } else {
-      element.addEventListener(eventType, function(event) {
+
+      fnWrapper = function(event) {
         fn(event, context);
-      }, false);
+      };
+
+      element.addEventListener(eventType, fnWrapper, false);
+
     }
+
+    listenersList[id][eventType] = fnWrapper;
+
   }
 };
