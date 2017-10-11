@@ -44,6 +44,13 @@ game.config = {
   clickToMove: true,
 
 
+
+  /* 
+    vibrate the device on mobile when touching the tiles (if supported by the manufacturer)
+  */
+
+  vibration: true,
+
   /*
     time in ms after which releasing a tile won't trigger a movement
    */

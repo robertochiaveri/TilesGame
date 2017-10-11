@@ -51,7 +51,7 @@ game.dragTile = function(event) {
     event.pageY - this.metrics.top - this.metrics.borderSize.pixels - this.metrics.tileHeight * (1 + this.config.touchTolerance) > newPosY
   ) {
 
-    //    this.vibrate("bump");
+    this.vibrate("bump");
     this.deselectTile();
 
     // console.log("dropped!");
