@@ -9,8 +9,6 @@ game.setBgImage = function(params) {
     return false;
   }
 
-  console.log("*****", document.getElementById(this.config.labels.BACKGROUND_IMAGE_ID));
-
   var img = document.getElementById(this.config.labels.BACKGROUND_IMAGE_ID) || document.createElement("img");
   var rgb = {};
 
@@ -33,13 +31,11 @@ game.handleBgImageLoaded = function(event, context) {
 
   var averageRGB = context.utils.getAverageRGB(event.target);
 
-  console.log("The average color for this image is ", averageRGB);
-
   if (context.utils.getAverage([averageRGB.r, averageRGB.g, averageRGB.b]) > 100) {
     context.applyBgColor(averageRGB);
     context.applyBgImage(event.target);
   } else {
-    console.log("The average color for this image is too dark, better to load another...");
+    console.log("The average color for this image is too dark (" + averageRGB.r + "," + averageRGB.g + "," + averageRGB.b + "), better to load another...");
   }
 
 };
