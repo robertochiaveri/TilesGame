@@ -78,7 +78,7 @@ game.config = {
   /*
     listen to keyboard events during game
    */
-  useKeyboard: true
-
+  useKeyboard: true,
+  useOptimizeRedraws: true
 
 };

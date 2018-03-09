@@ -19,12 +19,7 @@ game.initListeners = function() {
 
     },
     this.runtime.eventListeners,
-    this
-  );
-
-
-
-
+    this);
 
   // ignore swipes outside the board
   this.utils.listenTo(
@@ -33,8 +28,7 @@ game.initListeners = function() {
       return false;
     },
     this.runtime.eventListeners,
-    this
-  );
+    this);
 
   // swipes on the board;
   this.utils.listenTo(
@@ -58,10 +52,7 @@ game.initListeners = function() {
 
     },
     this.runtime.eventListeners,
-    this
-  );
-
-
+    this);
 
   //  end/up
   this.utils.listenTo(
@@ -175,27 +166,37 @@ game.initListeners = function() {
   // layoutChange custom event: fired when resized or rotated
   this.utils.listenTo(window,
     "layoutChange",
-    function(event, context) {
+    this.utils.throttle(function(event, context) {
 
-      context.optimizeRedraws("on");
+      if (context.config.useOptimizeRedraws) {
 
-      if (context.runtime.resizeTimer !== -1) {
-        clearTimeout(context.runtime.resizeTimer);
-      }
+        console.log("layout change detected handling it using optimizeRedraws...");
+        context.optimizeRedraws("on");
+        context.layoutChange();
 
-      context.runtime.resizeTimer = window.setTimeout(function(context) {
-
-        if (typeof context !== "undefined") {
-          context.deselectTile();
-          context.metricsUpdate();
-          context.refresh();
-          context.optimizeRedraws("off");
+        if (context.runtime.resizeTimer !== -1) {
+          clearTimeout(context.runtime.resizeTimer);
         }
 
-      }, 500, context);
+        context.runtime.resizeTimer = window.setTimeout(function(context) {
 
-    },
+          if (typeof context !== "undefined") {
+
+            context.optimizeRedraws("off");
+          }
+
+        }, 500, context);
+
+      } else {
+
+        console.log("layout change detected, handling it ...");
+        context.layoutChange();
+
+      }
+
+    }, 200, true),
     this.runtime.eventListeners,
-    this);
+    this
+  );
 
 };
