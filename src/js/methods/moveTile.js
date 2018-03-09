@@ -2,9 +2,12 @@ game.moveTile = function(tile, params) {
   "use strict";
 
   tile = this.isTile(tile);
+
   if (!tile) {
     return false;
   };
+
+  var params = params || {};
 
   var hole = this.runtime.tiles[this.config.labels.TILE_PREFIX + this.config.labels.HOLE_INDEX];
   var temp = {};
