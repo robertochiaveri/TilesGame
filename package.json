@@ -7,10 +7,12 @@
   "private": true,
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
+    "bower": "^1.8.2",
     "csswring": "^3.0.5",
     "grunt": "^0.4.5",
     "grunt-browser-sync": "^2.1.3",
     "grunt-cleanempty": "^1.0.3",
+    "grunt-cli": "^1.2.0",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-copy": "^0.8.0",
@@ -26,5 +28,10 @@
     "grunt-strip-json-comments": "^1.0.1",
     "grunt-text-replace": "^0.4.0",
     "pixrem": "^1.3.1"
+  },
+  "dependencies": {},
+  "scripts": {
+    "setup": "bower install",
+    "build": "grunt default"
   }
 }

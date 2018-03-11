@@ -23,7 +23,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
 
-    /* 
+    /*
       =====================================================
       Global options
       =====================================================
@@ -39,9 +39,9 @@ module.exports = function(grunt) {
 
 
     "copy": {
-      /* 
+      /*
         =====================================================
-        grunt-contrib-copy copy files 
+        grunt-contrib-copy copy files
         =====================================================
       */
       fonts: { // copy font to build directory
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
     },
 
     "replace": {
-      /* 
+      /*
         =====================================================
         grunt-text-replace replaces strings in files
         =====================================================
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
     },
 
     "htmlmin": {
-      /* 
+      /*
         =====================================================
         grunt-contrib-htmlmin minifies HTML
         =====================================================
@@ -97,11 +97,11 @@ module.exports = function(grunt) {
     },
 
     "modernizr": {
-      /* 
+      /*
         =====================================================
-        grunt-modernizr sifts through your project files, 
-        gathers up your references to Modernizr tests 
-        and outputs a lean, mean Modernizr machine. 
+        grunt-modernizr sifts through your project files,
+        gathers up your references to Modernizr tests
+        and outputs a lean, mean Modernizr machine.
         =====================================================
       */
       build: {
@@ -127,7 +127,7 @@ module.exports = function(grunt) {
           "shiv": false, // adds HTML5 tags support to old, old desktop browsers
           "printshiv": false, // same
           "load": false, // conditional loader
-          "mq": true, // tests mediaqueries in js 
+          "mq": true, // tests mediaqueries in js
           "cssclasses": true // adds classes to html tag
         },
 
@@ -167,7 +167,7 @@ module.exports = function(grunt) {
     },
 
     "scsslint": {
-      /* 
+      /*
         =====================================================
         grunt-scss-lint lints the scss source
         =====================================================
@@ -185,13 +185,13 @@ module.exports = function(grunt) {
     },
 
     "sass": {
-      /* 
+      /*
         =====================================================
         grunt-contrib-sass compiles .scss files (Sass) into
-        .css files. Sass is a preprocessor that adds nested 
-        rules, variables, mixins and functions, selector 
-        inheritance, and more to CSS. Sass files compile 
-        into well-formatted, standard CSS to use in your 
+        .css files. Sass is a preprocessor that adds nested
+        rules, variables, mixins and functions, selector
+        inheritance, and more to CSS. Sass files compile
+        into well-formatted, standard CSS to use in your
         site or application.
         =====================================================
       */
@@ -214,7 +214,7 @@ module.exports = function(grunt) {
     },
 
     "concat": {
-      /* 
+      /*
         =====================================================
         grunt-contrib-concat concatenates styles and scripts
         =====================================================
@@ -257,14 +257,14 @@ module.exports = function(grunt) {
     },
 
     "postcss": {
-      /* 
+      /*
           =====================================================
-          grunt-postCSS is a tool for transforming CSS with JS 
-          plugins. These plugins can support variables and 
-          mixins, transpile future CSS syntax, inline images, 
-          and more. PostCSS can do the same work as 
-          preprocessors like Sass, Less, and Stylus. 
-          But PostCSS is modular, 3-30 times faster, and much 
+          grunt-postCSS is a tool for transforming CSS with JS
+          plugins. These plugins can support variables and
+          mixins, transpile future CSS syntax, inline images,
+          and more. PostCSS can do the same work as
+          preprocessors like Sass, Less, and Stylus.
+          But PostCSS is modular, 3-30 times faster, and much
           more powerful.
           =====================================================
       */
@@ -299,7 +299,7 @@ module.exports = function(grunt) {
     },
 
     "uglify": {
-      /* 
+      /*
           =====================================================
           JavaScript minification and obfuscation
           =====================================================
@@ -310,8 +310,8 @@ module.exports = function(grunt) {
         },
         options: {
 
-          /* 
-            this should allow minification of Angular code; if it doesn"t, try ngAnnotate grunt plugin. 
+          /*
+            this should allow minification of Angular code; if it doesn"t, try ngAnnotate grunt plugin.
             https://www.reddit.com/r/angularjs/comments/2dvh97/why_exactly_cant_you_uglify_mangletrue_angular/
             https://www.reddit.com/r/angularjs/comments/2dvh97/why_exactly_cant_you_uglify_mangletrue_angular/
             http://www.sitepoint.com/5-minutes-to-min-safe-angular-code-with-grunt/
@@ -327,7 +327,7 @@ module.exports = function(grunt) {
     },
 
     "jsbeautifier": {
-      /* 
+      /*
           =====================================================
           Normalizes indentation in JS and HTML files
           =====================================================
@@ -372,9 +372,9 @@ module.exports = function(grunt) {
     },
 
     "clean": {
-      /* 
+      /*
           =====================================================
-          delete temporary or generated files 
+          delete temporary or generated files
           =====================================================
       */
       destDir: ["<%= globalConfig.destDir %>/**/*.*", "!*.gitignore"],
@@ -404,7 +404,7 @@ module.exports = function(grunt) {
     },
 
     "watch": {
-      /* 
+      /*
           =====================================================
           Run tasks whenever watched files change
           =====================================================
@@ -425,10 +425,10 @@ module.exports = function(grunt) {
     },
 
     "browserSync": {
-      /* 
+      /*
           =====================================================
-          Live reload the browser, synchs URLs, interactions 
-          and code changes across multiple devices. 
+          Live reload the browser, synchs URLs, interactions
+          and code changes across multiple devices.
           =====================================================
       */
       bsFiles: {
@@ -480,4 +480,3 @@ module.exports = function(grunt) {
 
 
 };
-
