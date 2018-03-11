@@ -6,6 +6,11 @@ game.moveTile = function(tile, params) {
     return false;
   };
 
+  params = params || {
+    force: false,
+    refresh: true
+  }
+
   var hole = this.runtime.tiles[this.config.labels.TILE_PREFIX + this.config.labels.HOLE_INDEX];
   var temp = {};
 
@@ -33,7 +38,7 @@ game.moveTile = function(tile, params) {
     this.refresh({
       transitions: params.transitions,
       saveGame: !params.force,
-      redraw: !!!params.force
+      redraw: !params.force
     });
   }
 
