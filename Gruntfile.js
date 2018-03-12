@@ -4,10 +4,10 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks("grunt-contrib-htmlmin");
   grunt.loadNpmTasks("grunt-modernizr");
-  grunt.loadNpmTasks("grunt-contrib-sass");
+  grunt.loadNpmTasks("grunt-sass");
   grunt.loadNpmTasks("grunt-postcss");
   grunt.loadNpmTasks("csswring");
-  grunt.loadNpmTasks("grunt-scss-lint");
+  grunt.loadNpmTasks('grunt-sass-lint');
   grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-browser-sync");
   grunt.loadNpmTasks("grunt-contrib-concat");
@@ -23,7 +23,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
 
-    /* 
+    /*
       =====================================================
       Global options
       =====================================================
@@ -36,12 +36,10 @@ module.exports = function(grunt) {
       destDir: "build"
     },
 
-
-
     "copy": {
-      /* 
+      /*
         =====================================================
-        grunt-contrib-copy copy files 
+        grunt-contrib-copy copy files
         =====================================================
       */
       fonts: { // copy font to build directory
@@ -55,7 +53,7 @@ module.exports = function(grunt) {
     },
 
     "replace": {
-      /* 
+      /*
         =====================================================
         grunt-text-replace replaces strings in files
         =====================================================
@@ -73,7 +71,7 @@ module.exports = function(grunt) {
     },
 
     "htmlmin": {
-      /* 
+      /*
         =====================================================
         grunt-contrib-htmlmin minifies HTML
         =====================================================
@@ -97,111 +95,89 @@ module.exports = function(grunt) {
     },
 
     "modernizr": {
-      /* 
+      /*
         =====================================================
-        grunt-modernizr sifts through your project files, 
-        gathers up your references to Modernizr tests 
-        and outputs a lean, mean Modernizr machine. 
+        grunt-modernizr sifts through your project files,
+        gathers up your references to Modernizr tests
+        and outputs a lean, mean Modernizr machine.
         =====================================================
       */
       build: {
 
-        // [REQUIRED] Path to the build you"re using for development.
-        "devFile": "<%= globalConfig.bowerDir %>/modernizr/modernizr.js",
+        // see https://github.com/modernizr/customizr#config-file
 
-        // When parseFiles = true, this task will crawl all *.js, *.css, *.scss and *.sass files,
-        // except files that are in node_modules/.
-        // You can override this by defining a "files" array below.
-        "files": {
+      	// Avoid unnecessary builds (see Caching section below)
+      	"cache" : true,
+
+      	// Path to the build you're using for development.
+      	"devFile" : false,
+
+      	// Path to save out the built file
+      	"dest" : "<%= globalConfig.srcDir %>/js/plugins/modernizr-custom.js",
+
+      	// Based on default settings on http://modernizr.com/download/
+      	"options" : [
+      		"setClasses",
+      		"addTest",
+      		"html5printshiv",
+      		"testProp",
+      		"fnBind"
+      	],
+
+      	// By default, source is uglified before saving
+      	"uglify" : true,
+
+      	// Define any tests you want to explicitly include
+      	"tests" : [],
+
+      	// Useful for excluding any tests that this tool will match
+      	// e.g. you use .notification class for notification elements,
+      	// but don’t want the test for Notification API
+      	"excludeTests": [],
+
+      	// By default, will crawl your project for references to Modernizr tests
+      	// Set to false to disable
+      	"crawl" : true,
+
+      	// Set to true to pass in buffers via the "files" parameter below
+      	"useBuffers" : false,
+
+      	// By default, this task will crawl all *.js, *.css, *.scss files.
+      	"files" : {
           "src": [
             "<%= globalConfig.srcDir %>/scss/**/*.scss",
             "<%= globalConfig.srcDir %>/js/**/*.js"
           ]
-        },
+      	},
 
-        // Path to save out the built file.
-        "outputFile": "<%= globalConfig.srcDir %>/js/plugins/modernizr-custom.js",
-
-        // Based on default settings on http://modernizr.com/download/
-        "extra": {
-          "shiv": false, // adds HTML5 tags support to old, old desktop browsers
-          "printshiv": false, // same
-          "load": false, // conditional loader
-          "mq": true, // tests mediaqueries in js 
-          "cssclasses": true // adds classes to html tag
-        },
-
-        // Based on default settings on http://modernizr.com/download/
-        "extensibility": {
-          "addtest": false,
-          "prefixed": false,
-          "teststyles": false,
-          "testprops": false,
-          "testallprops": false,
-          "hasevents": false,
-          "prefixes": false,
-          "domprefixes": false,
-          "cssclassprefix": ""
-        },
-
-        // By default, source is uglified before saving
-        "uglify": true,
-
-        // Define any tests you want to implicitly include.
-        "tests": [],
-
-        // By default, this task will crawl your project for references to Modernizr tests.
-        // Set to false to disable.
-        "parseFiles": true,
-
-        // This handler will be passed an array of all the test names passed to the Modernizr API, and will run after the API call has returned
-        // "handler": function (tests) {},
-
-        // When parseFiles = true, matchCommunityTests = true will attempt to
-        // match user-contributed tests.
-        "matchCommunityTests": false,
-
-        // Have custom Modernizr tests? Add paths to their location here.
-        "customTests": []
+      	// Have custom Modernizr tests? Add them here.
+      	"customTests" : []
       }
+
     },
 
-    "scsslint": {
-      /* 
-        =====================================================
-        grunt-scss-lint lints the scss source
-        =====================================================
-      */
-
-      build: [
-        "<%= globalConfig.srcDir %>/scss/**/*.scss",
-      ],
-      options: {
-        config: ".scss-lint.yml",
-        compact: true,
-        colorizeOutput: true,
-        force: true
-      },
-    },
+    "sasslint": {
+  		options: {
+  			configFile: '.sass-lint.yml',
+  		},
+  		target: [
+        "<%= globalConfig.srcDir %>/scss/**/*.scss"
+      ]
+  	},
 
     "sass": {
-      /* 
-        =====================================================
-        grunt-contrib-sass compiles .scss files (Sass) into
-        .css files. Sass is a preprocessor that adds nested 
-        rules, variables, mixins and functions, selector 
-        inheritance, and more to CSS. Sass files compile 
-        into well-formatted, standard CSS to use in your 
-        site or application.
-        =====================================================
-      */
+
+      /* https://github.com/sass/node-sass#options */
+
+      options: {
+        outputStyle: "compressed",
+        sourcemap: "inline",
+        sourceMapEmbed: true,
+        sourceComments: true,
+        sourceMapContents: true
+      },
+
       dist: {
-        options: {
-          style: "compressed",
-          sourcemap: "inline",
-          trace: true,
-          lineNumbers: false
-        },
         files: [{
           expand: true,
           cwd: "<%= globalConfig.srcDir %>/scss/",
@@ -211,10 +187,11 @@ module.exports = function(grunt) {
           extDot: "first"
         }]
       }
+
     },
 
     "concat": {
-      /* 
+      /*
         =====================================================
         grunt-contrib-concat concatenates styles and scripts
         =====================================================
@@ -257,14 +234,14 @@ module.exports = function(grunt) {
     },
 
     "postcss": {
-      /* 
+      /*
           =====================================================
-          grunt-postCSS is a tool for transforming CSS with JS 
-          plugins. These plugins can support variables and 
-          mixins, transpile future CSS syntax, inline images, 
-          and more. PostCSS can do the same work as 
-          preprocessors like Sass, Less, and Stylus. 
-          But PostCSS is modular, 3-30 times faster, and much 
+          grunt-postCSS is a tool for transforming CSS with JS
+          plugins. These plugins can support variables and
+          mixins, transpile future CSS syntax, inline images,
+          and more. PostCSS can do the same work as
+          preprocessors like Sass, Less, and Stylus.
+          But PostCSS is modular, 3-30 times faster, and much
           more powerful.
           =====================================================
       */
@@ -299,7 +276,7 @@ module.exports = function(grunt) {
     },
 
     "uglify": {
-      /* 
+      /*
           =====================================================
           JavaScript minification and obfuscation
           =====================================================
@@ -310,8 +287,8 @@ module.exports = function(grunt) {
         },
         options: {
 
-          /* 
-            this should allow minification of Angular code; if it doesn"t, try ngAnnotate grunt plugin. 
+          /*
+            this should allow minification of Angular code; if it doesn"t, try ngAnnotate grunt plugin.
             https://www.reddit.com/r/angularjs/comments/2dvh97/why_exactly_cant_you_uglify_mangletrue_angular/
             https://www.reddit.com/r/angularjs/comments/2dvh97/why_exactly_cant_you_uglify_mangletrue_angular/
             http://www.sitepoint.com/5-minutes-to-min-safe-angular-code-with-grunt/
@@ -327,7 +304,7 @@ module.exports = function(grunt) {
     },
 
     "jsbeautifier": {
-      /* 
+      /*
           =====================================================
           Normalizes indentation in JS and HTML files
           =====================================================
@@ -372,9 +349,9 @@ module.exports = function(grunt) {
     },
 
     "clean": {
-      /* 
+      /*
           =====================================================
-          delete temporary or generated files 
+          delete temporary or generated files
           =====================================================
       */
       destDir: ["<%= globalConfig.destDir %>/**/*.*", "!*.gitignore"],
@@ -404,7 +381,7 @@ module.exports = function(grunt) {
     },
 
     "watch": {
-      /* 
+      /*
           =====================================================
           Run tasks whenever watched files change
           =====================================================
@@ -425,10 +402,10 @@ module.exports = function(grunt) {
     },
 
     "browserSync": {
-      /* 
+      /*
           =====================================================
-          Live reload the browser, synchs URLs, interactions 
-          and code changes across multiple devices. 
+          Live reload the browser, synchs URLs, interactions
+          and code changes across multiple devices.
           =====================================================
       */
       bsFiles: {
@@ -458,7 +435,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask("stylesheets", [
     "sass",
-    "scsslint",
+    "sasslint",
     "concat:css",
     "replace",
     "postcss",
@@ -480,4 +457,3 @@ module.exports = function(grunt) {
 
 
 };
-
