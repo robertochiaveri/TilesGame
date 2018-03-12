@@ -24,5 +24,4 @@ bower_components
 # Bower config file with proxy settings
 # =====================================
 
-.bowerrc
 *.log
