@@ -7,7 +7,7 @@ game.changeBg = function(params) {
 
   try {
     this.setBgImage({
-      imgUrl: "https://source.unsplash.com/category/nature/"
+      imgUrl: "https://source.unsplash.com/category/nature/" + this.metrics.width + "x" + this.metrics.height,
     });
   } catch (e) {
     console.log("error loading a bg image", e);
