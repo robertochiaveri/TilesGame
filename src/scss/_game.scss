@@ -20,15 +20,10 @@ body {
   top: 0;
   left: 0;
   pointer-events: none;
-  pointer-events: auto;
 
   img {
     @extend %full-size;
-
-    html.cssfilters & {
-      filter: blur(20px) brightness(80%);
-    }
-
+    filter: blur(20px) brightness(80%);
   }
 }
 
@@ -102,7 +97,7 @@ body {
         }
       }
     }
-
+    
   } // tile
 
   .inner {
@@ -117,7 +112,7 @@ body {
     // transition-property: color, background-color, transform;
     // transition-duration: 200ms;
     // transition-timing-function: ease-out;
-
+    
     &.selected {
       transition: none;
     }
@@ -131,6 +126,7 @@ body {
     color: $color-numbers-default;
     text-shadow: 0.01em 0.01em 0.1em rgba(0, 0, 0, 1);
   }
-
-
+ 
+ 
 } // board
+
