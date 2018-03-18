@@ -8,7 +8,7 @@ game.vibrate = function(reasonToVibrate) {
     switch (reasonToVibrate) {
 
       case "select":
-        pattern = 20;
+        pattern = 0;
         break;
 
       case "bump":

@@ -1,14 +1,34 @@
 game.utils.listenTo = function(element, eventType, fn, listenersList, context) {
   "use strict";
 
-  listenersList = listenersList || {};
-
   if (!element || element === null) {
     console.log("can't find this element: " + element);
     return false;
   }
 
-  var id = element.id;
+  if (typeof eventType !== "string") {
+    console.log("event type to listen for was non specified or wasn't usable", eventType);
+    return false;
+  } else {
+
+    if (!!eventType.match(/\s/g)) {
+
+      var eventTypes = eventType.match(/\S+/g);
+
+      console.log("listening to multiple events: ", eventTypes);
+
+      for (var i = 0; i < eventTypes.length; i++) {
+        context.utils.listenTo(element, eventTypes[i], fn, listenersList, context);
+      }
+      return;
+
+    }
+
+  }
+
+  var id = element.id || false;
+
+  console.log("Adding event listener to " + eventType + " on " + element.id + "...");
 
   if (!id || element.id == "") {
 
@@ -23,6 +43,8 @@ game.utils.listenTo = function(element, eventType, fn, listenersList, context) {
       return false;
     }
   };
+
+  listenersList = listenersList || {};
 
   if (typeof listenersList[id] === "undefined") {
     listenersList[id] = {};

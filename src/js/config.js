@@ -1,7 +1,7 @@
 game.config = {
 
   /*
-    size of the board, in tiles 
+    size of the board, in tiles
     (h for columns, v for rows)
    */
   size: {
@@ -23,21 +23,21 @@ game.config = {
   borderSize: 4,
 
   /*
-    when true tiles near the hole can be pushed by dragged tiles    
+    when true tiles near the hole can be pushed by dragged tiles
    */
   pushMultiple: true,
 
 
   /*
-    move tolerance; the percent of a tile size after which 
+    move tolerance; the percent of a tile size after which
     the tile snaps into the new position. If it's moved less than
     this, the tile snaps back.
    */
   minDistanceToMoveTile: 0.25,
 
 
-  /* 
-    allow move by click (touching and shortly releasing a tile 
+  /*
+    allow move by click (touching and shortly releasing a tile
     but not dragging it)
   */
 
@@ -45,7 +45,7 @@ game.config = {
 
 
 
-  /* 
+  /*
     vibrate the device on mobile when touching the tiles (if supported by the manufacturer)
   */
 
@@ -58,7 +58,7 @@ game.config = {
 
 
   /*
-    touch tolerance area around the tile considered draggable 
+    touch tolerance area around the tile considered draggable
     during touch drag before dropping
    */
   touchTolerance: 0.2,
@@ -79,6 +79,7 @@ game.config = {
     listen to keyboard events during game
    */
   useKeyboard: true,
-  useOptimizeRedraws: true
+  useOptimizeRedraws: true,
+  tilesFallAfterLayoutChange: true
 
 };

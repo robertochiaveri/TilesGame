@@ -73,7 +73,7 @@ game.animate = function(params) {
       );
 
     }
-  }
-  game.utils.addClass(params.element, game.config.labels.ANIMATED_LABEL);
+  };
+  this.utils.addClass(params.element, this.config.labels.ANIMATED_LABEL);
   params.element.style.cssText += CSSstyleDeclaration;
 };

@@ -6,10 +6,11 @@ game.initListeners = function() {
   // start/down
   // board
   this.utils.listenTo(
-    document.getElementById(this.config.labels.BOARD_ID), (this.config.useTouch ? "touchstart" : "mousedown"),
+    document.getElementById(this.config.labels.BOARD_ID),
+    "touchstart mousedown",
     function(event, context) {
 
-      // ignore doubleclicks  
+      // ignore doubleclicks
       if (event.timeStamp - context.runtime.latestSelection < 300) {
         return false;
       }
@@ -23,7 +24,8 @@ game.initListeners = function() {
 
   // ignore swipes outside the board
   this.utils.listenTo(
-    document.getElementById(this.config.labels.WRAPPER_ID), (this.config.useTouch ? "touchmove" : "mousemove"),
+    document.getElementById(this.config.labels.WRAPPER_ID),
+    "touchmove mousemove",
     function(event, context) {
       return false;
     },
@@ -32,7 +34,8 @@ game.initListeners = function() {
 
   // swipes on the board;
   this.utils.listenTo(
-    document.getElementById(this.config.labels.BOARD_ID), (this.config.useTouch ? "touchmove" : "mousemove"),
+    document.getElementById(this.config.labels.BOARD_ID),
+    "touchmove mousemove",
     function(event, context) {
 
 
@@ -40,7 +43,7 @@ game.initListeners = function() {
         context.dragTile(event);
       } else if (event.type !== "mousemove") {
 
-        // ignore doubleclicks  
+        // ignore doubleclicks
         if (event.timeStamp - context.runtime.latestSelection < 300) {
           return false;
         }
@@ -56,14 +59,15 @@ game.initListeners = function() {
 
   //  end/up
   this.utils.listenTo(
-    document.getElementById(this.config.labels.WRAPPER_ID), (this.config.useTouch ? "touchend" : "mouseup"),
+    document.getElementById(this.config.labels.WRAPPER_ID),
+    "touchend mouseup",
     function(event, context) {
 
       if (typeof context.runtime.selectedTile === "undefined" || context.runtime.selectedTile === null) {
         return false;
       }
 
-      if (context.config.useTouch && ((event.timeStamp - context.runtime.selectedTile.timeStamp) > context.config.maxTimeForClickMove)) {
+      if ((event.timeStamp - context.runtime.selectedTile.timeStamp) > context.config.maxTimeForClickMove) {
 
         if (
           context.runtime.selectedTile.newPosition.top.newValue.pixels === null &&
@@ -166,13 +170,15 @@ game.initListeners = function() {
   // layoutChange custom event: fired when resized or rotated
   this.utils.listenTo(window,
     "layoutChange",
-    this.utils.throttle(function(event, context) {
+    this.utils.debounce(
 
-      if (context.config.useOptimizeRedraws) {
+      function(event, context) {
 
-        console.log("layout change detected handling it using optimizeRedraws...");
-        context.optimizeRedraws("on");
-        context.layoutChange();
+        console.log("layout change detected, handling it using optimizeRedraws...");
+
+        if (context.config.useOptimizeRedraws) {
+          context.optimizeRedraws("on");
+        }
 
         if (context.runtime.resizeTimer !== -1) {
           clearTimeout(context.runtime.resizeTimer);
@@ -180,21 +186,15 @@ game.initListeners = function() {
 
         context.runtime.resizeTimer = window.setTimeout(function(context) {
 
-          if (typeof context !== "undefined") {
+          context.layoutChange();
 
+          if (context.config.useOptimizeRedraws) {
             context.optimizeRedraws("off");
           }
 
-        }, 500, context);
+        }, 600, context);
 
-      } else {
-
-        console.log("layout change detected, handling it ...");
-        context.layoutChange();
-
-      }
-
-    }, 200, true),
+      }, 500, true),
     this.runtime.eventListeners,
     this
   );

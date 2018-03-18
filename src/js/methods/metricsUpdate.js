@@ -10,7 +10,7 @@ game.metricsUpdate = function() {
   var cssPrefix = "#" + this.config.labels.BOARD_ID;
 
   // save values in metrics obj
-  this.metrics.transforms3Dsupport = (this.config.use3Dtransforms) ? ["3d", ",0"] : ["", ""]; // allows transformations 2d and 3d 
+  this.metrics.transforms3Dsupport = (this.config.use3Dtransforms) ? ["3d", ",0"] : ["", ""]; // allows transformations 2d and 3d
   this.metrics.wrapperOrientation = (wrapperWidth >= wrapperHeight) ? this.config.labels.LANDSCAPE : this.config.labels.PORTRAIT;
   this.metrics.wrapperRatio = wrapperWidth / wrapperHeight;
   this.metrics.pixelRatio = (window.devicePixelRatio > 1) ? window.devicePixelRatio : 1;
@@ -21,7 +21,7 @@ game.metricsUpdate = function() {
     this.metrics.wrapperSize = {};
   };
 
-  // if it doesn't exist yet, create a sub-obj for storing metric sinformation for each screen orientation    
+  // if it doesn't exist yet, create a sub-obj for storing metric sinformation for each screen orientation
   this.metrics.wrapperSize[this.metrics.wrapperOrientation] = {
     width: wrapperWidth,
     height: wrapperHeight,
@@ -89,13 +89,16 @@ game.metricsUpdate = function() {
 
   // write the css for game html element
 
-  var CSSstyleDeclaration = "" + "padding:" + Math.round(this.metrics.borderSize.pixels) + "px;" + "width:" + this.metrics.width + "px; " + "height:" + this.metrics.height + "px; " + "left:" + this.metrics.left + "px; " + "top:" + this.metrics.top + "px; ";
+  var CSSstyleDeclaration = "";
+  CSSstyleDeclaration += "padding:" + Math.round(this.metrics.borderSize.pixels) + "px;";
+  CSSstyleDeclaration += "width:" + this.metrics.width + "px; ";
+  CSSstyleDeclaration += "height:" + this.metrics.height + "px; ";
+  CSSstyleDeclaration += "left:" + this.metrics.left + "px; ";
+  CSSstyleDeclaration += "top:" + this.metrics.top + "px; ";
 
-  if (typeof game.runtime.backgroundImage !== "undefined") {
-    var rgb = game.runtime.backgroundImage.averageRGB_brighter;
-    if (typeof rgb === "object") {
-      CSSstyleDeclaration += "background-color: rgb(" + rgb.r + "," + rgb.g + "," + rgb.b + ");"
-    };
+  if (typeof this.runtime.backgroundImage !== "undefined") {
+    var rgb = this.runtime.backgroundImage.averageRGB_brighter;
+    CSSstyleDeclaration += "background-color: " + rgb + ";"
   };
 
   gameHTML.style.cssText = CSSstyleDeclaration;
