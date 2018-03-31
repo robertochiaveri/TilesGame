@@ -5,7 +5,8 @@ game.changeBg = function(params) {
 
     default:
       case "none":
-      console.log("background images are disabled in config.")
+      console.log("background images are disabled in config.");
+    this.unsetBgImage();
     break;
 
     case "unsplash_simple":
@@ -13,11 +14,6 @@ game.changeBg = function(params) {
         game.setBgImage({
           imgUrl: this.config.bgImages.providers["unsplash_simple"].url + this.metrics.width + "x" + this.metrics.height + "?timestamp=" + Date.now()
         });
-
-      break;
-
-    case "pexels":
-
 
       break;
 

@@ -199,4 +199,23 @@ game.initListeners = function() {
     this
   );
 
+
+  this.utils.listenTo(document,
+    "visibilitychange",
+    function(event, context) {
+
+      if (document.visibilityState == "visible") {
+        console.log("game is now visible, refreshing...");
+        context.metricsUpdate();
+        context.refresh();
+      } else {
+        console.log("game is now hidden, saving...");
+        context.saveGame();
+      }
+
+    },
+    this.runtime.eventListeners,
+    this
+  );
+
 };

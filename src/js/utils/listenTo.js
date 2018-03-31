@@ -24,13 +24,16 @@ game.utils.listenTo = function(element, eventType, fn, listenersList, context) {
 
   }
 
-  var id = element.id || false;
 
-  console.log("Adding event listener to " + eventType + " on " + element.id + "...");
+  var id = element.id;
 
-  if (!id || element.id == "") {
+  console.log("Adding event listener to " + eventType + " on " + (id || element) + "...");
 
-    if (element === document.body) {
+  if (!id) {
+
+    if (element === document) {
+      id = "document";
+    } else if (element === document.body) {
       id = "body";
     } else if (element === document.documentElement) {
       id = "html";

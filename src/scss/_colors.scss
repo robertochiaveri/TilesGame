@@ -1,27 +1,32 @@
+
+
 // BODY
-$color-body-bg: #DDD;
-$color-body-text: #F00;
+$background_body: #333;
+$fontColor_body: #F00;
 
 // BOARD
-$color-board-outer: #999;
-$color-board-inner: #222;
+$background_board--outside: #999;
+$background_board--inside: #222;
+
 
 // IDLE STATE
 
 // tiles
-$color-tiles-default: #999;
-$color-tiles-alternate: #777;
+$background_tiles: #989898;
+$background_tiles--alternate: #787878;
 
 // numbers
-$color-numbers-default: rgba(220,220,220,1);
-$color-numbers-alternate: rgba(255,255,255,1);
+$fontColor_tiles: #D8D8D8;
+$fontColor_tiles--alternate: #E8E8E8;
+
+
 
 // PRESSED STATE
 
 // tiles
-$color-tiles-default-pressed: #E8E8E8;
-$color-tiles-alternate-pressed: #E0E0E0;
+$background_tiles--pressed: #909090;
+$background_tiles--alternate--pressed: #707070;
 
 // numbers
-$color-numbers-default-pressed: rgba(200,200,200,1);
-$color-numbers-alternate-pressed: rgba(200,200,200,1);
+$fontColor_tiles--pressed: #C0C0C0;
+$fontColor_tiles--alternate--pressed: #D0D0D0;

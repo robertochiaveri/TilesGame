@@ -72,7 +72,10 @@ game.config = {
     generic: 60,
 
     /* for tile movement initiated by keyboard events*/
-    byKeyboard: 100
+    byKeyboard: 100,
+
+    /* for tile movement initiated by layoutchange when gravity enabled */
+    byGravity: 200,
   },
 
   /*

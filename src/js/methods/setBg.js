@@ -52,7 +52,6 @@ game.handleBgImageLoaded = function(event, context) {
     context.applyBgImage(event.target);
 
     console.log("background image set successfully.");
-    context.saveGame();
 
   } else {
     console.log("The average color for this image is too dark (" + averageRGB.r + "," + averageRGB.g + "," + averageRGB.b + "), better to load another...");

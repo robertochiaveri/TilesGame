@@ -25,7 +25,7 @@ game.moveAnyTile = function(params) {
     });
   }
   this.refresh({
-    transitionDuration: this.config.transitionDuration.byKeyboard
+    transitionDuration: params.transitionDuration || this.config.transitionDuration.byKeyboard
   });
 
   return tiles;

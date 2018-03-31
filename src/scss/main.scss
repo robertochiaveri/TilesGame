@@ -9,8 +9,8 @@ html, body {
 }
 
 body {
-  background: $color-body-bg;
-  color: $color-body-text;
+  background: $background_body;
+  color: $fontColor_body;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
