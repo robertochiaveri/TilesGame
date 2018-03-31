@@ -36,6 +36,8 @@ game.loadGame = function(type) {
         this.setBgImage({
           imgUrl: loadedGame.bgImage
         });
+      } else {
+        this.changeBg();
       }
 
       this.runtime.tiles = loadedGame.tiles;
