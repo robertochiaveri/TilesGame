@@ -33,10 +33,17 @@ game.setBgImage = function(params) {
 
 };
 
+game.unsetBgImage = function() {
+  this.unApplyBgImage();
+  this.unApplyBgColor();
+  console.log("Background image and colors removed.");
+}
+
 game.handleBgImageLoaded = function(event, context) {
 
   console.log("background image loading complete");
   context.utils.stopListeningTo(event.target, "load", context.runtime.eventListeners);
+  context.utils.stopListeningTo(event.target, "error", context.runtime.eventListeners);
 
   var averageRGB = context.utils.getAverageRGB(event.target);
 
@@ -45,6 +52,8 @@ game.handleBgImageLoaded = function(event, context) {
     context.applyBgImage(event.target);
 
     console.log("background image set successfully.");
+    context.saveGame();
+
   } else {
     console.log("The average color for this image is too dark (" + averageRGB.r + "," + averageRGB.g + "," + averageRGB.b + "), better to load another...");
   }
@@ -54,10 +63,10 @@ game.handleBgImageLoaded = function(event, context) {
 game.handleBgImageError = function(event, context) {
 
   console.log("background image loading ERROR", event);
+  context.utils.stopListeningTo(event.target, "load", context.runtime.eventListeners);
   context.utils.stopListeningTo(event.target, "error", context.runtime.eventListeners);
 
 };
-
 
 game.applyBgImage = function(img) {
 
@@ -81,14 +90,38 @@ game.applyBgImage = function(img) {
     }
   }
 
-  if (typeof this.runtime.eventListeners[img.id]["load"] == "undefined") {
-    document.getElementById(this.config.labels.BACKGROUND_CONTAINER_ID).innerHTML = "";
-    document.getElementById(this.config.labels.BACKGROUND_CONTAINER_ID).appendChild(img);
-  } else {
-    console.log("Couldn't change bg image because still has a listener attached.", this.runtime.eventListeners[img.id]["load"])
+  if (
+    typeof this.runtime.eventListeners[img.id]["load"] !== "undefined" ||
+    typeof this.runtime.eventListeners[img.id]["error"] !== "undefined"
+  ) {
+    context.utils.stopListeningTo(event.target, "load", context.runtime.eventListeners);
+    context.utils.stopListeningTo(event.target, "error", context.runtime.eventListeners);
   }
 
+  document.getElementById(this.config.labels.BACKGROUND_CONTAINER_ID).innerHTML = "";
+
 };
+
+game.unApplyBgImage = function() {
+
+  "use strict";
+
+  var i;
+  var tileName;
+  var tile;
+
+  this.runtime.backgroundImage = {};
+
+  for (tileName in this.runtime.tiles) {
+    tile = this.getTile(tileName).htmlElement;
+    for (i = 0; i < tile.childNodes.length; i++) {
+      if (tile.childNodes[i].className === this.config.labels.TILE_INNER_CLASS) {
+        tile.childNodes[i].style.backgroundImage = "none";
+        break;
+      }
+    }
+  }
+}
 
 game.adjustColor = function(rgb, mode, amount) {
   "use strict";
@@ -192,3 +225,36 @@ game.applyBgColor = function(rgb) {
   };
 
 };
+
+game.unApplyBgColor = function() {
+
+  "use strict";
+
+  var removeBgColor = function(elem) {
+    elem.style.cssText = elem.style.cssText.replace(/background-color:(\s*?)([^\;]+)\;/gi, "");
+  };
+
+  removeBgColor(document.getElementById(this.config.labels.BACKGROUND_CONTAINER_ID));
+  removeBgColor(document.getElementById(this.config.labels.BOARD_ID));
+  removeBgColor(document.getElementById(this.config.labels.GAME_ID));
+
+  var boxShadowColor = getComputedStyle(document.getElementById(this.config.labels.BOARD_ID)).backgroundColor;
+
+  var currentBoxShadow = this.utils.editCSSRule("#" + this.config.labels.BOARD_ID + " ." + this.config.labels.TILE_INNER_CLASS, "boxShadow");
+
+  if (!!currentBoxShadow) {
+
+    var boxShadowProps = currentBoxShadow.replace(/,\s+/g, ",").split(" ");
+
+    for (var i = 0; i < boxShadowProps.length; i++) {
+      if (boxShadowProps[i].indexOf("rgb") > -1 || boxShadowProps[i].indexOf("#") > -1) {
+        boxShadowProps[i] = boxShadowColor;
+      };
+      break;
+    }
+
+    this.utils.editCSSRule("#" + this.config.labels.BOARD_ID + " ." + this.config.labels.TILE_INNER_CLASS, "boxShadow", boxShadowProps.join(" "));
+
+  }
+
+}
