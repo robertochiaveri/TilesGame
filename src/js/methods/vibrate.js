@@ -34,7 +34,11 @@ game.vibrate = function(reasonToVibrate) {
     console.log("vibrate", reasonToVibrate, pattern);
 
     if (window.navigator && window.navigator.vibrate) {
-      window.navigator.vibrate(pattern);
+      try {
+        window.navigator.vibrate(pattern);
+      } catch (e) {
+        console.log("couldn't vibrate this time", e);
+      }
     };
 
   }

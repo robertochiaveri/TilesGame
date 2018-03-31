@@ -5,6 +5,9 @@ game.config.bgImages = {
     "unsplash_simple": {
       url: "https://source.unsplash.com/random/"
     },
+    "pexels": {
+
+    },
     "none": {
 
     }
