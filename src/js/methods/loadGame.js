@@ -31,8 +31,14 @@ game.loadGame = function(type) {
         return false;
       }
 
-      this.runtime.tiles = loadedGame.tiles;
+      if (loadedGame.bgImage) {
+        console.log("Loading saved background image: " + loadedGame.bgImage + "...");
+        this.setBgImage({
+          imgUrl: loadedGame.bgImage
+        });
+      }
 
+      this.runtime.tiles = loadedGame.tiles;
 
       for (var i = 0; i < this.config.size.n; i++) {
 

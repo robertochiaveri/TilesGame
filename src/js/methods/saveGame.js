@@ -16,12 +16,16 @@ game.saveGame = function(type) {
     type: type,
     size: this.config.size.n,
     tiles: {},
-    movesCount: this.runtime.movesCount
+    movesCount: this.runtime.movesCount,
   };
   var tileID;
 
   if (JSON.parse(localStorage.getItem(this.config.labels.SAVEDGAMES_LABEL)) != null) {
     savedGames = JSON.parse(localStorage.getItem(this.config.labels.SAVEDGAMES_LABEL));
+  }
+
+  if (this.runtime.backgroundImage && this.runtime.backgroundImage.src) {
+    savedGame.bgImage = this.runtime.backgroundImage.src;
   }
 
   if (this.runtime.started) {

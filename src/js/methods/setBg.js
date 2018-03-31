@@ -3,22 +3,31 @@ game.getClosestColor = getClosestColor; /* Bower dependency included in the main
 game.setBgImage = function(params) {
   "use strict";
 
-  if (!document.createElement ||
-    typeof params.imgUrl !== "string"
-  ) {
+  if (!document.createElement || typeof params.imgUrl !== "string") {
     return false;
+  }
+
+  if (!this.runtime.backgroundImage) {
+    this.runtime.backgroundImage = {
+      url: params.imgUrl
+    };
+  } else if (typeof this.runtime.backgroundImage.src == "string") {
+    if (params.imgUrl == this.runtime.backgroundImage.src) {
+      console.log("Won't load the same background image twice: " + params.imgUrl);
+      return false;
+    }
   }
 
   var img = document.getElementById(this.config.labels.BACKGROUND_IMAGE_ID) || document.createElement("img");
   var rgb = {};
 
   console.log("loading image " + params.imgUrl + "...");
-  img.crossOrigin = '';
   img.src = params.imgUrl;
   img.crossOrigin = "";
   img.id = this.config.labels.BACKGROUND_IMAGE_ID;
 
   this.utils.listenTo(img, "load", game.handleBgImageLoaded, this.runtime.eventListeners, this);
+  this.utils.listenTo(img, "error", game.handleBgImageError, this.runtime.eventListeners, this);
 
   return true;
 
@@ -26,7 +35,7 @@ game.setBgImage = function(params) {
 
 game.handleBgImageLoaded = function(event, context) {
 
-  console.log("background image loading complete")
+  console.log("background image loading complete");
   context.utils.stopListeningTo(event.target, "load", context.runtime.eventListeners);
 
   var averageRGB = context.utils.getAverageRGB(event.target);
@@ -34,11 +43,21 @@ game.handleBgImageLoaded = function(event, context) {
   if (context.utils.getAverage([averageRGB.r, averageRGB.g, averageRGB.b]) > 50) {
     context.applyBgColor(averageRGB);
     context.applyBgImage(event.target);
+
+    console.log("background image set successfully.");
   } else {
     console.log("The average color for this image is too dark (" + averageRGB.r + "," + averageRGB.g + "," + averageRGB.b + "), better to load another...");
   }
 
 };
+
+game.handleBgImageError = function(event, context) {
+
+  console.log("background image loading ERROR", event);
+  context.utils.stopListeningTo(event.target, "error", context.runtime.eventListeners);
+
+};
+
 
 game.applyBgImage = function(img) {
 

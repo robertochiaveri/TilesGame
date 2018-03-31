@@ -10,7 +10,7 @@ game.config = {
   },
 
   /*
-    minimum space btw the board and the screen, in %
+    minimum space between the board and the screen, in %
    */
   margin: {
     h: 4,
@@ -79,7 +79,19 @@ game.config = {
     listen to keyboard events during game
    */
   useKeyboard: true,
+
+  /*
+    will hide elements on complex redraws (like on orientationchange) to boost
+    performance in rendering
+   */
   useOptimizeRedraws: true,
-  tilesFallAfterLayoutChange: true
+
+  /*
+    move down tiles that are "suspended" after an orientation change or resize
+    event, like if there was gravity
+   */
+  tilesFallAfterLayoutChange: true,
+
+
 
 };

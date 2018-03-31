@@ -45,8 +45,8 @@ game.newGame = function() {
 
   }
 
+  this.changeBg(); // will load a random background image
   setTimeout(function(context) {
-
     context.shuffle(context.config.size.n * context.config.size.n);
     context.saveGame(context.config.labels.SHUFFLEDSAVE_LABEL);
     context.start();
