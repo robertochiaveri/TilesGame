@@ -15,8 +15,6 @@ game.utils.listenTo = function(element, eventType, fn, listenersList, context) {
 
       var eventTypes = eventType.match(/\S+/g);
 
-      console.log("listening to multiple events: ", eventTypes);
-
       for (var i = 0; i < eventTypes.length; i++) {
         context.utils.listenTo(element, eventTypes[i], fn, listenersList, context);
       }

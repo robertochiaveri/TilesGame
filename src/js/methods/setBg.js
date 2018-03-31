@@ -31,7 +31,7 @@ game.handleBgImageLoaded = function(event, context) {
 
   var averageRGB = context.utils.getAverageRGB(event.target);
 
-  if (context.utils.getAverage([averageRGB.r, averageRGB.g, averageRGB.b]) > 100) {
+  if (context.utils.getAverage([averageRGB.r, averageRGB.g, averageRGB.b]) > 50) {
     context.applyBgColor(averageRGB);
     context.applyBgImage(event.target);
   } else {

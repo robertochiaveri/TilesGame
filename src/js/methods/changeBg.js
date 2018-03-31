@@ -1,16 +1,31 @@
 game.changeBg = function(params) {
   "use strict";
 
-  // TBD: retrieve lists of images from different webservices, store it at runtime and use those photos
-  // like usplash collections, maps...
-  // also provide an offline list
 
-  try {
-    this.setBgImage({
-      imgUrl: "https://source.unsplash.com/category/nature/" + this.metrics.width + "x" + this.metrics.height,
-    });
-  } catch (e) {
-    console.log("error loading a bg image", e);
-  }
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+      var response = JSON.parse(this.responseText);
+
+      if (response.photos && response.photos.length) {
+
+        var photo = response.photos[0];
+
+        if (photo.width >= game.metrics.width && photo.height >= game.metrics.height) {
+
+          game.setBgImage({
+            imgUrl: photo.src.original
+          });
+
+        }
+
+      }
+
+    }
+  };
+  xhttp.open("GET", "https://api.pexels.com/v1/popular?per_page=15&page=1", true);
+  xhttp.setRequestHeader("Authorization", "563492ad6f91700001000001ebfc949f4870449eb8e63866846cf127");
+  xhttp.send();
 
 }
